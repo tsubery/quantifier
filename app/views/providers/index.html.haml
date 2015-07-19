@@ -1,0 +1,5 @@
+%div
+  %h3 Connected accounts
+  - providers.each do |provider|
+    %li
+      = provider.status
