@@ -4,5 +4,12 @@ Rails.application.routes.draw do
   get '/signin' => 'sessions#new', :as => :signin
   get '/signout' => 'sessions#destroy', :as => :signout
   get '/auth/failure' => 'sessions#failure'
-  resources :providers, only: :index
+  resources :providers,
+    param: :name,
+    only: :index do
+    get '', action: :edit, as: :edit,
+      constraints: { provider_name: /#{Rails.configuration.provider_names.join('|')}/ }
+    post '', action: :upsert, as: :upsert,
+      constraints: { provider_name: /#{Rails.configuration.provider_names.join('|')}/ }
+  end
 end

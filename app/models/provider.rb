@@ -20,8 +20,18 @@ class Provider < ActiveRecord::Base
   validates_presence_of :uid, :user
 
   belongs_to :user, primary_key: :beeminder_user_id, foreign_key: :beeminder_user_id
+  has_one :goal, dependent: :destroy
+  accepts_nested_attributes_for :goal
 
   class << self
+    def new attrs = {}
+      if attrs.has_key?(:name)
+        name = attrs.delete(:name)
+        find_sti_class(name).new attrs
+      else
+        super
+      end
+    end
     def find_sti_class type_name
       ActiveSupport::Dependencies.constantize(type_name.camelize + "Provider")
     end
@@ -29,5 +39,18 @@ class Provider < ActiveRecord::Base
     def sti_name
       raise NotImplementedError
     end
+  end
+
+  def oauthable?
+    raise NotImplementedError
+  end
+
+  def missing_oauth?
+    credentials.empty? && oauthable?
+  end
+
+  def goal_slug
+    return nil if goal.nil?
+    goal.slug
   end
 end

@@ -1,0 +1,26 @@
+- content_for :title do
+  Setup
+  = provider.name
+end
+%h1
+  Setup
+  = provider.name
+
+%table#provider_setup
+  %tbody
+  = form_for provider.becomes(Provider), { method: :post, url: provider_upsert_path(provider_name: provider.name) } do |f|
+    %tr
+    %tr
+      %td= f.label 'user id'
+      %td
+        - if provider.oauthable?
+          = f.object.uid
+        - else
+          = f.text_field :uid
+    %tr
+      %td= f.label :goal_slug
+      %td= f.select :goal_slug, available_goal_slugs
+
+    %tr
+      %td= f.submit "Save"
+

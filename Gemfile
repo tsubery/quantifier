@@ -23,6 +23,7 @@ gem 'typeracer_ruby'
 gem 'beeminder'
 gem 'decent_exposure'
 gem 'draper'
+gem 'pocket-ruby'
 
 group :development do
   gem 'better_errors'

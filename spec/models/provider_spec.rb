@@ -1,17 +1,16 @@
 # == Schema Information
 #
-# Table name: identities
+# Table name: providers
 #
-#  id          :integer          not null, primary key
-#  user_id     :integer          not null
-#  provider    :string           not null
-#  uid         :string           default(""), not null
-#  name        :string           default(""), not null
-#  info        :json             default({}), not null
-#  credentials :json             default({}), not null
-#  extra       :json             default({}), not null
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id                :integer          not null, primary key
+#  beeminder_user_id :string           not null
+#  name              :string           not null
+#  uid               :string           default(""), not null
+#  info              :json             default({}), not null
+#  credentials       :json             default({}), not null
+#  extra             :json             default({}), not null
+#  created_at        :datetime
+#  updated_at        :datetime
 #
 
 require 'rails_helper'

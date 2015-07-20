@@ -14,7 +14,23 @@
 #
 
 class TyperacerProvider < Provider
+  validate :valid_uid?, if: "goal.present?"
+
   def self.sti_name
     "typeracer".freeze
+  end
+
+  def oauthable?
+    false
+  end
+
+  def valid_uid?
+    TypeRacer::Client.new(uid)
+  rescue TypeRacer::Api::UserNotFound
+    errors.add(:uid, "Could not be found in typeracer api!")
+  end
+
+  def calculate_score
+    TypeRacer::Client.new(uid).completed_games
   end
 end

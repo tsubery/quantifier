@@ -14,8 +14,37 @@
 #
 
 class PocketProvider < Provider
+  validate :has_access_token
 
   def self.sti_name
     "pocket".freeze
+  end
+
+  def oauthable?
+    true
+  end
+
+  def client
+    Pocket.client access_token: access_token
+  end
+
+  def access_token
+    credentials.fetch "token"
+  end
+
+  def has_access_token
+    unless credentials["token"]
+      errors.add(:credentials, "missing token key")
+    end
+  end
+
+  def calculate_score
+    now_as_epoch = Time.now.utc.to_i
+    #couldn't find documentation for pocket's article time_added field
+    #it seems to be stored as utc epoch
+
+    client.retrieve(contentType: "article").fetch("list").values.map do |article|
+      now_as_epoch - article["time_added"].to_i
+    end.sum / 1.day.to_i
   end
 end
