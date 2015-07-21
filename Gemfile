@@ -24,6 +24,7 @@ gem 'beeminder'
 gem 'decent_exposure'
 gem 'draper'
 gem 'pocket-ruby'
+gem 'whenever', require: false
 
 group :development do
   gem 'better_errors'
