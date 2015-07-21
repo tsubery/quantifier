@@ -17,7 +17,6 @@ gem 'pg'
 gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 gem 'attribute-defaults'
-gem 'httparty'
 gem 'sidekiq'
 gem 'typeracer_ruby'
 gem 'beeminder'
@@ -49,10 +48,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'dotenv-rails'
   gem 'thin'
-end
-
-group :production do
-  gem 'unicorn'
 end
 
 group :test do
