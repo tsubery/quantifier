@@ -14,20 +14,24 @@ gem 'omniauth'
 gem 'omniauth-beeminder'
 gem 'omniauth-pocket'
 gem 'omniauth-trello'
+gem 'omniauth-google-oauth2'
 gem 'pg'
 gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 gem 'attribute-defaults'
 gem 'sidekiq'
-gem 'typeracer_ruby'
 gem 'beeminder'
 gem 'decent_exposure'
 gem 'draper'
-gem 'pocket-ruby'
 gem 'whenever', require: false
 
-gem 'ruby-trello'
 gem 'schema_plus'
+
+##providers
+gem 'google-api-client', '0.9.pre1'
+gem 'ruby-trello'
+gem 'pocket-ruby'
+gem 'typeracer_ruby'
 
 group :development do
   gem 'better_errors'

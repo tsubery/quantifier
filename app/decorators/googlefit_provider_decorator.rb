@@ -1,0 +1,2 @@
+class GooglefitProviderDecorator < ProviderDecorator
+end

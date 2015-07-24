@@ -31,5 +31,5 @@ end
       %td= f.submit "Save"
     %tr
       %td Current Score:
-      %td= provider.calculate_score if provider.valid?
+      %td= provider.calculate_score.inspect if provider.valid?
 

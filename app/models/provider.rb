@@ -42,6 +42,12 @@ class Provider < ActiveRecord::Base
   end
 
   def oauthable?
+    #meaning authenticated with oauth
+    raise NotImplementedError
+  end
+
+  def deltable?
+    #meaning calculated scores are not absolute but rather delta from last time
     raise NotImplementedError
   end
 

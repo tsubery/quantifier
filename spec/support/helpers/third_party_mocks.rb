@@ -21,7 +21,8 @@ module ThirdPartyMocks
   end
 
   def mock_provider_score provider_name
+    fake_scores = [ { Time.at(1437775585) => 12423 } ]
     provider_class = Provider.find_sti_class(provider_name.to_s)
-    allow_any_instance_of(provider_class).to receive(:calculate_score).and_return(123)
+    allow_any_instance_of(provider_class).to receive(:calculate_score).and_return(fake_scores)
   end
 end

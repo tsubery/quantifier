@@ -24,17 +24,24 @@ class PocketProvider < Provider
     true
   end
 
+  def deltable?
+    false
+  end
+
   def client
     Pocket.client access_token: access_token
   end
 
-  def calculate_score
+  def calculate_score options={}
     now_as_epoch = Time.now.utc.to_i
     #couldn't find documentation for pocket's article time_added field
     #it seems to be stored as utc epoch
 
-    client.retrieve(contentType: "article").fetch("list").values.map do |article|
+    value = client.retrieve(contentType: "article").fetch("list").values.map do |article|
       now_as_epoch - article["time_added"].to_i
     end.sum / 1.day.to_i
+    {
+      Time.now => value
+    }
   end
 end

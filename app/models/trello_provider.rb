@@ -26,6 +26,10 @@ class TrelloProvider < Provider
     true
   end
 
+  def deltable?
+    false
+  end
+
   def client
     Trello::Client.new(
       consumer_key: Rails.application.secrets.trello_provider_key,
@@ -35,7 +39,7 @@ class TrelloProvider < Provider
     )
   end
 
-  def calculate_score
+  def calculate_score options={}
     return nil unless goal
     now_utc = Time.now.utc
 
@@ -43,7 +47,10 @@ class TrelloProvider < Provider
     total_debt = board.cards.map do |card|
       now_utc - card.last_activity_date
     end.sum
-    (total_debt/1.day).to_i
+
+    {
+      Time.now.utc => (total_debt/1.day).to_i
+    }
   end
 
   def board_options
@@ -61,4 +68,5 @@ class TrelloProvider < Provider
   def board_id
     goal && goal.params["board_id"]
   end
+
 end

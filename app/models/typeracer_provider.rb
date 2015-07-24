@@ -24,14 +24,21 @@ class TyperacerProvider < Provider
     false
   end
 
+  def deltable?
+    false
+  end
+
   def valid_uid?
     TypeRacer::Client.new(uid)
   rescue TypeRacer::Api::UserNotFound
     errors.add(:uid, "Could not be found in typeracer api!")
   end
 
-  def calculate_score
-    return nil if uid.empty?
-    TypeRacer::Client.new(uid).completed_games
+  def calculate_score options={}
+    return {} if uid.empty?
+
+    {
+      Time.now => TypeRacer::Client.new(uid).completed_games
+    }
   end
 end

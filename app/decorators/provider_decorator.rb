@@ -1,9 +1,13 @@
 class ProviderDecorator < Draper::Decorator
   delegate_all
 
+  def auth_link
+    "/auth/#{provider_name}"
+  end
+
   def setup_link
     if missing_oauth?
-      h.link_to "Connect your #{provider_name} account", "/auth/#{provider_name}"
+      h.link_to "Connect your #{provider_name} account",  auth_link
     else
       h.link_to "Setup #{provider_name} goal", h.provider_edit_path(self)
     end
