@@ -53,4 +53,25 @@ class Provider < ActiveRecord::Base
     return nil if goal.nil?
     goal.slug
   end
+
+  def access_token
+    credentials.fetch "token"
+  end
+
+  def has_access_token
+    unless credentials["token"]
+      errors.add(:credentials, "missing token key")
+    end
+  end
+
+  def access_secret
+    credentials.fetch "secret"
+  end
+
+  def has_access_secret
+    unless credentials["token"]
+      errors.add(:credentials, "missing token key")
+    end
+  end
+
 end

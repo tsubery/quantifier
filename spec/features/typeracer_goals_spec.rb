@@ -11,8 +11,7 @@ describe "Typeracer goals" do
     page.click_link("Setup typeracer goal")
 
     page.fill_in "provider_uid", with: "typeracer_uid"
-    page.fill_in "provider_uid", with: "typeracer_uid"
-    page.select "slug2", from: "provider_goal_slug"
+    page.select "slug2", from: "provider_goal_attributes_slug"
     page.click_button "Save"
 
     expect(page).to have_content("Updated successfully!")

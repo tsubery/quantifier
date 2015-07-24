@@ -5,7 +5,11 @@ class ProvidersController < AuthenticatedController
     end
   end
 
-  expose(:provider) { find_provider(params[:provider_name]) }
+  expose(:provider) do
+    find_provider(params.fetch(:provider_name)).tap do |provider|
+      provider.build_goal unless provider.goal
+    end
+  end
 
   expose(:available_goal_slugs) do
     [''] + current_user.client.goals.map(&:slug)
@@ -31,27 +35,22 @@ class ProvidersController < AuthenticatedController
 
   private
 
-  def goal_attrs
-    {
-      goal_attributes: {
-        slug: slug,
-        _destroy: (slug.empty? ? '1' : '0')
-      }
-    }
-  end
-
   def provider_params
-    params.require(:provider).
-      permit(:uid).to_h.
-      merge(user: current_user).
-      merge(goal_attrs)
+    params.require(:provider).permit(
+      :uid,
+      goal_attributes:
+      [
+        :slug,
+        params: %i(board_id)
+      ]
+    )
   end
 
   def find_provider name
     name or raise "Missing provider"
     scope = current_user.providers
     scope.all.find{ |p| name == p.name} ||
-      scope.new(name: name)
+      scope.new(name: name, user: current_user)
   end
 
   def slug

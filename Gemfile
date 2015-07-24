@@ -13,6 +13,7 @@ gem 'haml-rails'
 gem 'omniauth'
 gem 'omniauth-beeminder'
 gem 'omniauth-pocket'
+gem 'omniauth-trello'
 gem 'pg'
 gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
@@ -24,6 +25,9 @@ gem 'decent_exposure'
 gem 'draper'
 gem 'pocket-ruby'
 gem 'whenever', require: false
+
+gem 'ruby-trello'
+gem 'schema_plus'
 
 group :development do
   gem 'better_errors'

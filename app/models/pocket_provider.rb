@@ -28,16 +28,6 @@ class PocketProvider < Provider
     Pocket.client access_token: access_token
   end
 
-  def access_token
-    credentials.fetch "token"
-  end
-
-  def has_access_token
-    unless credentials["token"]
-      errors.add(:credentials, "missing token key")
-    end
-  end
-
   def calculate_score
     now_as_epoch = Time.now.utc.to_i
     #couldn't find documentation for pocket's article time_added field

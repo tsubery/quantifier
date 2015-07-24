@@ -31,6 +31,7 @@ class TyperacerProvider < Provider
   end
 
   def calculate_score
+    return nil if uid.empty?
     TypeRacer::Client.new(uid).completed_games
   end
 end

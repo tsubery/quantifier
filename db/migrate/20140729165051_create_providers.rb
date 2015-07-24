@@ -1,7 +1,7 @@
 class CreateProviders < ActiveRecord::Migration
   def change
     create_table :providers do |t|
-      t.string :beeminder_user_id, null: false
+      t.string :beeminder_user_id, null: false, references: nil
       t.string :name, null: false
       t.string :uid, default: "", null: false
       t.json :info, default: "{}", null: false

@@ -22,6 +22,11 @@ class ProviderDecorator < Draper::Decorator
   end
 
   def provider_name
-    raise NotImplementedError
+    object.class.sti_name
+  end
+
+  def extra_form_fields(f)
+    #none by default
+    []
   end
 end

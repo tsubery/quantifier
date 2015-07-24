@@ -12,7 +12,7 @@ class IdentityResolver
         @flash = 'Signed in!'
       end
     else
-      if (provider = find_provider)
+      if (provider = find_provider_for_uid)
         #It's a known provider
         if current_user
           if current_user != provider.user
@@ -26,9 +26,11 @@ class IdentityResolver
         end
       else
         # First time we encounter this provider
-        unless current_user
+        if !current_user
           # We must have a sign in user to create the provider
           @flash = "Please sign in first."
+        elsif find_provider_for_user(current_user)
+          @flash = "Provider already connected with #{uid}"
         else
           create_provider_for current_user
           @flash = "Connected successfully."
@@ -51,11 +53,15 @@ class IdentityResolver
     @auth.fetch('credentials').fetch('token')
   end
 
-  def find_provider
+  def find_provider_for_uid
     Provider.find_by(
       name: provider_name,
       uid: uid
     )
+  end
+
+  def find_provider_for_user(user)
+    user.providers.find_by name: provider_name
   end
 
   def session_provider?

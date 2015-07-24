@@ -6,6 +6,5 @@ class CreateGoals < ActiveRecord::Migration
       t.float :last_value
     end
     add_index :goals, [:slug, :provider_id], unique: true
-    add_foreign_key :goals, :providers
   end
 end

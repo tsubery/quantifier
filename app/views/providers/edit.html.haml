@@ -8,7 +8,7 @@ end
 
 %table#provider_setup
   %tbody
-  = form_for provider.becomes(Provider), { method: :post, url: provider_upsert_path(provider_name: provider.name) } do |f|
+  = form_for provider, { as: :provider, method: :post, url: provider_upsert_path(provider_name: provider.name) } do |f|
     %tr
     %tr
       %td= f.label 'user id'
@@ -17,10 +17,19 @@ end
           = f.object.uid
         - else
           = f.text_field :uid
-    %tr
-      %td= f.label :goal_slug
-      %td= f.select :goal_slug, available_goal_slugs
+    = f.fields_for :goal do |gf|
+      %tr
+        %td= gf.label :slug
+        %td= gf.select :slug, available_goal_slugs
+      = gf.fields_for :params do |pf|
+        - provider.decorate.extra_form_fields(pf).each do |label, input|
+          %tr
+            %td= label
+            %td= input
 
     %tr
       %td= f.submit "Save"
+    %tr
+      %td Current Score:
+      %td= provider.calculate_score if provider.valid?
 
