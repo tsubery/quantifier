@@ -1,3 +1,5 @@
+require 'trello' #it is not required by default for some reason
+
 class BeeminderWorker
   include Sidekiq::Worker
 
