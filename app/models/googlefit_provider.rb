@@ -51,7 +51,7 @@ class GooglefitProvider < Provider
 
     if options[:relative]
       last_modified_time = points.map{ |point| point.modified_time_millis.to_i }.max
-      goal.params['modified_time_millis'] ||= last_modified_time
+      goal.params['modified_time_millis'] = last_modified_time if last_modified_time
       goal.save!
     end
 
