@@ -24,7 +24,7 @@ gem 'beeminder'
 gem 'decent_exposure'
 gem 'draper'
 gem 'whenever', require: false
-
+gem 'pry-rails'
 gem 'schema_plus'
 
 ##providers
@@ -49,7 +49,6 @@ group :development do
 end
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'pry-rails'
   gem 'pry-rescue'
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
   gem 'pry-byebug'
