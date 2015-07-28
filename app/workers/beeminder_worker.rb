@@ -21,6 +21,7 @@ class BeeminderWorker
           last_of_values == goal.last_value
         add_datapoints goal, scores
         goal.last_value = last_of_values
+        goal.save!
       end
     end
   rescue => e
