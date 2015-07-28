@@ -17,8 +17,8 @@ class BeeminderWorker
       scores = provider.calculate_score(relative: true)
       last_of_values = scores.values.last
 
-      unless provider.deltable? &&
-          last_of_values == goal.last_value
+      if !provider.deltable? &&
+          last_of_values != goal.last_value
         add_datapoints goal, scores
         goal.last_value = last_of_values
         goal.save!
