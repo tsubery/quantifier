@@ -70,7 +70,7 @@ class GooglefitProvider < Provider
     Signet::OAuth2::Client.new(
     client_id: Rails.application.secrets.google_provider_key,
     client_secret: Rails.application.secrets.google_provider_secret,
-    refresh_token: Provider.last.credentials['refresh_token'],
+    refresh_token: credentials['refresh_token'],
     scope: %w(https://www.googleapis.com/auth/fitness.activity.read),
     token_credential_uri: 'https://www.googleapis.com/oauth2/v3/token'
   )
