@@ -22,6 +22,8 @@ class BeeminderWorker
         add_datapoints goal, scores
         goal.last_value = last_of_values
         goal.save!
+      elsif provider.deltable?
+        add_datapoints goal, scores
       end
     end
   rescue => e
