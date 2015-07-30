@@ -1,17 +1,17 @@
 About
 ================
 
-This app is the code behind [beemind.me][1], A web app I made to automatically send data to [beeminder.com][2] service.
-If you are not familiar with beeminder service, It could be described as "goal tracking with teeth". The basic idea is they take your money if you don't meet the goals you have committed to.
+This app is the code behind [beemind.me][1], A web app I made to automatically send data to [Beeminder][2] service.
+If you are not familiar with Beeminder service, It could be described as "goal tracking with teeth". The basic idea is they take your money if you don't meet the goals you have committed to.
 
 They can automatically gather data from many 3rd party services about excercise, sleep, productivity and many more.
-This apps adds few more integration by allowing users to sign in with their beeminder account to [beemind.me][1] and configuring one of the supported integrations.
+This apps adds a few more integration by allowing users to sign in with their Beeminder account to [beemind.me][1] and configuring one of the supported integrations.
 
 Scoring Debt
 -----
-There are many ways to measure productiviy. Beeminder's native support for [trello.com][4] integration counts the daily cards moved from "todo" list to "done" list and expects it to be above predefined threshold. When I tried using this metric I noticed a tendency to focus on short and easy tasks while the some other tasks are left in the "todo" list indefinitely.
-The way [beemind.me][1] measures productivity is using a simple measure of procrastination. The app gives one point for each day since the last activity on each card. All the points are summed as the total "debt" score. Adding a comment, checking a checkbox or attaching a file to any card will zero it's score. The goal is to reduce the score as much as possible. This metric tries to ensure no cards is left behind.
-Similarly, for [pocket][3] score, a point is added for every day an item waits to be read or watched in the list. This incentivizes consuming old items or getting rid of them.
+There are many ways to measure productiviy. Beeminder's native support for [Trello][4] counts the daily cards moved from "todo" list to "done" list and expects it to be above predefined threshold. When I tried to use this metric I noticed a tendency to focus on short and easy tasks while the some other tasks are left in the "todo" list indefinitely.
+The way [beemind.me][1] measures productivity is using a simple proxy of procrastination. The app gives one point for each day since the last activity on each card. All the points are summed as the total "debt" score. The goal is to reduce the debt score as much as possible. Adding a comment, checking a checkbox or attaching a file to any card will zero it's score as the premise is that with enough tiny steps you can complete any tasks. Another benefit to this metric is it ensure no cards is left behind by incentivizing working on older cards.
+Similarly, for [pocket][3] score, a point is added for every day an item waits to be read or watched in the list.
 
 Moar integrations
 -----
@@ -28,8 +28,10 @@ Supported Providers
 
 Todo
 -----
-Adding a metric of activity time from google fit might be interesting.
-Also adding a metric that measures amount of time spent over sleeping by configuring a time of the day in the app.
+It coule be interesting to track activity hours from google fit.
+Another idea I had is to configure an ideal wake up time and have the app report the amount of over sleeping taken from sleep as android.
+Do you have any suggestions?
+Just mention @galtsubery on the [beeminder forum][7] 
 
 
 
@@ -39,4 +41,5 @@ Also adding a metric that measures amount of time spent over sleeping by configu
 [4]: https://www.trello.com
 [5]: https://fit.google.com
 [6]: https://www.typeracer.com
+[7]: http://forum.beeminder.com/
 
