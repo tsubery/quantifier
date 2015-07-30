@@ -55,13 +55,10 @@ class GooglefitProvider < Provider
       goal.save!
     end
 
-    scores = {}
-    points.each do |point|
+    points.each_with_object(Hash.new {0}) do |point,scores|
       ts = Time.at(point.start_time_nanos.to_i/1_000_000_000).beginning_of_hour
-      scores[ts] ||= 0
       scores[ts] += point.value.first.int_val
     end
-    scores
   end
 
   private
