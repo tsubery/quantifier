@@ -40,7 +40,7 @@ class BeeminderWorker
     bclient = goal.provider.user.client
     bgoal = bclient.goal(goal.slug)
     scores.map do |ts,value|
-      Beeminder::Datapoint.new(value: value, timestamp: ts)
+      Beeminder::Datapoint.new(value: value, timestamp: ts, comment: "Auto-entered by beemind.me for #{ts.to_s} @ #{Time.now}")
     end.each do |datapoint|
       bgoal.add datapoint
     end
