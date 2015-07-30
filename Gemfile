@@ -26,6 +26,7 @@ gem 'draper'
 gem 'whenever', require: false
 gem 'pry-rails'
 gem 'schema_plus'
+gem 'rdiscount'
 
 ##providers
 gem 'google-api-client', '0.9.pre1'

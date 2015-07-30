@@ -1,0 +1,6 @@
+- content_for :title do
+  About
+end
+
+.container.col-md-5.col-md-offset-3
+  = RDiscount.new(File.read("README.md")).to_html.html_safe

@@ -340,6 +340,7 @@ GEM
     rb-fsevent (0.9.5)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
+    rdiscount (2.1.8)
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
@@ -556,6 +557,7 @@ DEPENDENCIES
   rb-fchange
   rb-fsevent
   rb-inotify
+  rdiscount
   rerun
   rspec-instafail
   rspec-rails
