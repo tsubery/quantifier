@@ -40,6 +40,6 @@ Just mention @galtsubery on the [Beeminder forum][7]
 [3]: https://www.getpocket.com
 [4]: https://www.trello.com
 [5]: https://fit.google.com
-[6]: https://www.typeracer.com
+[6]: http://www.typeracer.com
 [7]: http://forum.beeminder.com/
 
