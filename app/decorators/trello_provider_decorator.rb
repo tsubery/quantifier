@@ -3,7 +3,7 @@ class TrelloProviderDecorator < ProviderDecorator
     [
       [
         f.label(:board_id),
-        f.select(:board_id, board_options)
+        f.select(:board_id, board_options, selected: board_id)
       ]
     ]
   end

@@ -1,16 +1,16 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe "Trello goals" do
-  scenario 'create first goal' do
+  scenario "create first goal" do
     user = create(:user)
     mock_current_user user
     mock_beeminder_goals(user, %w(slug1 slug2 slug3))
     visit providers_path
-    expect(page).to have_content 'Connect your trello account'
+    expect(page).to have_content "Connect your trello account"
 
     set_mock_auth :trello
-    page.click_link('Connect your trello account')
-    expect(page).to have_content 'Setup trello goal'
+    page.click_link("Connect your trello account")
+    expect(page).to have_content "Setup trello goal"
 
     mock_provider_score :trello
     mock_trello_boards
@@ -22,6 +22,10 @@ describe "Trello goals" do
     page.click_button "Save"
 
     expect(page).to have_content("Updated successfully!")
+
+    page.click_link("Setup trello goal")
+    expect(page).to have_select("provider_goal_attributes_slug", selected: "slug2")
+    expect(page).to have_select("provider_goal_attributes_params_board_id", selected: "Board3")
 
     provider = user.providers.first
     expect(provider).not_to be_nil

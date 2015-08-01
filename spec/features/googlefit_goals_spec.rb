@@ -20,6 +20,9 @@ describe "Pocket goals" do
 
     expect(page).to have_content("Updated successfully!")
 
+    page.click_link("Setup googlefit goal")
+    expect(page).to have_select("provider_goal_attributes_slug", selected: "slug2")
+
     provider = user.providers.first
     expect(provider).not_to be_nil
     goal = provider.goal
