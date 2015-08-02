@@ -10,5 +10,9 @@ describe "Home page" do
     click_link "Sign in"
     expect(page.current_path).to eq('/providers')
     expect(@page).not_to have_content("Please sign in")
+    expect(page).to have_content("Get new scores")
+    click_link "Get new scores"
+    expect(page).to have_content("Scores updated")
+    expect(page.current_path).to eq(providers_path)
   end
 end

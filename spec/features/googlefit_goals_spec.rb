@@ -29,5 +29,9 @@ describe "Pocket goals" do
     expect(goal).to be_persisted
     expect(goal.slug).to eq("slug2")
 
+    visit providers_path
+    page.click_link("Disconnect")
+    expect(page).to have_content("Deleted googlefit")
+    expect(user.providers.reload).to be_empty
   end
 end

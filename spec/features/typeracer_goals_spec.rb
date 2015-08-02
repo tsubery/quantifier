@@ -26,5 +26,6 @@ describe "Typeracer goals" do
     goal = provider.goal
     expect(goal).to be_persisted
     expect(goal.slug).to eq("slug2")
+
   end
 end

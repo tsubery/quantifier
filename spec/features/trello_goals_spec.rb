@@ -33,5 +33,10 @@ describe "Trello goals" do
     expect(goal).to be_persisted
     expect(goal.slug).to eq("slug2")
     expect(provider.board_id).to eq("3")
+
+    visit providers_path
+    page.click_link("Disconnect")
+    expect(page).to have_content("Deleted trello")
+    expect(user.providers.reload).to be_empty
   end
 end
