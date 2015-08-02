@@ -5,12 +5,12 @@ class BeeminderWorker
 
   def perform beeminder_user_id: nil
     if beeminder_user_id
-      provider_filter = { beeminder_user_id: beeminder_user_id }
+      filter = { providers: { beeminder_user_id: beeminder_user_id } }
     else
-      provider_filter = {}
+      filter = {}
     end
 
-    Goal.joins(:provider).where(providers: provider_filter).find_each do |goal|
+    Goal.joins(:provider).where(filter).find_each do |goal|
       calculate_goal(goal)
     end
   end
