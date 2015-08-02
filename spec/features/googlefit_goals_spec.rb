@@ -1,26 +1,26 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe "Pocket goals" do
-  scenario 'create first goal' do
+  scenario "create first goal" do
     user = create(:user)
     mock_current_user user
     mock_beeminder_goals(user, %w(slug1 slug2 slug3))
     visit providers_path
-    expect(page).to have_content 'Connect your googlefit account'
+    expect(page).to have_content "Connect googlefit"
 
     set_mock_auth :googlefit
-    page.click_link('Connect your googlefit account')
-    expect(page).to have_content 'Setup googlefit goal'
+    page.click_link("Connect googlefit")
+    expect(page).to have_content "Setup googlefit"
 
     mock_provider_score :googlefit
-    page.click_link("Setup googlefit goal")
+    page.click_link("Setup googlefit")
 
     page.select "slug2", from: "provider_goal_attributes_slug"
     page.click_button "Save"
 
     expect(page).to have_content("Updated successfully!")
 
-    page.click_link("Setup googlefit goal")
+    page.click_link("Setup googlefit")
     expect(page).to have_select("provider_goal_attributes_slug", selected: "slug2")
 
     provider = user.providers.first

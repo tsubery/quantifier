@@ -12,5 +12,10 @@ Rails.application.routes.draw do
       constraints: { provider_name: /#{Rails.configuration.provider_names.join('|')}/ }
     post '', action: :upsert, as: :upsert,
       constraints: { provider_name: /#{Rails.configuration.provider_names.join('|')}/ }
+    delete '', action: :destroy, as: :destroy,
+      constraints: { provider_name: /#{Rails.configuration.provider_names.join('|')}/ }
+    collection do
+      post :reload
+    end
   end
 end

@@ -6,16 +6,16 @@ describe "Trello goals" do
     mock_current_user user
     mock_beeminder_goals(user, %w(slug1 slug2 slug3))
     visit providers_path
-    expect(page).to have_content "Connect your trello account"
+    expect(page).to have_content "Connect trello"
 
     set_mock_auth :trello
-    page.click_link("Connect your trello account")
-    expect(page).to have_content "Setup trello goal"
+    page.click_link("Connect trello")
+    expect(page).to have_content "Setup trello"
 
     mock_provider_score :trello
     mock_trello_boards
 
-    page.click_link("Setup trello goal")
+    page.click_link("Setup trello")
 
     page.select "slug2", from: "provider_goal_attributes_slug"
     page.select "Board3", from: "provider_goal_attributes_params_board_id"
@@ -23,7 +23,7 @@ describe "Trello goals" do
 
     expect(page).to have_content("Updated successfully!")
 
-    page.click_link("Setup trello goal")
+    page.click_link("Setup trello")
     expect(page).to have_select("provider_goal_attributes_slug", selected: "slug2")
     expect(page).to have_select("provider_goal_attributes_params_board_id", selected: "Board3")
 

@@ -33,6 +33,17 @@ class ProvidersController < AuthenticatedController
     render :edit
   end
 
+  def destroy
+    name = provider.name
+    provider.destroy!
+    redirect_to providers_path, notice: "Deleted #{name}"
+  end
+
+  def reload
+    BeeminderWorker.new.perform(beeminder_user_id: current_user.beeminder_user_id)
+    redirect_to providers_path, notice: "Deleted #{name}"
+  end
+
   private
 
   def provider_params
@@ -49,7 +60,7 @@ class ProvidersController < AuthenticatedController
   def find_provider name
     name or raise "Missing provider"
     scope = current_user.providers
-    scope.all.find{ |p| name == p.name} ||
+    scope.all.includes(:goal).find{ |p| name == p.name} ||
       scope.new(name: name, user: current_user)
   end
 

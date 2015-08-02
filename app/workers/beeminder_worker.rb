@@ -3,8 +3,14 @@ require 'trello' #it is not required by default for some reason
 class BeeminderWorker
   include Sidekiq::Worker
 
-  def perform
-    Goal.joins(:provider).each do |goal|
+  def perform beeminder_user_id: nil
+    if beeminder_user_id
+      provider_filter = { beeminder_user_id: beeminder_user_id }
+    else
+      provider_filter = {}
+    end
+
+    Goal.joins(:provider).where(providers: provider_filter).find_each do |goal|
       calculate_goal(goal)
     end
   end

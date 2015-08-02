@@ -1,5 +1,5 @@
 class TyperacerProviderDecorator < ProviderDecorator
-  def provider_name
-    "typeracer"
+  def extra_status
+    "configured user id: #{uid}"
   end
 end

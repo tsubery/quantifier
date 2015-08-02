@@ -9,7 +9,7 @@ describe "Typeracer goals" do
     mock_provider_score :typeracer
     visit providers_path
 
-    page.click_link("Setup typeracer goal")
+    page.click_link("Setup typeracer")
 
     page.fill_in "provider_uid", with: "typeracer_uid"
     page.select "slug2", from: "provider_goal_attributes_slug"
@@ -17,7 +17,7 @@ describe "Typeracer goals" do
 
     expect(page).to have_content("Updated successfully!")
 
-    page.click_link("Setup typeracer goal")
+    page.click_link("Setup typeracer")
     expect(page).to have_select("provider_goal_attributes_slug", selected: "slug2")
     expect(page).to have_field("provider_uid", with: "typeracer_uid")
 

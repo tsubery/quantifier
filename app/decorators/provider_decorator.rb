@@ -1,24 +1,44 @@
 class ProviderDecorator < Draper::Decorator
   delegate_all
 
+  def connected?
+    !missing_oauth?
+  end
+
   def auth_link
     "/auth/#{provider_name}"
   end
 
   def setup_link
     if missing_oauth?
-      h.link_to "Connect your #{provider_name} account",  auth_link
+      h.link_to "Connect #{provider_name}",  auth_link
     else
-      h.link_to "Setup #{provider_name} goal", h.provider_edit_path(self)
+      h.link_to "Setup #{provider_name}", h.provider_edit_path(self)
+    end
+  end
+
+  def delete_link
+    if connected?
+      h.link_to "Disconnect", h.provider_destroy_path(self), method: :delete, "data-confirm": "Are you sure?"
+    else
+      "-"
     end
   end
 
   def status
-    if missing_oauth?
-      "Not connected"
+    if oauthable?
+      if connected?
+        uid ? "Connected as #{connected_user}" : "Connected"
+      else
+        "Not connected"
+      end
     else
-      "Connected as #{uid}"
+      "-"
     end
+  end
+
+  def connected_user
+    info["nickname"] || info["email"] || uid
   end
 
   def to_param
@@ -32,5 +52,9 @@ class ProviderDecorator < Draper::Decorator
   def extra_form_fields(f)
     #none by default
     []
+  end
+
+  def extra_status
+    ""
   end
 end

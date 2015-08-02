@@ -7,4 +7,7 @@ class TrelloProviderDecorator < ProviderDecorator
       ]
     ]
   end
+  def extra_status
+    "selected board_id: #{goal.params['board_id']}"
+  end
 end
