@@ -7,7 +7,4 @@ class TrelloProviderDecorator < ProviderDecorator
       ]
     ]
   end
-  def extra_status
-    "selected list_ids: #{goal.params['list_ids'].join(',')}"
-  end
 end
