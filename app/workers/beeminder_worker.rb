@@ -10,7 +10,8 @@ class BeeminderWorker
       filter = {}
     end
 
-    Goal.joins(:provider).where(filter).find_each do |goal|
+    Goal.where.not(slug: "")
+      .joins(:provider).where(filter).find_each do |goal|
       safe_calculate_goal(goal, goal.provider)
     end
   end
