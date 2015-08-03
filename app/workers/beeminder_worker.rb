@@ -43,8 +43,8 @@ class BeeminderWorker
     return if scores.empty?
     bclient = goal.provider.user.client
     bgoal = bclient.goal(goal.slug)
-    bgoal.add scores.map do |ts, value|
-      Beeminder::Datapoint
+    scores.map do |ts, value|
+      bgoal.add Beeminder::Datapoint
         .new value: value,
              timestamp: ts,
              comment: "Auto-entered by beemind.me for #{ts} @ #{Time.current}"
