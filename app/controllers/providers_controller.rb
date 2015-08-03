@@ -51,8 +51,11 @@ class ProvidersController < AuthenticatedController
       :uid,
       goal_attributes:
       [
+        :id,
         :slug,
-        params: %i(board_id)
+        params: {
+          list_ids: []
+        }
       ]
     )
   end

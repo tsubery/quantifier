@@ -18,21 +18,23 @@ describe "Trello goals" do
     page.click_link("Setup trello")
 
     page.select "slug2", from: "provider_goal_attributes_slug"
-    page.select "Board3", from: "provider_goal_attributes_params_board_id"
+    page.select "List2", from: "provider_goal_attributes_params_list_ids"
+    page.select "List3", from: "provider_goal_attributes_params_list_ids"
     page.click_button "Save"
 
     expect(page).to have_content("Updated successfully!")
 
     page.click_link("Setup trello")
     expect(page).to have_select("provider_goal_attributes_slug", selected: "slug2")
-    expect(page).to have_select("provider_goal_attributes_params_board_id", selected: "Board3")
+    expect(page).to have_select("provider_goal_attributes_params_list_ids", selected: ["List2","List3"])
+    # expect(page).to have_select("provider_goal_attributes_params_list_ids", selected: "List3")
 
     provider = user.providers.first
     expect(provider).not_to be_nil
     goal = provider.goal
     expect(goal).to be_persisted
     expect(goal.slug).to eq("slug2")
-    expect(provider.board_id).to eq("3")
+    expect(provider.list_ids).to eq(%w[2 3])
 
     visit providers_path
     page.click_link("Disconnect")

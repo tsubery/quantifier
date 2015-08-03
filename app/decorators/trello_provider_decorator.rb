@@ -2,12 +2,12 @@ class TrelloProviderDecorator < ProviderDecorator
   def extra_form_fields(f)
     [
       [
-        f.label(:board_id),
-        f.select(:board_id, board_options, selected: board_id)
+        f.label(:list_ids),
+        h.select_tag("provider[goal_attributes][params][list_ids]", h.options_for_select(list_options, selected: list_ids),  multiple: true )
       ]
     ]
   end
   def extra_status
-    "selected board_id: #{goal.params['board_id']}"
+    "selected list_ids: #{goal.params['list_ids'].join(',')}"
   end
 end

@@ -20,7 +20,7 @@ end
     = f.fields_for :goal do |gf|
       %tr
         %td= gf.label :slug
-        %td= gf.select :slug, available_goal_slugs
+        %td= gf.select :slug, available_goal_slugs, selected: gf.object.slug
       = gf.fields_for :params do |pf|
         - provider.decorate.extra_form_fields(pf).each do |label, input|
           %tr

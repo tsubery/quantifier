@@ -16,7 +16,7 @@
 class TrelloProvider < Provider
   validate :has_access_token
   validate :has_access_secret
-  validate :goal_has_board_id, if: "goal"
+  validate :goal_has_list_ids, if: "goal"
 
   def self.sti_name
     "trello".freeze
@@ -43,8 +43,11 @@ class TrelloProvider < Provider
     return nil unless goal
     now_utc = Time.now.utc
 
-    board = client.find(:board, board_id)
-    total_debt = board.cards.map do |card|
+    cards = Array(goal.params["list_ids"]).flat_map do |list_id|
+      client.find(:list, list_id).cards.map(&:itself)
+    end
+
+    total_debt = cards.flat_map do |card|
       now_utc - card.last_activity_date
     end.sum
 
@@ -53,20 +56,23 @@ class TrelloProvider < Provider
     }
   end
 
-  def board_options
-    client.find(:member,uid).boards(filter: :open).map do |b|
-      [b.name, b.id]
+  def list_options
+    client.find(:member,uid).boards(filter: :open).flat_map do |b|
+      b.lists.map do |l|
+        joined_name = [ b.name, l.name ].join("/")
+        [ joined_name, l.id ]
+      end
     end
   end
 
-  def goal_has_board_id
-    if goal && goal.params["board_id"].nil?
-      errors.add(:goal, "missing board_id")
+  def goal_has_list_ids
+    if goal && goal.params["list_ids"].nil?
+      errors.add(:goal, "missing list_ids")
     end
   end
 
-  def board_id
-    goal && goal.params["board_id"]
+  def list_ids
+    goal && goal.params["list_ids"]
   end
 
 end

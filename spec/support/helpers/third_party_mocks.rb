@@ -13,8 +13,8 @@ module ThirdPartyMocks
   end
 
   def mock_trello_boards
-    fake_boards = (1..4).map{ |i| [ "Board#{i}", i ] }
-    allow_any_instance_of(TrelloProvider).to receive(:board_options).and_return(fake_boards)
+    fake_lists = (1..4).map{ |i| [ "List#{i}", i ] }
+    allow_any_instance_of(TrelloProvider).to receive(:list_options).and_return(fake_lists)
   end
   def mock_typeracer_validation
     allow_any_instance_of(TyperacerProvider).to receive(:valid_uid?)
