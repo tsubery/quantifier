@@ -13,21 +13,21 @@
 #  updated_at        :datetime
 #
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Provider, :type => :model do
+RSpec.describe Provider, type: :model do
   Rails.configuration.provider_names.each do |name|
     xit "can be saved with provider #{name}" do
-      expect {
+      expect do
         Provider.new name: name
-      }.not_to raise_error
+      end.not_to raise_error
     end
     it "can be saved with provider #{name}" do
-      expect {
+      expect do
         p = create :provider,
-        name: name
+                   name: name
         Provider.find p.id
-      }.not_to raise_error
+      end.not_to raise_error
     end
   end
 end

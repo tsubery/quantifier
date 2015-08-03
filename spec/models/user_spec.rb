@@ -9,7 +9,6 @@
 #
 
 describe User do
-
   let(:user) { build(:user) }
 
   describe "Validations" do

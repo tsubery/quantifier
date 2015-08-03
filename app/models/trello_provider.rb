@@ -14,8 +14,8 @@
 #
 
 class TrelloProvider < Provider
-  validate :has_access_token
-  validate :has_access_secret
+  validate :valid_access_token
+  validate :valid_access_secret
   validate :goal_has_list_ids, if: "goal"
 
   def self.sti_name
@@ -39,40 +39,37 @@ class TrelloProvider < Provider
     )
   end
 
-  def calculate_score options={}
-    return nil unless goal
-    now_utc = Time.now.utc
-
-    cards = Array(goal.params["list_ids"]).flat_map do |list_id|
+  def total_debt
+    now_utc = Time.current.utc
+    goal.params["list_ids"].flat_map do |list_id|
       client.find(:list, list_id).cards.map(&:itself)
-    end
-
-    total_debt = cards.flat_map do |card|
+    end.map do |card|
       now_utc - card.last_activity_date
     end.sum
+  end
 
+  def calculate_score(_options = {})
+    return nil unless goal
     {
-      Time.now.utc => (total_debt/1.day).to_i
+      Time.current.utc => (total_debt / 1.day).to_i
     }
   end
 
   def list_options
-    client.find(:member,uid).boards(filter: :open).flat_map do |b|
+    client.find(:member, uid).boards(filter: :open).flat_map do |b|
       b.lists.map do |l|
-        joined_name = [ b.name, l.name ].join("/")
-        [ joined_name, l.id ]
+        joined_name = [b.name, l.name].join("/")
+        [joined_name, l.id]
       end
     end
   end
 
   def goal_has_list_ids
-    if goal && goal.params["list_ids"].nil?
-      errors.add(:goal, "missing list_ids")
-    end
+    return if goal && goal.params["list_ids"]
+    errors.add(:goal, "missing list_ids")
   end
 
   def list_ids
     goal && goal.params["list_ids"]
   end
-
 end

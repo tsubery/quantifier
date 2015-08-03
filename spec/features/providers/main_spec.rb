@@ -1,4 +1,4 @@
-feature 'Home page' do
+feature "Home page" do
   context "anonymouse user" do
     scenario "redirected to root" do
       visit providers_path

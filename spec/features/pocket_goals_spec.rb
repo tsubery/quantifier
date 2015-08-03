@@ -8,7 +8,7 @@ describe "Pocket goals" do
     visit providers_path
     expect(page).to have_content "Connect pocket"
 
-    set_mock_auth :pocket
+    mock_auth :pocket
     page.click_link("Connect pocket")
     expect(page).to have_content "Setup pocket"
 

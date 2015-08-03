@@ -34,11 +34,11 @@ class TyperacerProvider < Provider
     errors.add(:uid, "Could not be found in typeracer api!")
   end
 
-  def calculate_score options={}
+  def calculate_score(_options = {})
     return {} if uid.empty?
 
     {
-      Time.now => TypeRacer::Client.new(uid).completed_games
+      Time.current => TypeRacer::Client.new(uid).completed_games
     }
   end
 end

@@ -1,10 +1,8 @@
 class MainController < ApplicationController
   def welcome
-    if current_user
-      redirect_to providers_path
-    end
+    redirect_to providers_path if current_user
   end
-  def about
 
+  def about
   end
 end

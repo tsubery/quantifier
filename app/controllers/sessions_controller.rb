@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def new
-    redirect_to '/auth/beeminder'
+    redirect_to "/auth/beeminder"
   end
 
   def create
@@ -10,16 +10,15 @@ class SessionsController < ApplicationController
     if (user = resolver.sign_in_user)
       session[:beeminder_user_id] = user.beeminder_user_id
     end
-    redirect_to root_url, :notice => resolver.flash
+    redirect_to root_url, notice: resolver.flash
   end
 
   def destroy
     reset_session
-    redirect_to root_url, :notice => 'Signed out!'
+    redirect_to root_url, notice: "Signed out!"
   end
 
   def failure
-    redirect_to root_url, :alert => "Authentication error: #{params[:message].humanize}"
+    redirect_to root_url, alert: "Authentication error: #{params[:message].humanize}"
   end
-
 end

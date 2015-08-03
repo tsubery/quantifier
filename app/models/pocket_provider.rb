@@ -14,7 +14,7 @@
 #
 
 class PocketProvider < Provider
-  validate :has_access_token
+  validate :valid_access_token
 
   def self.sti_name
     "pocket".freeze
@@ -32,16 +32,21 @@ class PocketProvider < Provider
     Pocket.client access_token: access_token
   end
 
-  def calculate_score options={}
-    now_as_epoch = Time.now.utc.to_i
-    #couldn't find documentation for pocket's article time_added field
-    #it seems to be stored as utc epoch
+  def articles
+    client.retrieve(contentType: "article").fetch("list").values
+  end
 
-    value = client.retrieve(contentType: "article").fetch("list").values.map do |article|
+  def calculate_score(_options = {})
+    # couldn't find documentation for pocket's article time_added field
+    # it seems to be stored as utc epoch
+
+    now_as_epoch = Time.current.utc.to_i
+    value = articles.map do |article|
       now_as_epoch - article["time_added"].to_i
     end.sum / 1.day.to_i
+
     {
-      Time.now => value
+      Time.current.utc => value
     }
   end
 end

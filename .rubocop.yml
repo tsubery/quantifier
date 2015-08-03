@@ -1,0 +1,24 @@
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+Metrics/LineLength:
+    Max: 90
+Documentation:
+  Enabled: false
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+Style/DoubleNegation:
+  Enabled: false
+Style/MultilineBlockChain:
+  Enabled: false
+

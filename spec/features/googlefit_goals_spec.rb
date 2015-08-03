@@ -8,7 +8,7 @@ describe "Pocket goals" do
     visit providers_path
     expect(page).to have_content "Connect googlefit"
 
-    set_mock_auth :googlefit
+    mock_auth :googlefit
     page.click_link("Connect googlefit")
     expect(page).to have_content "Setup googlefit"
 

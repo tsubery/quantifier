@@ -12,7 +12,7 @@ class ProvidersController < AuthenticatedController
   end
 
   expose(:available_goal_slugs) do
-    [''] + current_user.client.goals.map(&:slug)
+    [""] + current_user.client.goals.map(&:slug)
   end
 
   def edit
@@ -29,7 +29,7 @@ class ProvidersController < AuthenticatedController
       redirect_to providers_path, notice: "Updated successfully!"
     end
   rescue ActiveRecord::RecordInvalid
-    flash[:error] = provider.errors.full_messages.join(' ')
+    flash[:error] = provider.errors.full_messages.join(" ")
     render :edit
   end
 
@@ -47,23 +47,21 @@ class ProvidersController < AuthenticatedController
   private
 
   def provider_params
-    params.require(:provider).permit(
-      :uid,
-      goal_attributes:
-      [
-        :id,
-        :slug,
-        params: {
-          list_ids: []
-        }
-      ]
-    )
+    params.require(:provider)
+      .permit :uid,
+              goal_attributes: [
+                :id,
+                :slug,
+                params: {
+                  list_ids: []
+                }
+              ]
   end
 
-  def find_provider name
-    name or raise "Missing provider"
+  def find_provider(name)
+    name || fail("Missing provider")
     scope = current_user.providers
-    scope.all.includes(:goal).find{ |p| name == p.name} ||
+    scope.all.includes(:goal).find { |p| name == p.name } ||
       scope.new(name: name, user: current_user)
   end
 

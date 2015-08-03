@@ -16,39 +16,40 @@
 class Provider < ActiveRecord::Base
   self.inheritance_column = :name
 
-  validates_inclusion_of :name, in: Rails.configuration.provider_names
-  validates_presence_of :uid, :user
+  validates :name, inclusion: { in: Rails.configuration.provider_names }
+  validates :uid, :user, presence: true
 
   belongs_to :user, primary_key: :beeminder_user_id, foreign_key: :beeminder_user_id
   has_one :goal, dependent: :destroy
   accepts_nested_attributes_for :goal
 
   class << self
-    def new attrs = {}
-      if attrs.has_key?(:name)
+    def new(attrs = {})
+      if attrs.key?(:name)
         name = attrs.delete(:name)
         find_sti_class(name).new attrs
       else
         super
       end
     end
-    def find_sti_class type_name
+
+    def find_sti_class(type_name)
       ActiveSupport::Dependencies.constantize(type_name.camelize + "Provider")
     end
 
     def sti_name
-      raise NotImplementedError
+      fail NotImplementedError
     end
   end
 
   def oauthable?
-    #meaning authenticated with oauth
-    raise NotImplementedError
+    # meaning authenticated with oauth
+    fail NotImplementedError
   end
 
   def deltable?
-    #meaning calculated scores are not absolute but rather delta from last time
-    raise NotImplementedError
+    # meaning calculated scores are not absolute but rather delta from last time
+    fail NotImplementedError
   end
 
   def missing_oauth?
@@ -64,20 +65,15 @@ class Provider < ActiveRecord::Base
     credentials.fetch "token"
   end
 
-  def has_access_token
-    unless credentials["token"]
-      errors.add(:credentials, "missing token key")
-    end
+  def valid_access_token
+    errors.add(:credentials, "missing token key") unless credentials["token"]
   end
 
   def access_secret
     credentials.fetch "secret"
   end
 
-  def has_access_secret
-    unless credentials["token"]
-      errors.add(:credentials, "missing token key")
-    end
+  def valid_access_secret
+    errors.add(:credentials, "missing token key") unless credentials["token"]
   end
-
 end

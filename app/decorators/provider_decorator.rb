@@ -19,7 +19,10 @@ class ProviderDecorator < Draper::Decorator
 
   def delete_link
     if oauthable? && connected?
-      h.link_to "Disconnect", h.provider_destroy_path(self), method: :delete, "data-confirm": "Are you sure?"
+      h.link_to "Disconnect",
+                h.provider_destroy_path(self),
+                method: :delete,
+                "data-confirm": "Are you sure?"
     else
       "-"
     end
@@ -49,8 +52,8 @@ class ProviderDecorator < Draper::Decorator
     object.class.sti_name
   end
 
-  def extra_form_fields(f)
-    #none by default
+  def extra_form_fields(_f)
+    # none by default
     []
   end
 

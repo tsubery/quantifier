@@ -6,9 +6,9 @@ describe "Home page" do
     expect(page).to have_content("Welcome")
     expect(page).to have_content("Please sign in")
 
-    set_mock_auth
+    mock_auth
     click_link "Sign in"
-    expect(page.current_path).to eq('/providers')
+    expect(page.current_path).to eq("/providers")
     expect(@page).not_to have_content("Please sign in")
     expect(page).to have_content("Get new scores")
     click_link "Get new scores"

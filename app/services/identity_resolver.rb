@@ -1,7 +1,8 @@
 class IdentityResolver
   attr_reader :sign_in_user, :flash
 
-  def initialize current_user, auth
+  # rubocop:disable all
+  def initialize(current_user, auth)
     @auth = auth
 
     if session_provider?
@@ -9,11 +10,11 @@ class IdentityResolver
         @flash = "Already signed in!"
       else
         @sign_in_user = upsert_user
-        @flash = 'Signed in!'
+        @flash = "Signed in!"
       end
     else
       if (provider = find_provider_for_uid)
-        #It's a known provider
+        # It's a known provider
         if current_user
           if current_user != provider.user
             @flash = "User #{uid} belongs to another user."
@@ -22,7 +23,7 @@ class IdentityResolver
           end
         else
           @sign_in_user = provider.user
-          @flash = 'Signed in!'
+          @flash = "Signed in!"
         end
       else
         # First time we encounter this provider
@@ -38,19 +39,20 @@ class IdentityResolver
       end
     end
   end
+  # rubocop:enable all
 
   private
 
   def provider_name
-    @auth.fetch 'provider'
+    @auth.fetch "provider"
   end
 
   def uid
-    @auth.fetch 'uid'
+    @auth.fetch "uid"
   end
 
   def beeminder_token
-    @auth.fetch('credentials').fetch('token')
+    @auth.fetch("credentials").fetch("token")
   end
 
   def find_provider_for_uid
@@ -65,11 +67,11 @@ class IdentityResolver
   end
 
   def session_provider?
-    'beeminder' == provider_name
+    "beeminder" == provider_name
   end
 
-  def create_provider_for user
-    params = @auth.slice('uid', 'info', 'credentials', 'extra').to_h
+  def create_provider_for(user)
+    params = @auth.slice("uid", "info", "credentials", "extra").to_h
     provider = Provider.new params.merge(user: user)
     provider.name = provider_name
     provider.save!
