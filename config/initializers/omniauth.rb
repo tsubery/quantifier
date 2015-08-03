@@ -9,7 +9,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :trello,
     ENV['TRELLO_PROVIDER_KEY'],
     ENV['TRELLO_PROVIDER_SECRET'],
-    app_name: 'Quantifier',
+    app_name: 'Beemind.me',
     scope: 'read',
     expiration: 'never'
 
