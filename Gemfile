@@ -64,7 +64,6 @@ group :test do
   gem 'faker'
   gem 'launchy'
   gem 'poltergeist'
-  gem 'timecop'
   gem 'rspec-instafail', require: false
   gem 'webmock'
   gem 'vcr'
