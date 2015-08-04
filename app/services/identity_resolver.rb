@@ -34,7 +34,7 @@ class IdentityResolver
           @flash = "Provider already connected with #{uid}"
         else
           create_provider_for current_user
-          @flash = "Connected successfully."
+          @flash = "Connected successfully. Click Setup to complete the process!"
         end
       end
     end
