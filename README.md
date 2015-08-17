@@ -7,13 +7,13 @@ If you are not familiar with Beeminder, it could be described as "goal tracking 
 They can automatically gather data from many 3rd party services that track excercise, sleep, productivity, and much more.
 This app adds a few more integrations by allowing users to sign in with their Beeminder account to [beemind.me][1] and configure one of the supported integrations.
 
-Scoring Debt
+Scoring procrastination
 -----
 There are many ways to measure productiviy. Beeminder's native support for [Trello][4] counts the daily cards moved from a "todo" list to "done" and expects it to be above predefined threshold per day. When I tried to use this metric I noticed a tendency to focus on short and easy tasks while other tasks were left in the "todo" list indefinitely.
-The way [beemind.me][1] measures productivity is with a simple proxy for procrastination. The app assigns one point for each day since the last activity on each card. All the points are summed as the total "debt" score. The goal is to reduce the debt score. Adding a comment, checking a checkbox, or attaching a file to any card will zero its score. The premise is that with enough tiny steps you can complete any task. And of course by incentivizing working on older cards, it ensures no card is left behind.
+The way [beemind.me][1] measures productivity is with a simple proxy for procrastination. The app assigns one point for each day since the last activity on each card. All the points are summed as the procrastination score. The goal is to reduce the score as much as possible. Adding a comment, checking a checkbox, or attaching a file to any card will zero its score. The premise is that with enough tiny steps you can complete any task. And of course by incentivizing working on older cards, it ensures no card is left behind.
 Similarly, for [pocket][3] score, a point is added for every day an item waits to be read or watched in the list.
 
-Moar integrations
+More integrations
 -----
 The app can send Beeminder your hourly steps taken from [Google Fit][5] and the count of races you completed from the [Typeracer][6] typing game.
 
@@ -21,8 +21,8 @@ Supported Providers
 -----
 |Provider        | metric                | 
 |----------------|-----------------------|
-|[Trello][4]     |Specific board's Debt |
-|[Pocket][3]     |Reading list Debt      |
+|[Trello][4]     |Specific board's procrastination |
+|[Pocket][3]     |Reading list procrastination      |
 |[Google Fit][5] |Hourly steps           |
 |[Typeracer][6]  |Completed games        |
 
