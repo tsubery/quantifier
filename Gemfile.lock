@@ -363,6 +363,7 @@ GEM
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     retriable (2.0.2)
+    rollbar (2.1.2)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -572,6 +573,7 @@ DEPENDENCIES
   rb-inotify
   rdiscount
   rerun
+  rollbar
   rspec-instafail
   rspec-rails
   rubocop
