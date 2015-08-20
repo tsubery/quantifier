@@ -77,7 +77,7 @@ describe IdentityResolver do
         let(:current_user) { create :user }
 
         it "set's correct flash message" do
-          expect(resolver.flash).to eq("Connected successfully.")
+          expect(resolver.flash).to match(/Connected successfully/)
         end
         it "add provider to the signed in user" do
           expect(resolver.sign_in_user).to be_nil # there is no need to sign in again
