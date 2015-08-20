@@ -33,7 +33,8 @@ class PocketProvider < Provider
   end
 
   def articles
-    client.retrieve(contentType: "article").fetch("list").values
+    list = client.retrieve(contentType: "article").fetch("list")
+    list.respond_to?(:values) ? list.values : []
   end
 
   def calculate_score(_options = {})
