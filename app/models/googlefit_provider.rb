@@ -73,7 +73,7 @@ class GooglefitProvider < Provider
       time_range,
       fields: "point",
       options: { authorization: authorization }
-    ).point
+    ).point || []
   end
 
   def authorization
