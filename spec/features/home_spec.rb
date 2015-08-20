@@ -4,7 +4,7 @@ describe "Home page" do
   scenario "anonymous user logs in to the app" do
     visit root_path
     expect(page).to have_content("Welcome")
-    expect(page).to have_content("Please sign in")
+    expect(page).to have_content("sign in")
 
     mock_auth
     click_link "Sign in"

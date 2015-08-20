@@ -3,7 +3,7 @@ feature "Sign in", :omniauth do
     scenario "user can sign in with valid account" do
       visit root_path
       mock_auth
-      click_link "Sign in"
+      click_link "sign in"
       expect(page).to have_content("Sign out")
 
       click_link "Sign out"
