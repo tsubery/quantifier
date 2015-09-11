@@ -28,6 +28,7 @@ gem "pry-rails"
 gem "schema_plus"
 gem "rdiscount"
 gem "rollbar"
+gem "activerecord-import"
 
 # #providers
 gem "google-api-client", "0.9.pre1"
@@ -69,4 +70,5 @@ group :test do
   gem "rspec-instafail", require: false
   gem "webmock"
   gem "vcr"
+  gem "timecop"
 end

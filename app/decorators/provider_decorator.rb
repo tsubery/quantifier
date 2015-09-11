@@ -18,7 +18,7 @@ class ProviderDecorator < Draper::Decorator
   end
 
   def delete_link
-    if oauthable? && connected?
+    if oauth? && connected?
       h.link_to "Disconnect",
                 h.provider_destroy_path(self),
                 method: :delete,
@@ -29,7 +29,7 @@ class ProviderDecorator < Draper::Decorator
   end
 
   def status
-    if oauthable?
+    if oauth?
       if connected?
         uid ? "Connected as #{connected_user}" : "Connected"
       else

@@ -1,79 +1,65 @@
-# == Schema Information
-#
-# Table name: providers
-#
-#  id                :integer          not null, primary key
-#  beeminder_user_id :string           not null
-#  name              :string           not null
-#  uid               :string           default(""), not null
-#  info              :json             default({}), not null
-#  credentials       :json             default({}), not null
-#  extra             :json             default({}), not null
-#  created_at        :datetime
-#  updated_at        :datetime
-#
+class Provider
+  attr_reader :auth_type, :adapter, :key
 
-class Provider < ActiveRecord::Base
-  self.inheritance_column = :name
+  def initialize key, auth_type, adapter
+    [:none, :oauth].include?(auth_type) or raise "Unknown auth_type #{auth_type}"
+    @auth_type = auth_type
+    @adapter = adapter
+    @key = key
+  end
 
-  validates :name, inclusion: { in: Rails.configuration.provider_names }
-  validates :uid, :user, presence: true
+  def oauth?
+    :oauth == auth_type
+  end
 
-  belongs_to :user, primary_key: :beeminder_user_id, foreign_key: :beeminder_user_id
-  has_one :goal, dependent: :destroy
-  accepts_nested_attributes_for :goal
+  def public?
+    :none == auth_type
+  end
+
+  def register_metric key
+    new_metric = Metric.new(key)
+    metrics[key] = new_metric
+    yield new_metric
+    raise "Invalid metric #{key}" unless new_metric.valid?
+  end
+
+  def find_metric key
+    metrics[key] or raise "Unknown metric #{key}"
+  end
+
+  def metric_keys
+    metrics.keys
+  end
+
+  def load_metrics
+    Dir["lib/metrics/#{key}/*.rb"].each { |f| require Rails.root.join(f) }
+  end
+
+  private
+
+  def metrics
+    @metrics ||= {}.with_indifferent_access
+  end
 
   class << self
-    def new(attrs = {})
-      if attrs.key?(:name)
-        name = attrs.delete(:name)
-        find_sti_class(name).new attrs
-      else
-        super
-      end
+
+    def register name, adapter: , auth_type:
+      providers[name] = new(name, auth_type, adapter)
+      providers[name].load_metrics
     end
 
-    def find_sti_class(type_name)
-      ActiveSupport::Dependencies.constantize(type_name.camelize + "Provider")
+    def find name
+      providers[name] or raise "Unknown provider #{name}"
     end
 
-    def sti_name
-      fail NotImplementedError
+    def names
+      providers.keys
+    end
+    private
+
+    def providers
+      @providers ||= {}.with_indifferent_access
     end
   end
 
-  def oauthable?
-    # meaning authenticated with oauth
-    fail NotImplementedError
-  end
-
-  def deltable?
-    # meaning calculated scores are not absolute but rather delta from last time
-    fail NotImplementedError
-  end
-
-  def missing_oauth?
-    credentials.empty? && oauthable?
-  end
-
-  def goal_slug
-    return nil if goal.nil?
-    goal.slug
-  end
-
-  def access_token
-    credentials.fetch "token"
-  end
-
-  def valid_access_token
-    errors.add(:credentials, "missing token key") unless credentials["token"]
-  end
-
-  def access_secret
-    credentials.fetch "secret"
-  end
-
-  def valid_access_secret
-    errors.add(:credentials, "missing token key") unless credentials["token"]
-  end
 end

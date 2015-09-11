@@ -13,7 +13,7 @@ end
     %tr
       %td= f.label 'user id'
       %td
-        - if provider.oauthable?
+        - if provider.oauth?
           = f.object.uid
         - else
           = f.text_field :uid
