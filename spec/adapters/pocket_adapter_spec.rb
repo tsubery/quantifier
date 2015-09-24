@@ -1,3 +1,4 @@
+require 'active_support/all'
 require_relative '../../app/adapters/pocket_adapter'
 describe PocketAdapter do
   let(:subject) { PocketAdapter }

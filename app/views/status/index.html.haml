@@ -1,0 +1,23 @@
+- content_for :title do
+  Providers
+.container.col-md-5.col-md-offset-3
+  %h1
+    Goals status
+  %table.table-bordered.table
+    %thead
+      %tr
+        %td Name
+        %td Status
+        %td beeminder
+        %td Last score
+        %td Delete
+    %tbody
+    - goals.each do |goal|
+      %tr
+        %td= [goal.provider.title, goal.metric.title].join(' - ')
+        %td{ data: { align: :center}}= goal.status
+        %td= goal.beeminder_link(current_user.beeminder_user_id)
+        %td= goal.last_score
+        %td= goal.delete_link
+  = link_to "Get new scores", reload_status_index_path, method: :post, class: %i(btn btn-default)
+

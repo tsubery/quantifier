@@ -5,6 +5,7 @@ class CreateScores < ActiveRecord::Migration
       t.datetime :timestamp, null: false
       t.string :datapoint_id, foreign_key: false
       t.references :goal, index: true, foreign_key: true
+      t.timestamps
     end
     add_index :scores, [:goal_id, :timestamp], unique: true
   end

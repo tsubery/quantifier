@@ -1,4 +1,4 @@
-Provider.find(:pocket).register_metric :article_days_linear do |metric|
+ProviderRepo.find(:pocket).register_metric :article_days_linear do |metric|
   metric.description = "The sum of days articles have been waiting."
   metric.title = "Article backlog"
 

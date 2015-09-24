@@ -1,3 +1,4 @@
+require 'active_support/all'
 require_relative '../../app/adapters/trello_adapter'
 require 'typeracer_ruby'
 describe TrelloAdapter do

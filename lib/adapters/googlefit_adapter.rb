@@ -1,13 +1,29 @@
-require_relative 'base_adapter'
+require 'base_adapter'
+require "google/apis/fitness_v1"
+
 class GooglefitAdapter < BaseAdapter
   ESTIMATED_STEPS_DS = "derived:com.google.step_count.delta:com.google.android.gms:estimated_steps"
 
-  def self.required_keys
-    %i(token)
+  class << self
+    def required_keys
+      %i(token)
+    end
+
+    def auth_type
+      :oauth
+    end
+
+    def website_link
+      "https://fit.google.com"
+    end
+
+    def title
+      "Google Fit"
+    end
   end
 
   def client
-    GFitness::FitnessService.new
+    Google::Apis::FitnessV1::FitnessService.new
   end
 
   def to_nano(timestamp)

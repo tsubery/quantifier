@@ -3,7 +3,7 @@ class AddMetricKeyToGoal < ActiveRecord::Migration
     add_column :goals, :metric_key, :string
     Goal.find_each do |goal|
       p goal.credential_id
-      goal.update metric_key: goal.credential.provider.metric_keys.first
+      goal.update metric_key: goal.credential.provider.metrics.keys.first
     end
     change_column :goals, :metric_key, :string,  null: false
     add_index :goals, :metric_key

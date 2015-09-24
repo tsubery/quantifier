@@ -17,6 +17,7 @@ class Credential < ActiveRecord::Base
   validates :uid, :user, presence: true
 
   belongs_to :user, primary_key: :beeminder_user_id, foreign_key: :beeminder_user_id
+  has_many :goals
 
   def client
     authorization = credentials.merge(uid: uid).with_indifferent_access
@@ -24,7 +25,7 @@ class Credential < ActiveRecord::Base
   end
 
   def provider
-    Provider.find(provider_name)
+    ProviderRepo.find(provider_name)
   end
 
   def access_token

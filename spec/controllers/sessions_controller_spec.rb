@@ -1,3 +1,4 @@
+require 'active_support/all'
 describe SessionsController, :omniauth do
   before do
     request.env["omniauth.auth"] = mock_auth

@@ -1,8 +1,22 @@
-require_relative 'base_adapter'
+require 'base_adapter'
 class TyperacerAdapter < BaseAdapter
 
-  def self.required_keys
-    %i(uid)
+  class << self
+    def required_keys
+      %i(uid)
+    end
+
+    def auth_type
+      :none
+    end
+
+    def website_link
+      "http://typeracer.com"
+    end
+
+    def title
+      "Typeracer"
+    end
   end
 
   def client

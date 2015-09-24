@@ -6,13 +6,17 @@ Rails.application.routes.draw do
   get "/signout" => "sessions#destroy", :as => :signout
   get "/auth/failure" => "sessions#failure"
   resources :providers,
+    param: :name,
+    only: [] do
+      resources :goals
+    end
+  resources :status,
             param: :name,
             only: :index do
-    get "", action: :edit, as: :edit
-    post "", action: :upsert, as: :upsert
-    delete "", action: :destroy, as: :destroy
     collection do
       post :reload
     end
   end
+  resources :goals,
+    only: :destroy
 end

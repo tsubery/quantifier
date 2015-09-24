@@ -1,4 +1,4 @@
-Provider.find(:typeracer).register_metric :completed_games do |metric|
+ProviderRepo.find(:typeracer).register_metric :completed_games do |metric|
     metric.title = "Completed Games"
     metric.description = "Number of completed games"
 

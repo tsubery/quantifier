@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 20150909225051) do
     t.datetime "timestamp",    null: false
     t.string   "datapoint_id"
     t.integer  "goal_id",      index: {name: "index_scores_on_goal_id"}, foreign_key: {references: "goals", name: "fk_scores_goal_id", on_update: :no_action, on_delete: :no_action}
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
   add_index "scores", ["goal_id", "timestamp"], name: "index_scores_on_goal_id_and_timestamp", unique: true
 

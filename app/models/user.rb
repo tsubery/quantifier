@@ -10,6 +10,9 @@
 
 class User < ActiveRecord::Base
   has_many :providers, dependent: :destroy, foreign_key: :beeminder_user_id
+  has_many :credentials, foreign_key: :beeminder_user_id
+  has_many :goals, through: :credentials
+
 
   self.primary_key = :beeminder_user_id
 

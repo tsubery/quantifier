@@ -1,3 +1,4 @@
+require 'active_support/all'
 require_relative '../../app/adapters/googlefit_adapter'
 describe GooglefitAdapter do
   let(:subject) { GooglefitAdapter }

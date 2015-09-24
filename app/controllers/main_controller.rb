@@ -1,7 +1,8 @@
 class MainController < ApplicationController
-  expose(:supported_providers)
+  expose(:providers) {
+    ProviderRepo.names.map{ |name| ProviderRepo.find(name)}
+  }
   def welcome
-    redirect_to providers_path if current_user
   end
 
   def about

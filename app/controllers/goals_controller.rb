@@ -1,4 +1,4 @@
-class ProvidersController < AuthenticatedController
+class GoalsController < AuthenticatedController
   expose(:providers) do
     Rails.configuration.provider_names.map do |provider_name|
       find_provider(provider_name).decorate

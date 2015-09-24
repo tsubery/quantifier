@@ -19,32 +19,15 @@
         = link_to "Forum", "http://forum.beeminder.com"
 
   .row
-    .col-lg-2
-      = link_to "https://trello.com", class: :logo do
-        %h3.logo-header Trello
-        =image_tag("logos/trello.png")
+    - providers.each do |provider|
+      .col-lg-2
+        = link_to provider.website_link, class: :logo do
+          %h3.logo-header= provider.title
+          =image_tag("logos/#{provider.key}.png")
 
-      %li
-        = link_to "Procrastination", main_about_path
-    .col-lg-2
-      = link_to "https://fit.google.com", class: :logo do
-        %h3.logo-header Google Fit
-        =image_tag("logos/googlefit.png")
-
-      %li Steps
-
-    .col-lg-2
-      = link_to "https://getpocket.com", class: :logo do
-        %h3 Pocket
-        =image_tag("logos/pocket.png")
-      %li
-        = link_to "Procrastination", main_about_path
-
-    .col-lg-2
-      = link_to "https://www.typeracer.com", class: :logo do
-        %h3 Typeracer
-        =image_tag("logos/typeracer.png")
-      %li Games completed
+        - provider.metrics.each do |metric|
+          %li
+            = link_to metric.title, main_about_path
   .row
     %p
       To start,

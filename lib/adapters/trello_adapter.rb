@@ -1,8 +1,23 @@
-require_relative 'base_adapter'
+require 'base_adapter'
+require 'trello'
 class TrelloAdapter < BaseAdapter
 
-  def self.required_keys
-    %i(token secret)
+  class << self
+    def required_keys
+      %i(token secret)
+    end
+
+    def auth_type
+      :oauth
+    end
+
+    def website_link
+      "https://trello.com"
+    end
+
+    def title
+      "Trello"
+    end
   end
 
   def client

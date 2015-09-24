@@ -1,4 +1,4 @@
-Provider.find(:trello).register_metric :idle_days_linear do |metric|
+ProviderRepo.find(:trello).register_metric :idle_days_linear do |metric|
   metric.description = "Sum of days cards have been idle."
   metric.title = "Idle Days"
 

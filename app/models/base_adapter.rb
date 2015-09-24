@@ -1,10 +1,20 @@
-require 'active_support/all'
 class BaseAdapter
   InvalidCredentials = Class.new(StandardError)
 
   def initialize credentials
     @credentials = credentials.with_indifferent_access
     validate_credentials!
+  end
+
+  def self.load_all
+    Dir["lib/adapters/*_adapter.rb"].each do |file|
+      require Rails.root.join(file)
+      key = file[%r{\Alib/adapters\/([^_]+)_adapter.rb\z},1]
+      adapter = "#{key}_adapter".camelize.constantize
+      provider = Provider.new key, adapter
+      ProviderRepo.store key, provider
+      provider.load_metrics
+    end
   end
 
   private
@@ -31,5 +41,5 @@ class BaseAdapter
   def access_secret
     credentials.fetch :secret
   end
-
 end
+
