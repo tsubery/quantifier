@@ -1,23 +1,23 @@
 module Repo
-  def find key
+  def find(key)
     collection[key.to_sym]
   end
 
-  def find! key
-    raise "Unknown key #{key}" unless key.respond_to?(:to_sym) && collection.has_key?(key.to_sym)
+  def find!(key)
+    known_key = key.respond_to?(:to_sym) && collection.key?(key.to_sym)
+    fail "Unknown key #{key}" unless known_key
     find(key)
   end
 
-  def store key, object
+  def store(key, object)
     return nil if key.nil?
     collection[key.to_sym] = object
   end
 
-  def keys
-    collection.keys
-  end
+  delegate :keys, to: :collection
 
   private
+
   def collection
     @collection ||= {}
   end

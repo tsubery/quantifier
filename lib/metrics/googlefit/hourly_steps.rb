@@ -2,7 +2,7 @@ ProviderRepo.find!(:googlefit).register_metric :hourly_steps do |metric|
   metric.title = "Hourly Steps"
   metric.description = "Steps taken each hour"
 
-  metric.block = Proc.new do |adapter|
+  metric.block = proc do |adapter|
     points = adapter.fetch_steps
 
     points.each_with_object(Hash.new { 0 }) do |point, scores|

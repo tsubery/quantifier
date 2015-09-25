@@ -1,7 +1,8 @@
 require "google/apis/fitness_v1"
 
 class GooglefitAdapter < BaseAdapter
-  ESTIMATED_STEPS_DS = "derived:com.google.step_count.delta:com.google.android.gms:estimated_steps"
+  ESTIMATED_STEPS_DS =
+    "derived:com.google.step_count.delta:com.google.android.gms:estimated_steps"
 
   class << self
     def required_keys
@@ -32,7 +33,7 @@ class GooglefitAdapter < BaseAdapter
   def fetch_datasource(datasource, days_back)
     now = Time.current.utc
     start = (now - days_back.days).beginning_of_hour
-    time_range = [start, now].map(&method(:to_nano)).join('-')
+    time_range = [start, now].map(&method(:to_nano)).join("-")
     client.get_user_data_source_dataset(
       "me",
       datasource,
@@ -42,7 +43,7 @@ class GooglefitAdapter < BaseAdapter
     ).point || []
   end
 
-  def fetch_steps(days_back=3)
+  def fetch_steps(days_back = 3)
     fetch_datasource(ESTIMATED_STEPS_DS, days_back)
   end
 

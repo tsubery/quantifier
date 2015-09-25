@@ -24,7 +24,7 @@ class Goal < ActiveRecord::Base
   end
 
   def sync
-    calculated = get_scores
+    calculated = fetch_scores
     stored = scores.map(&:to_datapoint)
     new_datapoints = (calculated - stored)
 
@@ -32,15 +32,15 @@ class Goal < ActiveRecord::Base
     store_scores new_datapoints
   end
 
-  def get_scores
+  def fetch_scores
     Array(metric.call(credential.client, options))
   end
 
-  def store_scores datapoints
+  def store_scores(datapoints)
     scores.delete_all
     columns = %i(goal_id datapoint_id timestamp value)
     score_records = datapoints.map do |datapoint|
-      [ self.id, datapoint.id, datapoint.timestamp, datapoint.value ]
+      [id, datapoint.id, datapoint.timestamp, datapoint.value]
     end
 
     Score.import columns, score_records
@@ -48,8 +48,7 @@ class Goal < ActiveRecord::Base
 
   def send_datapoints(scores)
     return if scores.empty?
-    #beeminder_goal.add scores.map(&:to_beeminder)
-    p scores.map(&:to_beeminder)
+    beeminder_goal.add scores.map(&:to_beeminder)
   end
 
   def beeminder_goal
@@ -57,6 +56,7 @@ class Goal < ActiveRecord::Base
   end
 
   private
+
   def options
     params.symbolize_keys
   end

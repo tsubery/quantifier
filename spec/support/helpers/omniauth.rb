@@ -1,15 +1,15 @@
 module Omniauth
   module TestHelpers
     FAKE_AUTH_ATTR = {
-        "uid" => "mock_uid",
-        "user_info" => {
-          "name" => "mockuser",
-          "image" => "mock_user_thumbnail_url"
-        },
-        "credentials" => {
-          "token" => "mock_token",
-          "secret" => "mock_secret"
-        }
+      "uid" => "mock_uid",
+      "user_info" => {
+        "name" => "mockuser",
+        "image" => "mock_user_thumbnail_url"
+      },
+      "credentials" => {
+        "token" => "mock_token",
+        "secret" => "mock_secret"
+      }
     }
     def mock_auth(provider = :beeminder)
       OmniAuth.config.mock_auth = {}

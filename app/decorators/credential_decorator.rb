@@ -7,7 +7,7 @@ class CredentialDecorator < Draper::Decorator
 
   def status
     if connected_as
-    "Connected as #{connected_as}"
+      "Connected as #{connected_as}"
     else
       "Not Connected"
     end

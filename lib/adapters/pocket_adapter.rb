@@ -1,6 +1,5 @@
 class PocketAdapter < BaseAdapter
-
-  def initialize *args
+  def initialize(*args)
     Pocket.configure do |config|
       config.consumer_key = Rails.application.secrets.pocket_provider_key
     end
@@ -30,12 +29,12 @@ class PocketAdapter < BaseAdapter
   end
 
   def articles
-    articles = list("article" )
+    articles = list("article")
     return [] if articles.empty?
     articles.respond_to?(:values) ? articles.values : []
   end
 
-  def list content_type
+  def list(content_type)
     client.retrieve(contentType: content_type).fetch("list")
   end
 

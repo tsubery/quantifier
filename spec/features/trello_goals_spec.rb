@@ -32,12 +32,10 @@ describe "Trello goals" do
     expect(goal.slug).to eq("slug2")
     expect(page).to have_css("#configured-goals", text: "Trello - Cards backlog")
 
-
     page.click_link("Cards backlog")
     expect(page).to have_select("goal_slug", selected: "slug2")
     expect(page).to have_select "goal_params_list_ids",
                                 selected: %w(List2 List3)
-
 
     click_link "Delete"
     expect(page).to have_content("Deleted successfully!")

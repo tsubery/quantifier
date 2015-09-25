@@ -21,7 +21,7 @@ module ThirdPartyMocks
 
   def mock_provider_score
     fake_scores = [
-      Datapoint.new(timestamp: Time.zone.at(1_437_775_585),value: 12_423)
+      Datapoint.new(timestamp: Time.zone.at(1_437_775_585), value: 12_423)
     ]
     allow_any_instance_of(Metric).to(
       receive(:call).and_return(fake_scores)

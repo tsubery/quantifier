@@ -1,7 +1,6 @@
-require 'trello'
-require_relative '../../app/models/base_adapter'
+require "trello"
+require_relative "../../app/models/base_adapter"
 class TrelloAdapter < BaseAdapter
-
   class << self
     def required_keys
       %i(token secret)

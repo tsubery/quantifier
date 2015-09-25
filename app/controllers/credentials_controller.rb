@@ -1,5 +1,4 @@
 class CredentialsController < AuthenticatedController
-
   expose(:credential) do
     collection = current_user.credentials
     if params[:id]

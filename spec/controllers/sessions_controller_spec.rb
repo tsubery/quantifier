@@ -1,4 +1,4 @@
-require 'active_support/all'
+require "active_support/all"
 require "rails_helper"
 describe SessionsController, :omniauth do
   before do

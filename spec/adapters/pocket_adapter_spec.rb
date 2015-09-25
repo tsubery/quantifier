@@ -1,19 +1,20 @@
-require 'active_support/all'
-require_relative '../../app/models/base_adapter'
-require_relative '../../lib/adapters/pocket_adapter'
+require "active_support/all"
+require_relative "../../app/models/base_adapter"
+require_relative "../../lib/adapters/pocket_adapter"
 describe PocketAdapter do
   let(:subject) { PocketAdapter }
 
   describe "validations" do
     context "when credentials missing token" do
-      let(:credentials) { { } }
+      let(:credentials) { {} }
 
       it "is invalid" do
         expect(subject.valid_credentials?(credentials)).to be false
       end
 
       it "Raise error on instantiation" do
-        expect{subject.new(credentials)}.to raise_error(BaseAdapter::InvalidCredentials)
+        error_klass = BaseAdapter::InvalidCredentials
+        expect { subject.new(credentials) }.to raise_error(error_klass)
       end
     end
 
@@ -25,7 +26,7 @@ describe PocketAdapter do
       end
 
       it "Does not raise error on instantiation" do
-        expect{subject.new(credentials)}.not_to raise_error
+        expect { subject.new(credentials) }.not_to raise_error
       end
     end
   end

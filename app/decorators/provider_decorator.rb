@@ -8,7 +8,7 @@ class ProviderDecorator < Draper::Decorator
     self.credential = (credential || Credential.new).decorate
   end
 
-  def logo logged_in:
+  def logo(logged_in:)
     greyed = logged_in && !credential?
     h.image_tag("logos/#{name}.png",
                 alt: "#{name} Logo",
@@ -31,9 +31,8 @@ class ProviderDecorator < Draper::Decorator
   def metric_links
     metrics.map do |metric|
       h.link_to metric.title,
-        "/goals/#{name}/#{metric.key}",
-        title: "Add or configure"
+                "/goals/#{name}/#{metric.key}",
+                title: "Add or configure"
     end
   end
-
 end

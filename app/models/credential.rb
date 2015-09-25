@@ -43,5 +43,4 @@ class Credential < ActiveRecord::Base
   def valid_access_secret
     errors.add(:credentials, "missing token key") unless credentials["token"]
   end
-
 end

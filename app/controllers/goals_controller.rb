@@ -1,16 +1,18 @@
 class GoalsController < AuthenticatedController
   expose(:goal) do
     goal = if params[:id]
-      current_user.goals.where(id: params[:id]).first
-    else
-      credential.goals.find_or_initialize_by(metric_key: metric.key)
-    end
-    raise ActiveRecord::RecordNotFound if goal.nil?
+             current_user.goals.where(id: params[:id]).first
+           else
+             credential.goals.find_or_initialize_by(metric_key: metric.key)
+           end
+    fail ActiveRecord::RecordNotFound if goal.nil?
     goal.decorate
   end
   expose(:provider) { ProviderRepo.find(params[:provider_name]) }
   expose(:metric) { provider.find_metric(params[:metric_key]) }
-  expose(:credential) { current_user.credentials.where(provider_name: provider.name).first }
+  expose(:credential) do
+    current_user.credentials.where(provider_name: provider.name).first
+  end
 
   expose(:available_goal_slugs) do
     current_user.client.goals.map(&:slug)

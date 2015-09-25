@@ -21,7 +21,7 @@ class BeeminderWorker
   def safe_sync(goal)
     goal.transaction { goal.sync }
   rescue => e
-    Rollbar.error(e, :goal_id => goal.id)
+    Rollbar.error(e, goal_id: goal.id)
     logger.error e.backtrace
     logger.error e.inspect
   end

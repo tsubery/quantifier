@@ -1,30 +1,27 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe "Hourly step" do
   let(:subject) { ProviderRepo.find(:googlefit).find_metric(:hourly_steps) }
 
-  def make_point timestamp, value
+  def make_point(timestamp, value)
     double start_time_nanos: (timestamp.to_i * 1_000_000_000),
-      value: [ double(int_val: value) ]
+           value: [double(int_val: value)]
   end
 
-
   describe "calculating steps" do
-
     context "when there were no steps" do
       it "returns empty results" do
         adapter = double fetch_steps: []
         expect(subject.call(adapter)).to be_empty
       end
-
     end
     context "when there were three walks in two hours" do
       it "returns two results" do
-        start_ts = DateTime.parse("2015-09-10")
+        start_ts = DateTime.zone.parse("2015-09-10")
         points = [
-          make_point((start_ts+00.minutes), 100),
-          make_point((start_ts+59.minutes), 50),
-          make_point((start_ts+90.minutes), 200)
+          make_point((start_ts + 00.minutes), 100),
+          make_point((start_ts + 59.minutes), 50),
+          make_point((start_ts + 90.minutes), 200)
         ]
 
         adapter = double fetch_steps: points
@@ -35,9 +32,9 @@ describe "Hourly step" do
                                  value: 150)
         expect(results[0]).to eq(first_dp)
 
-        second_dp = Datapoint.new(id: (start_ts+60.minutes).to_i,
-                                       timestamp: (start_ts+60.minutes),
-                                       value: 200)
+        second_dp = Datapoint.new(id: (start_ts + 60.minutes).to_i,
+                                  timestamp: (start_ts + 60.minutes),
+                                  value: 200)
         expect(results[1]).to eq(second_dp)
       end
     end

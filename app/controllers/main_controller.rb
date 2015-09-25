@@ -9,7 +9,7 @@ class MainController < ApplicationController
   expose(:goals) { current_user && current_user.goals.decorate }
   expose(:credentials) do
     if current_user
-      current_user.credentials.each_with_object({}) do |c,acc|
+      current_user.credentials.each_with_object({}) do |c, acc|
         acc[c.provider_name.to_sym] = c
       end
     else

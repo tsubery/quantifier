@@ -1,5 +1,4 @@
 class TyperacerAdapter < BaseAdapter
-
   class << self
     def required_keys
       %i(uid)
@@ -22,9 +21,7 @@ class TyperacerAdapter < BaseAdapter
     TypeRacer::Client.new(uid)
   end
 
-  def completed_games
-    client.completed_games
-  end
+  delegate :completed_games, to: :client
 
   def self.valid_credentials?(credentials)
     uid = credentials.fetch(:uid)
@@ -37,5 +34,4 @@ class TyperacerAdapter < BaseAdapter
   def uid
     credentials.fetch :uid
   end
-
 end

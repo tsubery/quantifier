@@ -15,7 +15,8 @@ describe "Typeracer goals" do
 
     page.click_link(link_title)
     page.fill_in "credential_uid", with: "asdf"
-    expect(TyperacerAdapter).to receive(:valid_credentials?).with("uid" => "asdf").and_return(true).at_least(:once)
+    expect(TyperacerAdapter).to receive(:valid_credentials?)
+      .with("uid" => "asdf").and_return(true).at_least(:once)
     page.click_button "Save"
     expect(user.credentials.count).to eq(1)
     expect(user.credentials.first.provider_name).to eq("typeracer")

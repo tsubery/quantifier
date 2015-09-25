@@ -2,7 +2,7 @@ ProviderRepo.find!(:trello).register_metric :idle_days_linear do |metric|
   metric.description = "Sum of days each card has been idle"
   metric.title = "Cards backlog"
 
-  metric.block = Proc.new do |adapter, options|
+  metric.block = proc do |adapter, options|
     now_utc = Time.current.utc
     cards = adapter.cards(options.fetch(:list_ids))
     value = cards.map do |card|
@@ -12,14 +12,14 @@ ProviderRepo.find!(:trello).register_metric :idle_days_linear do |metric|
     Datapoint.new(timestamp: Time.current.utc, value: value.to_i)
   end
 
-  metric.configuration = Proc.new do |client, params|
+  metric.configuration = proc do |client, params|
     list_ids = Array(params["list_ids"])
     [
-      [ :list_ids, select_tag("goal[params][list_ids]",
-                     options_for_select(client.list_options,
-                     selected: list_ids),
-                     multiple: true,
-                     class: "form-control")]
+      [:list_ids, select_tag("goal[params][list_ids]",
+                             options_for_select(client.list_options,
+                                                selected: list_ids),
+                             multiple: true,
+                             class: "form-control")]
     ]
   end
 end

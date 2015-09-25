@@ -1,10 +1,10 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe "Days backlog" do
   let(:subject) { ProviderRepo.find(:pocket).find_metric(:article_days_linear) }
 
   context "when there are 5 articles from the last 5 days" do
-    let(:start_ts) { DateTime.parse("2015-01-01") }
+    let(:start_ts) { DateTime.zone.parse("2015-01-01") }
 
     it "calculates 15" do
       Timecop.freeze(start_ts) do
@@ -21,7 +21,7 @@ describe "Days backlog" do
     it "calculates 50 a week later" do
       Timecop.freeze(start_ts) do
         articles = (1..5).map do |i|
-          { "time_added" => (7+i).days.ago }
+          { "time_added" => (7 + i).days.ago }
         end
         adapter = double articles: articles
         expect(subject.call(adapter)).to eq(
