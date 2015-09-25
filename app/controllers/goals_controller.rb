@@ -1,71 +1,56 @@
 class GoalsController < AuthenticatedController
-  expose(:providers) do
-    Rails.configuration.provider_names.map do |provider_name|
-      find_provider(provider_name).decorate
+  expose(:goal) do
+    goal = if params[:id]
+      current_user.goals.where(id: params[:id]).first
+    else
+      credential.goals.find_or_initialize_by(metric_key: metric.key)
     end
+    raise ActiveRecord::RecordNotFound if goal.nil?
+    goal.decorate
   end
-
-  expose(:provider) do
-    find_provider(params.fetch(:provider_name)).tap do |provider|
-      provider.build_goal unless provider.goal
-    end
-  end
+  expose(:provider) { ProviderRepo.find(params[:provider_name]) }
+  expose(:metric) { provider.find_metric(params[:metric_key]) }
+  expose(:credential) { current_user.credentials.where(provider_name: provider.name).first }
 
   expose(:available_goal_slugs) do
-    [""] + current_user.client.goals.map(&:slug)
+    current_user.client.goals.map(&:slug)
   end
 
   def edit
-    if provider.missing_oauth?
-      redirect_to providers_path, notice: "Connect your account first."
+    if credential.nil?
+      redirect_to new_credential_path(provider_name: provider.name)
     else
       render :edit
     end
   end
 
   def upsert
-    provider.transaction do
-      provider.update_attributes! provider_params
-      redirect_to providers_path, notice: "Updated successfully!"
+    if goal.update_attributes goal_params
+      redirect_to root_path, notice: "Updated successfully!"
+    else
+      flash[:error] = goal.errors.full_messages.join(" ")
+      render :edit
     end
-  rescue ActiveRecord::RecordInvalid
-    flash[:error] = provider.errors.full_messages.join(" ")
-    render :edit
   end
 
   def destroy
-    name = provider.name
-    provider.destroy!
-    redirect_to providers_path, notice: "Deleted #{name}"
+    goal.destroy!
+    redirect_to root_path, notice: "Deleted successfully!"
   end
 
   def reload
     BeeminderWorker.new.perform(beeminder_user_id: current_user.beeminder_user_id)
-    redirect_to providers_path, notice: "Scores updated."
+    redirect_to root_path, notice: "Scores updated."
   end
 
   private
 
-  def provider_params
-    params.require(:provider)
-      .permit :uid,
-              goal_attributes: [
-                :id,
-                :slug,
-                params: {
-                  list_ids: []
-                }
-              ]
-  end
-
-  def find_provider(name)
-    name || fail("Missing provider")
-    scope = current_user.providers
-    scope.all.includes(:goal).find { |p| name == p.name } ||
-      scope.new(name: name, user: current_user)
-  end
-
-  def slug
-    params[:provider].fetch(:goal_slug)
+  def goal_params
+    params.require(:goal)
+      .permit(:id,
+              :slug,
+              params: {
+                list_ids: []
+              })
   end
 end

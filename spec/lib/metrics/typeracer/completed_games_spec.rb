@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Days backlog" do
-  let(:subject) { Provider.find(:typeracer).find_metric(:completed_games) }
+  let(:subject) { ProviderRepo.find(:typeracer).find_metric(:completed_games) }
 
   let(:start_ts) { DateTime.parse("2015-01-01") }
 

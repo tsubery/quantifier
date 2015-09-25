@@ -1,4 +1,5 @@
 require_relative "../../app/services/identity_resolver"
+require "rails_helper"
 
 describe IdentityResolver do
   let(:resolver) { IdentityResolver.new current_user, auth }
@@ -60,7 +61,7 @@ describe IdentityResolver do
     end
   end
 
-  describe "creating new providers" do
+  describe "creating new credentials" do
     let(:auth) do
       {
         "provider" => "pocket",
@@ -72,23 +73,23 @@ describe IdentityResolver do
         "extra" => { "ex" => "tra" }
       }.with_indifferent_access
     end
-    context "when provider is new" do
+    context "when credential is new" do
       context "and a user is logged in" do
         let(:current_user) { create :user }
 
         it "set's correct flash message" do
           expect(resolver.flash).to match(/Connected successfully/)
         end
-        it "add provider to the signed in user" do
+        it "add credential to the signed in user" do
           expect(resolver.sign_in_user).to be_nil # there is no need to sign in again
-          provider = current_user.providers.where(
-            name: auth.fetch("provider"),
+          credential = current_user.credentials.where(
+            provider_name: auth.fetch("provider"),
             uid: auth.fetch("uid")
           ).first
-          expect(provider).not_to be_nil
-          expect(provider.credentials).to eq(auth["credentials"])
-          expect(provider.extra).to eq(auth["extra"])
-          expect(provider.info).to eq(auth["info"])
+          expect(credential).not_to be_nil
+          expect(credential.credentials).to eq(auth["credentials"])
+          expect(credential.extra).to eq(auth["extra"])
+          expect(credential.info).to eq(auth["info"])
         end
       end
       context "and a user is not logged in" do
@@ -103,8 +104,8 @@ describe IdentityResolver do
       end
     end
 
-    context "when provider is known" do
-      let!(:provider) { create :provider, uid: user_id }
+    context "when credential is known" do
+      let!(:credential) { create :credential, uid: user_id }
 
       context "and its user is not logged in" do
         let(:current_user) { nil }
@@ -112,15 +113,15 @@ describe IdentityResolver do
         it "sets correct flash message" do
           expect(resolver.flash).to eq("Signed in!")
         end
-        it "sets the provider user as signed in" do
-          expect(resolver.sign_in_user).to eq(provider.user)
+        it "sets the credential user as signed in" do
+          expect(resolver.sign_in_user).to eq(credential.user)
         end
       end
       context "and its user is logged in" do
-        let(:current_user) { provider.user }
+        let(:current_user) { credential.user }
 
         it "set's correct flash message" do
-          expect(resolver.flash).to eq("Provider already connected.")
+          expect(resolver.flash).to eq("Credentials already exists.")
         end
         it "And doesn't set user" do
           expect(resolver.sign_in_user).to be_nil

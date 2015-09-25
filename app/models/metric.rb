@@ -4,7 +4,7 @@ class Metric
 
   def initialize key
     @key = key
-    @configuration = ""
+    @configuration = Proc.new { [] }
   end
 
   def call *args

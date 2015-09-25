@@ -1,4 +1,3 @@
-require 'base_adapter'
 class PocketAdapter < BaseAdapter
 
   def initialize *args

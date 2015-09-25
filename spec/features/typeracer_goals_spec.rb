@@ -1,30 +1,43 @@
-require "spec_helper"
+require "rails_helper"
 
 describe "Typeracer goals" do
-  scenario "create first goal" do
+  scenario "create completed games goal" do
+    link_title = "Completed Games"
+
     user = create(:user)
     mock_current_user user
     mock_beeminder_goals(user, %w(slug1 slug2 slug3))
-    mock_typeracer_validation
-    mock_provider_score :typeracer
-    visit providers_path
+    mock_provider_score
+    visit root_path
 
-    page.click_link("Setup typeracer")
+    expect(user.credentials).to be_empty
+    expect(user.goals).to be_empty
 
-    page.fill_in "provider_uid", with: "typeracer_uid"
-    page.select "slug2", from: "provider_goal_attributes_slug"
+    page.click_link(link_title)
+    page.fill_in "credential_uid", with: "asdf"
+    expect(TyperacerAdapter).to receive(:valid_credentials?).with("uid" => "asdf").and_return(true).at_least(:once)
     page.click_button "Save"
+    expect(user.credentials.count).to eq(1)
+    expect(user.credentials.first.provider_name).to eq("typeracer")
+    expect(page.current_path).to eq(root_path)
 
+    page.click_link(link_title)
+    expect(page).to have_content "Typeracer Completed Games"
+    expect(page).to have_content "Goal Configuration"
+
+    page.select "slug2", from: "goal_slug"
+    page.click_button "Save"
     expect(page).to have_content("Updated successfully!")
-
-    page.click_link("Setup typeracer")
-    expect(page).to have_select("provider_goal_attributes_slug", selected: "slug2")
-    expect(page).to have_field("provider_uid", with: "typeracer_uid")
-
-    provider = user.providers.first
-    expect(provider).not_to be_nil
-    goal = provider.goal
-    expect(goal).to be_persisted
+    expect(user.goals.count).to eq(1)
+    goal = user.goals.first
+    expect(goal.metric_key).to eq("completed_games")
     expect(goal.slug).to eq("slug2")
+    expect(page).to have_css("#configured-goals", text: "Typeracer - Completed Games")
+
+    page.click_link(link_title)
+    expect(page).to have_select("goal_slug", selected: "slug2")
+    click_link "Delete"
+    expect(page).to have_content("Deleted successfully!")
+    expect(user.goals).to be_empty
   end
 end

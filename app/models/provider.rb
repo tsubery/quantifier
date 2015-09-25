@@ -3,6 +3,7 @@ class Provider
   delegate :find, :metrics, to: :metrics_repo
   delegate :auth_type, :title, :website_link, to: :adapter
   alias_method :find_metric, :find
+  alias_method :name, :key
 
   def initialize key, adapter
     [:none, :oauth].include?(adapter.auth_type) or raise "Unknown auth_type #{auth_type}"

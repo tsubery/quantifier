@@ -1,4 +1,3 @@
-require 'base_adapter'
 require "google/apis/fitness_v1"
 
 class GooglefitAdapter < BaseAdapter

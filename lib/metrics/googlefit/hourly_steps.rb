@@ -1,6 +1,6 @@
-ProviderRepo.find(:googlefit).register_metric :hourly_steps do |metric|
+ProviderRepo.find!(:googlefit).register_metric :hourly_steps do |metric|
   metric.title = "Hourly Steps"
-  metric.description = "Hourly steps measured by google fit."
+  metric.description = "Steps taken each hour"
 
   metric.block = Proc.new do |adapter|
     points = adapter.fetch_steps

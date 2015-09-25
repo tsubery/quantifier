@@ -1,35 +1,38 @@
 - content_for :title do
   Setup
-  = provider.name
+  = [ provider.title, metric.title ].join(" - ")
 end
-%h1
-  Setup
-  = provider.name
-
-%table#provider_setup
-  %tbody
-  = form_for provider, { as: :provider, method: :post, url: provider_upsert_path(provider_name: provider.name) } do |f|
-    %tr
-    %tr
-      %td= f.label 'user id'
-      %td
-        - if provider.oauth?
-          = f.object.uid
-        - else
-          = f.text_field :uid
-    = f.fields_for :goal do |gf|
-      %tr
-        %td= gf.label :slug
-        %td= gf.select :slug, available_goal_slugs, selected: gf.object.slug
-      = gf.fields_for :params do |pf|
-        - provider.decorate.extra_form_fields(pf).each do |label, input|
+.container
+  .row
+    %h1
+      = provider.title
+      = metric.title
+      = goal.delete_link if goal.persisted?
+  .row
+    .col-lg-4
+      %h3 Goal Configuration
+      = form_for goal, {method: :post, url: upsert_goals_path(provider.name, metric.key), html: {role: :form}}  do |f|
+        .form-group
+          = f.label :beeminder_slug
+          = f.select :slug, available_goal_slugs, { prompt: "Select Beeminder Slug"},{ class: "form-control" }
+        = f.fields_for :params do |pf|
+          - extra_configuration = self.instance_exec(credential.client, f.object.params, pf, &metric.configuration)
+          - extra_configuration.each do |(label, input)|
+            .form-group
+              = pf.label label
+              = input
+        = f.submit "Save", class: %i(btn btn-default)
+    .col-lg-1
+    .col-lg-4
+      %h3 Current Score
+      %table.table.table-responsive#current-score
+        %thead
           %tr
-            %td= label
-            %td= input
-
-    %tr
-      %td= f.submit "Save"
-    %tr
-      %td Current Score:
-      %td= provider.calculate_score.inspect if provider.valid?
+            %td Timestamp
+            %td Value
+        %tbody
+          - goal.get_scores.each do |datapoint|
+            %tr
+              %td= datapoint.timestamp
+              %td= datapoint.value
 

@@ -1,5 +1,5 @@
-ProviderRepo.find(:pocket).register_metric :article_days_linear do |metric|
-  metric.description = "The sum of days articles have been waiting."
+ProviderRepo.find!(:pocket).register_metric :article_days_linear do |metric|
+  metric.description = "The sum of days since each article has been added"
   metric.title = "Article backlog"
 
   metric.block = Proc.new do |adapter|

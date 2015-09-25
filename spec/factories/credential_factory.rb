@@ -7,8 +7,8 @@
 #
 
 FactoryGirl.define do
-  factory :provider do
-    name :pocket
+  factory :credential do
+    provider_name :pocket
     uid SecureRandom.hex(8)
     user
   end

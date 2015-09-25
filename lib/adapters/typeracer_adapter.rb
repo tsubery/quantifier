@@ -1,4 +1,3 @@
-require 'base_adapter'
 class TyperacerAdapter < BaseAdapter
 
   class << self
@@ -28,7 +27,9 @@ class TyperacerAdapter < BaseAdapter
   end
 
   def self.valid_credentials?(credentials)
-    !!TypeRacer::Client.new(credentials.fetch(:uid))
+    uid = credentials.fetch(:uid)
+    return false if uid.empty?
+    !!TypeRacer::Client.new(uid)
   rescue TypeRacer::Api::UserNotFound,  KeyError
     false
   end

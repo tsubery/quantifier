@@ -18,7 +18,8 @@ class GoalDecorator < Draper::Decorator
     h.link_to "Delete",
       h.goal_path(self),
       method: :delete,
-      "data-confirm": "Are you sure?"
+      "data-confirm": "Are you sure?",
+      class: %i(btn btn-default)
   end
 
 end

@@ -41,5 +41,9 @@ class BaseAdapter
   def access_secret
     credentials.fetch :secret
   end
+
+  def uid
+    credentials.fetch :uid
+  end
 end
 

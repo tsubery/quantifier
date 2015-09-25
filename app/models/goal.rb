@@ -12,26 +12,28 @@
 
 class Goal < ActiveRecord::Base
   belongs_to :credential
-  has_many :scores
+  has_many :scores, dependent: :destroy
   has_one :user, through: :credential
 
   delegate :provider, to: :credential
+
+  validates :slug, presence: :true
 
   def metric
     provider.find_metric(metric_key)
   end
 
-  def options
-    params.symbolize_keys
-  end
-
   def sync
-    calculated = Array(metric.call(credential.client, options))
+    calculated = get_scores
     stored = scores.map(&:to_datapoint)
     new_datapoints = (calculated - stored)
 
     send_datapoints new_datapoints
     store_scores new_datapoints
+  end
+
+  def get_scores
+    Array(metric.call(credential.client, options))
   end
 
   def store_scores datapoints
@@ -52,5 +54,10 @@ class Goal < ActiveRecord::Base
 
   def beeminder_goal
     user.client.goal(slug)
+  end
+
+  private
+  def options
+    params.symbolize_keys
   end
 end

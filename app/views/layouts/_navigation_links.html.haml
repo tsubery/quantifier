@@ -1,7 +1,6 @@
-%li= link_to "My Goals", status_index_path
+%li= link_to "About", main_about_path
 %li
   - if user_signed_in?
     = link_to 'Sign out', signout_path
   - else
     = link_to 'Sign in', signin_path
-%li= link_to "About", main_about_path

@@ -1,13 +1,16 @@
 module Repo
   def find key
-    key = key.to_sym
-    raise "Unknown key #{key}" unless collection.has_key?(key)
-    collection[key]
+    collection[key.to_sym]
+  end
+
+  def find! key
+    raise "Unknown key #{key}" unless key.respond_to?(:to_sym) && collection.has_key?(key.to_sym)
+    find(key)
   end
 
   def store key, object
-    key = key.to_sym
-    collection[key] = object
+    return nil if key.nil?
+    collection[key.to_sym] = object
   end
 
   def keys

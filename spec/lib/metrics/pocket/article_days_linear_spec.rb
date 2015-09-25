@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Days backlog" do
-  let(:subject) { Provider.find(:pocket).find_metric(:article_days_linear) }
+  let(:subject) { ProviderRepo.find(:pocket).find_metric(:article_days_linear) }
 
   context "when there are 5 articles from the last 5 days" do
     let(:start_ts) { DateTime.parse("2015-01-01") }

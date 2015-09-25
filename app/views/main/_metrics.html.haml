@@ -1,0 +1,11 @@
+%h2
+  Supported integrations
+- providers.each do |provider|
+  .col-lg-2.provider
+    = link_to provider.website_link do
+      %h3.logo-header= provider.title
+    = link_to provider.credential_link do
+      = provider.logo(logged_in: current_user)
+    - provider.metric_links.each do |link|
+      %li
+        = link

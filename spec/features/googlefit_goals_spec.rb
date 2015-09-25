@@ -1,37 +1,39 @@
-require "spec_helper"
+require "rails_helper"
 
-describe "Pocket goals" do
-  scenario "create first goal" do
+describe "Googlefit goals" do
+  scenario "create hourly steps goal" do
     user = create(:user)
     mock_current_user user
     mock_beeminder_goals(user, %w(slug1 slug2 slug3))
-    visit providers_path
-    expect(page).to have_content "Connect googlefit"
-
     mock_auth :googlefit
-    page.click_link("Connect googlefit")
-    expect(page).to have_content "Setup googlefit"
+    mock_provider_score
+    visit root_path
 
-    mock_provider_score :googlefit
-    page.click_link("Setup googlefit")
+    expect(user.credentials).to be_empty
+    expect(user.goals).to be_empty
 
-    page.select "slug2", from: "provider_goal_attributes_slug"
+    page.click_link("Hourly Steps")
+    expect(user.credentials.count).to eq(1)
+    expect(user.credentials.first.provider_name).to eq("googlefit")
+    expect(page.current_path).to eq(root_path)
+
+    page.click_link("Hourly Steps")
+    expect(page).to have_content "Google Fit Hourly Steps"
+    expect(page).to have_content "Goal Configuration"
+
+    page.select "slug2", from: "goal_slug"
     page.click_button "Save"
-
     expect(page).to have_content("Updated successfully!")
-
-    page.click_link("Setup googlefit")
-    expect(page).to have_select("provider_goal_attributes_slug", selected: "slug2")
-
-    provider = user.providers.first
-    expect(provider).not_to be_nil
-    goal = provider.goal
-    expect(goal).to be_persisted
+    expect(user.goals.count).to eq(1)
+    goal = user.goals.first
+    expect(goal.metric_key).to eq("hourly_steps")
     expect(goal.slug).to eq("slug2")
+    expect(page).to have_css("#configured-goals", text: "Google Fit - Hourly Steps")
 
-    visit providers_path
-    page.click_link("Disconnect")
-    expect(page).to have_content("Deleted googlefit")
-    expect(user.providers.reload).to be_empty
+    page.click_link("Hourly Steps")
+    expect(page).to have_select("goal_slug", selected: "slug2")
+    click_link "Delete"
+    expect(page).to have_content("Deleted successfully!")
+    expect(user.goals).to be_empty
   end
 end

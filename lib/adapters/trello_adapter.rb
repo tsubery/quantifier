@@ -1,5 +1,5 @@
-require 'base_adapter'
 require 'trello'
+require_relative '../../app/models/base_adapter'
 class TrelloAdapter < BaseAdapter
 
   class << self
@@ -38,7 +38,7 @@ class TrelloAdapter < BaseAdapter
   def list_options
     client.find(:member, uid).boards(filter: :open).flat_map do |b|
       b.lists.map do |list|
-        joined_name = [b.name, l.name].join("/")
+        joined_name = [b.name, list.name].join("/")
         [joined_name, list.id]
       end
     end

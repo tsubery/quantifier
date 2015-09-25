@@ -1,22 +1,33 @@
 Rails.application.routes.draw do
-  root to: "main#welcome"
+  root to: "main#index"
   get "/main/about", to: "main#about"
   get "/auth/:provider/callback" => "sessions#create"
   get "/signin" => "sessions#new", :as => :signin
   get "/signout" => "sessions#destroy", :as => :signout
   get "/auth/failure" => "sessions#failure"
-  resources :providers,
-    param: :name,
-    only: [] do
-      resources :goals
-    end
-  resources :status,
-            param: :name,
-            only: :index do
+
+  resources :goals,
+    only: %i(destroy),
+    constraints: { id: /\d+/} do
+
     collection do
-      post :reload
+      metric_exists = lambda do |request|
+        provider = ProviderRepo.find(request[:provider_name])
+        provider && provider.find_metric(request[:metric_key])
+      end
+
+      get ':provider_name/:metric_key',
+        constraints: metric_exists,
+        action: :edit,
+        as: :edit
+      post ':provider_name/:metric_key',
+        constraints: metric_exists,
+        action: :upsert,
+        as: :upsert
+
+      post 'reload', action: :reload, as: :reload
     end
   end
-  resources :goals,
-    only: :destroy
+  resources :credentials,
+    except: %(index show)
 end

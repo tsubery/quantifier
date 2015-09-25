@@ -1,63 +1,39 @@
 class ProviderDecorator < Draper::Decorator
   delegate_all
+  attr_accessor :credential
+  delegate :status, to: :credential
 
-  def connected?
-    !missing_oauth?
+  def initialize(object, credential)
+    super(object)
+    self.credential = (credential || Credential.new).decorate
   end
 
-  def auth_link
-    "/auth/#{provider_name}"
+  def logo logged_in:
+    greyed = logged_in && !credential?
+    h.image_tag("logos/#{name}.png",
+                alt: "#{name} Logo",
+                class: "logo #{greyed && "greyed"}",
+                title: status)
   end
 
-  def setup_link
-    if missing_oauth?
-      h.link_to "Connect #{provider_name}",  auth_link
+  def credential_link
+    if credential?
+      h.edit_credential_path(credential)
     else
-      h.link_to "Setup #{provider_name}", h.provider_edit_path(self)
+      h.new_credential_path(provider_name: name)
     end
   end
 
-  def delete_link
-    if oauth? && connected?
-      h.link_to "Disconnect",
-                h.provider_destroy_path(self),
-                method: :delete,
-                "data-confirm": "Are you sure?"
-    else
-      "-"
+  def credential?
+    credential.persisted?
+  end
+
+  def metric_links
+    metrics.map do |metric|
+      h.link_to metric.title,
+        "/goals/#{name}/#{metric.key}",
+        title: "Add or configure"
     end
   end
 
-  def status
-    if oauth?
-      if connected?
-        uid ? "Connected as #{connected_user}" : "Connected"
-      else
-        "Not connected"
-      end
-    else
-      "-"
-    end
-  end
-
-  def connected_user
-    info["nickname"] || info["email"] || uid
-  end
-
-  def to_param
-    provider_name
-  end
-
-  def provider_name
-    object.class.sti_name
-  end
-
-  def extra_form_fields(_f)
-    # none by default
-    []
-  end
-
-  def extra_status
-    ""
-  end
 end
