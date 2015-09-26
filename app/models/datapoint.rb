@@ -1,9 +1,13 @@
 class Datapoint
   attr_accessor :timestamp, :value, :id
+  include Comparable
+
+  alias_method :eql?, :==
+
   def initialize(id: nil, timestamp:, value:)
-    @id = id
+    @id = id.to_s
     @timestamp = timestamp
-    @value = value
+    @value = value.to_f
   end
 
   def to_beeminder
@@ -14,10 +18,16 @@ class Datapoint
            comment: "Auto-entered by beemind.me for #{timestamp} @ #{Time.current}"
   end
 
-  def ==(other)
-    other.instance_of?(self.class) &&
-      @id == other.id &&
-      @timestamp == other.timestamp &&
-      @value == other.value
+  def <=>(other)
+    return nil unless other.instance_of?(self.class)
+    if @id == other.id && @timestamp == other.timestamp
+      @value.<=>(other.value)
+    else
+      nil
+    end
+  end
+
+  def hash
+    [self.class, @id, @timestamp, @value].hash
   end
 end
