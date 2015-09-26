@@ -8,6 +8,8 @@
 #  last_value    :float
 #  params        :json             default({}), not null
 #  metric_key    :string           not null
+#  active        :boolean          default(TRUE), not null
+#  fail_count    :integer          default(0), not null
 #
 
 class Goal < ActiveRecord::Base

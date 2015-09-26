@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926194732) do
+ActiveRecord::Schema.define(version: 20150926210204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,8 +39,10 @@ ActiveRecord::Schema.define(version: 20150926194732) do
     t.integer "credential_id", null: false, index: {name: "fk__goals_provider_id"}, foreign_key: {references: "credentials", name: "fk_goals_provider_id", on_update: :no_action, on_delete: :no_action}
     t.string  "slug",          null: false, index: {name: "index_goals_on_slug_and_credential_id", with: ["credential_id"], unique: true}
     t.float   "last_value"
-    t.json    "params",        default: {}, null: false
+    t.json    "params",        default: {},   null: false
     t.string  "metric_key",    null: false, index: {name: "index_goals_on_metric_key"}
+    t.boolean "active",        default: true, null: false
+    t.integer "fail_count",    default: 0,    null: false
   end
 
   create_table "scores", force: :cascade do |t|
