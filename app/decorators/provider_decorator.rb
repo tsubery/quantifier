@@ -32,7 +32,7 @@ class ProviderDecorator < Draper::Decorator
     metrics.map do |metric|
       h.link_to metric.title,
                 "/goals/#{name}/#{metric.key}",
-                title: "Add or configure"
+                title: metric.description + ". Click to add or configure."
     end
   end
 end
