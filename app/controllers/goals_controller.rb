@@ -51,8 +51,11 @@ class GoalsController < AuthenticatedController
     params.require(:goal)
       .permit(:id,
               :slug,
-              params: {
+              :params,
+              params: [
+                :exponent,
                 list_ids: []
-              })
+              ]
+             )
   end
 end

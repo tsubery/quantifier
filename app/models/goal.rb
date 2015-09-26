@@ -51,6 +51,6 @@ class Goal < ActiveRecord::Base
   end
 
   def options
-    params.symbolize_keys
+    params.with_indifferent_access
   end
 end
