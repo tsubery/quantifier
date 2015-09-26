@@ -1,5 +1,5 @@
 class DatapointsSync
-  def initialize calculated, stored, beeminder_goal
+  def initialize(calculated, stored, beeminder_goal)
     @calculated = calculated
     @stored = stored
     @beeminder_goal = beeminder_goal
@@ -12,7 +12,8 @@ class DatapointsSync
   end
 
   private
-  attr_reader :stored, :calculated,:new_datapoints, :beeminder_goal
+
+  attr_reader :stored, :calculated, :new_datapoints, :beeminder_goal
 
   def transmit(datapoints)
     return if datapoints.empty?
@@ -26,8 +27,7 @@ class DatapointsSync
     end.each(&beeminder_goal.method(:delete))
   end
 
-  def overlapping_timestamps new_datapoints, stored
+  def overlapping_timestamps(new_datapoints, stored)
     new_datapoints.map(&:timestamp) & stored.map(&:timestamp)
   end
-
 end

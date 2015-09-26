@@ -8,7 +8,7 @@
 	"lib/adapters/*.rb": {
 		"type": "adapter"
 	},
-	"lib/metric/*.rb": {
+	"lib/metrics/*.rb": {
 		"type": "metric"
 	}
 }

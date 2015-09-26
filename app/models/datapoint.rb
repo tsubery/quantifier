@@ -20,11 +20,7 @@ class Datapoint
 
   def <=>(other)
     return nil unless other.instance_of?(self.class)
-    if @id == other.id && @timestamp == other.timestamp
-      @value.<=>(other.value)
-    else
-      nil
-    end
+    @value.<=>(other.value) if @id == other.id && @timestamp == other.timestamp
   end
 
   def hash

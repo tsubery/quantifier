@@ -40,12 +40,11 @@ class Goal < ActiveRecord::Base
     scores.delete_all
     columns = %i(goal_id unique timestamp value)
     score_records = datapoints.map do |datapoint|
-      [id, datapoint.unique , datapoint.timestamp, datapoint.value]
+      [id, datapoint.unique, datapoint.timestamp, datapoint.value]
     end
 
     Score.import columns, score_records
   end
-
 
   def beeminder_goal
     user.client.goal(slug)
