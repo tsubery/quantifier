@@ -2,7 +2,7 @@ class GoalDecorator < Draper::Decorator
   delegate_all
 
   def status
-    "active"
+    active ? "active" : "disabled"
   end
 
   def last_score
