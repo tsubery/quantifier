@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909225051) do
+ActiveRecord::Schema.define(version: 20150926194732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,12 +44,12 @@ ActiveRecord::Schema.define(version: 20150909225051) do
   end
 
   create_table "scores", force: :cascade do |t|
-    t.float    "value",        null: false
-    t.datetime "timestamp",    null: false
-    t.string   "datapoint_id"
-    t.integer  "goal_id",      index: {name: "index_scores_on_goal_id"}, foreign_key: {references: "goals", name: "fk_scores_goal_id", on_update: :no_action, on_delete: :no_action}
+    t.float    "value",      null: false
+    t.datetime "timestamp",  null: false
+    t.integer  "goal_id",    index: {name: "index_scores_on_goal_id"}, foreign_key: {references: "goals", name: "fk_scores_goal_id", on_update: :no_action, on_delete: :no_action}
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "unique"
   end
   add_index "scores", ["goal_id", "timestamp"], name: "index_scores_on_goal_id_and_timestamp", unique: true
 

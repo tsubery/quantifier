@@ -1,19 +1,19 @@
 class Datapoint
-  attr_accessor :timestamp, :value, :id
+  attr_accessor :timestamp, :value, :id, :unique
   include Comparable
 
   alias_method :eql?, :==
 
-  def initialize(id: nil, timestamp:, value:)
+  def initialize(id: nil, unique: false, timestamp:, value:)
     @id = id.to_s
     @timestamp = timestamp
     @value = value.to_f
+    @unique = unique
   end
 
   def to_beeminder
     Beeminder::Datapoint
-      .new id: id,
-           value: value,
+      .new value: value,
            timestamp: timestamp,
            comment: "Auto-entered by beemind.me for #{timestamp} @ #{Time.current}"
   end
