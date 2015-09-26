@@ -3,7 +3,7 @@ require "rails_helper"
 describe "Days backlog" do
   let(:subject) { ProviderRepo.find(:typeracer).find_metric(:completed_games) }
 
-  let(:start_ts) { DateTime.zone.parse("2015-01-01") }
+  let(:start_ts) { Time.zone.parse("2015-01-01") }
 
   context "when there are 5 completed games" do
     it "returns 5" do

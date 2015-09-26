@@ -17,7 +17,7 @@ describe "Hourly step" do
     end
     context "when there were three walks in two hours" do
       it "returns two results" do
-        start_ts = DateTime.zone.parse("2015-09-10")
+        start_ts = Time.zone.parse("2015-09-10")
         points = [
           make_point((start_ts + 00.minutes), 100),
           make_point((start_ts + 59.minutes), 50),

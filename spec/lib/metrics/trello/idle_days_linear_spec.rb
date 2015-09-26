@@ -6,7 +6,7 @@ describe "Days backlog" do
   let(:options) { { list_ids: list_ids } }
 
   context "when there are 5 cards from the last 5 days" do
-    let(:start_ts) { DateTime.zone.parse("2015-01-01") }
+    let(:start_ts) { Time.zone.parse("2015-01-01") }
 
     it "calculates 15" do
       Timecop.freeze(start_ts) do

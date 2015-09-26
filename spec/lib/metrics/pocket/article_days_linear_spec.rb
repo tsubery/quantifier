@@ -4,7 +4,7 @@ describe "Days backlog" do
   let(:subject) { ProviderRepo.find(:pocket).find_metric(:article_days_linear) }
 
   context "when there are 5 articles from the last 5 days" do
-    let(:start_ts) { DateTime.zone.parse("2015-01-01") }
+    let(:start_ts) { Time.zone.parse("2015-01-01") }
 
     it "calculates 15" do
       Timecop.freeze(start_ts) do
