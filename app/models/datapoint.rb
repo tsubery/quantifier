@@ -8,7 +8,8 @@ class Datapoint
 
   def to_beeminder
     Beeminder::Datapoint
-      .new value: value,
+      .new id: id,
+           value: value,
            timestamp: timestamp,
            comment: "Auto-entered by beemind.me for #{timestamp} @ #{Time.current}"
   end
