@@ -5,7 +5,6 @@ describe "Home page" do
     visit root_path
     expect(page).to have_content("Welcome")
     expect(page).to have_content("sign in")
-
   end
 
   scenario "User signs in " do

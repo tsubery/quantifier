@@ -18,6 +18,6 @@ FactoryGirl.define do
     user
     provider_name :pocket
     uid { |i| "uid_#{i}" }
-    credentials({ token: "token"})
+    credentials(token: "token")
   end
 end
