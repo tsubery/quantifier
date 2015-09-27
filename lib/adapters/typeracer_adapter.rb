@@ -27,7 +27,7 @@ class TyperacerAdapter < BaseAdapter
     uid = credentials.fetch(:uid)
     return false if uid.empty?
     !!TypeRacer::Client.new(uid)
-  rescue TypeRacer::Api::UserNotFound,  KeyError
+  rescue TypeRacer::Api::UserNotFound, KeyError
     false
   end
 

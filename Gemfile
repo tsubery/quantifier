@@ -7,7 +7,7 @@ gem "uglifier", ">= 1.3.0"
 gem "coffee-rails"
 gem "jquery-rails"
 gem "jbuilder"
-gem "spring",        group: :development
+gem "spring", group: :development
 gem "bootstrap-sass"
 gem "haml-rails"
 gem "omniauth"
@@ -31,7 +31,7 @@ gem "rollbar"
 gem "activerecord-import"
 
 # #providers
-gem "google-api-client", "0.9.pre1"
+gem "google-api-client", "0.9.pre3"
 gem "ruby-trello"
 gem "pocket-ruby"
 gem "typeracer_ruby"
