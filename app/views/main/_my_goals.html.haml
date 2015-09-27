@@ -1,5 +1,6 @@
 %h2
   Configured Goals
+  = link_to "Reload", reload_goals_path, method: :post, class: %i(btn btn-default), id: "goals-reload"
 %table.table-bordered.table#configured-goals
   %thead
     %tr
@@ -14,5 +15,4 @@
         %td{ data: { align: :center}}= goal.status
         %td= goal.beeminder_link(current_user.beeminder_user_id)
         %td= goal.last_score
-= link_to "Reload", reload_goals_path, method: :post, class: %i(btn btn-default)
 

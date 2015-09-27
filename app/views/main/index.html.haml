@@ -1,18 +1,17 @@
 - content_for :title do
   Beemind.me - Home
 
-.container#main
+.row
+  - if current_user && current_user.goals.count > 0
+    = render "my_goals"
+  - else
+    = render "welcome"
+.row#main_metrics
+  = render "metrics"
+- unless current_user
   .row
-    - if current_user && current_user.goals.count > 0
-      = render "my_goals"
-    - else
-      = render "welcome"
-  .row
-    = render "metrics"
-  - unless current_user
-    .row
-      %p
-        To start,
-        =link_to "sign in", signin_path
-        with your Beeminder account.
+    %p
+      To start,
+      =link_to "sign in", signin_path
+      with your Beeminder account.
 

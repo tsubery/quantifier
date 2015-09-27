@@ -10,6 +10,20 @@
   %body
     %header
       = render 'layouts/navigation'
-    %main{:role => "main"}
-      = render 'layouts/messages'
-      = yield
+    %main
+      .container
+        = render 'layouts/messages'
+        = yield
+
+      %footer
+        .container
+          %p
+            &copy;
+            %a{ href: "https://github.com/tsubery" } Gal Tsubery.
+            This software is
+            %a{ href: "https://github.com/tsubery/quantifier/" } free
+            under
+            %a{ href: "https://github.com/tsubery/quantifier/blob/master/LICENSE"} MIT License
+            \.
+
+
