@@ -3,7 +3,7 @@
 
 .container#main
   .row
-    - if current_user
+    - if current_user && current_user.goals.count > 0
       = render "my_goals"
     - else
       = render "welcome"

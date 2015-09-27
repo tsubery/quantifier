@@ -15,8 +15,9 @@
 
 FactoryGirl.define do
   factory :credential do
-    provider_name :pocket
-    uid SecureRandom.hex(8)
     user
+    provider_name :pocket
+    uid { |i| "uid_#{i}" }
+    credentials({ token: "token"})
   end
 end

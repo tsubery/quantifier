@@ -6,7 +6,7 @@ class GoalDecorator < Draper::Decorator
   end
 
   def last_score
-    score = scores.last
+    score = scores.order(:timestamp).last
     score.nil? ? "none" : score.value
   end
 
