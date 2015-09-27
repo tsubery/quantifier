@@ -4,7 +4,7 @@ ProviderRepo.find!(:trello).register_metric :idle_days_linear do |metric|
 
   metric.block = proc do |adapter, options|
     now_utc = Time.current.utc
-    list_ids = Array(options["list_ids"])
+    list_ids = Array(options[:list_ids])
     cards = adapter.cards(list_ids)
     value = cards.map do |card|
       now_utc - card.last_activity_date

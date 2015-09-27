@@ -27,14 +27,14 @@ describe "Hourly step" do
         adapter = double fetch_steps: points
         results = subject.call(adapter)
         expect(results.count).to eq(2)
-        first_dp = Datapoint.new(id: start_ts.to_i,
-                                 timestamp: start_ts,
-                                 value: 150)
+        first_dp = Datapoint.new(timestamp: start_ts,
+                                 value: 150,
+                                 unique: true)
         expect(results[0]).to eq(first_dp)
 
-        second_dp = Datapoint.new(id: (start_ts + 60.minutes).to_i,
-                                  timestamp: (start_ts + 60.minutes),
-                                  value: 200)
+        second_dp = Datapoint.new(timestamp: (start_ts + 60.minutes),
+                                  value: 200,
+                                  unique: true)
         expect(results[1]).to eq(second_dp)
       end
     end
