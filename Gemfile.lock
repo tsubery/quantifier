@@ -15,6 +15,14 @@ GIT
       pry-stack_explorer (~> 0.4.9)
       railties (>= 3.0, < 5.0)
 
+PATH
+  remote: vendor/omniauth-quizlet
+  specs:
+    omniauth-quizlet (0.0.1)
+      multi_json
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -307,6 +315,9 @@ GEM
       pry (>= 0.9.11)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
+    quizlet-ruby (0.0.1)
+      faraday_middleware
+      json
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -549,6 +560,7 @@ DEPENDENCIES
   omniauth-beeminder
   omniauth-google-oauth2
   omniauth-pocket
+  omniauth-quizlet!
   omniauth-trello
   pg
   pocket-ruby
@@ -557,6 +569,7 @@ DEPENDENCIES
   pry-rails
   pry-rescue
   quiet_assets
+  quizlet-ruby
   rails (~> 4.2.0)
   rails_layout
   rb-fchange

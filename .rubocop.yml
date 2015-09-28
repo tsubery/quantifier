@@ -17,6 +17,7 @@ AllCops:
   Exclude:
     - 'db/**/*'
     - 'config/**/*'
+    - 'vendor/**/*'
 Style/DoubleNegation:
   Enabled: false
 Style/MultilineBlockChain:

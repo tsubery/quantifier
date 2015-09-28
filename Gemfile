@@ -11,10 +11,6 @@ gem "spring", group: :development
 gem "bootstrap-sass"
 gem "haml-rails"
 gem "omniauth"
-gem "omniauth-beeminder"
-gem "omniauth-pocket"
-gem "omniauth-trello"
-gem "omniauth-google-oauth2"
 gem "pg"
 gem "simple_form"
 gem "therubyracer", platform: :ruby
@@ -35,6 +31,14 @@ gem "google-api-client", "0.9.pre3"
 gem "ruby-trello"
 gem "pocket-ruby"
 gem "typeracer_ruby"
+gem "quizlet-ruby"
+
+# auth
+gem "omniauth-beeminder"
+gem "omniauth-pocket"
+gem "omniauth-trello"
+gem "omniauth-google-oauth2"
+gem "omniauth-quizlet", path: "vendor/omniauth-quizlet"
 
 group :development do
   gem "rubocop"

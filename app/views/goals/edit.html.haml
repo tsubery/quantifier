@@ -37,6 +37,6 @@ end
         %tbody
           - goal.fetch_scores.each do |datapoint|
             %tr
-              %td= datapoint.timestamp
+              %td= datapoint.timestamp || "Now"
               %td= datapoint.value
 

@@ -21,4 +21,11 @@ class GoalDecorator < Draper::Decorator
               "data-confirm": "Are you sure?",
               class: %i(btn btn-default)
   end
+
+  def safe_fetch_scores
+    object.fetch_scores
+  rescue
+    OpenStruct.new timestamp: "now",
+                   value: "Could not fetch score"
+  end
 end

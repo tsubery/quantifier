@@ -37,8 +37,4 @@ class PocketAdapter < BaseAdapter
   def list(content_type)
     client.retrieve(contentType: content_type).fetch("list")
   end
-
-  def access_token
-    credentials.fetch :token
-  end
 end
