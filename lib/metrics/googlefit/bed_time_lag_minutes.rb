@@ -3,7 +3,6 @@ ProviderRepo.find!(:googlefit).register_metric :bed_time_lag_minutes do |metric|
   metric.description = "Minutes after defined bedtime"
 
   metric.block = proc do |adapter, params|
-    points = adapter.fetch_sleeps(2)
     tz = ActiveSupport::TimeZone.new(params["timezone"].to_s)
     bed_time_hour = params["bed_time_hour"].to_i
     bed_time_minute = params["bed_time_minute"].to_i
@@ -12,6 +11,12 @@ ProviderRepo.find!(:googlefit).register_metric :bed_time_lag_minutes do |metric|
       []
     else
       defined_bed_time_minutes = 60 * bed_time_hour + bed_time_minute
+
+      # We want to catch the window of possible sleeps
+      todays_bed_time = tz.now.beginning_of_day + defined_bed_time_minutes.minutes
+      todays_bed_time_window_start = todays_bed_time - 12.hours
+      retro_window_start = todays_bed_time_window_start - 2.days
+      points = adapter.fetch_sleeps(retro_window_start)
 
       points.each_with_object({}) do |point, scores|
         ts_epoch = point.start_time_nanos.to_i / 1_000_000_000

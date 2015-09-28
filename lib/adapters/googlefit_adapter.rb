@@ -34,10 +34,10 @@ class GooglefitAdapter < BaseAdapter
     1_000_000_000 * timestamp.to_i
   end
 
-  def fetch_datasource(datasource, days_back, from = nil)
-    from ||= Time.current.utc
-    start = (from - days_back.days).beginning_of_day
-    time_range = [start, from].map(&method(:to_nano)).join("-")
+  def fetch_datasource(datasource, from = nil)
+    now ||= Time.current.utc
+    from ||= (now - 2.days).beginning_of_day
+    time_range = [from, now].map(&method(:to_nano)).join("-")
     client.get_user_data_source_dataset(
       "me",
       datasource,
@@ -47,16 +47,17 @@ class GooglefitAdapter < BaseAdapter
     ).point || []
   end
 
-  def fetch_steps(days_back = 2)
-    fetch_datasource(ESTIMATED_STEPS_DS, days_back)
+  def fetch_steps(from = nil)
+    fetch_datasource(ESTIMATED_STEPS_DS, from)
   end
 
-  def fetch_sleeps(days_back = 2)
-    fetch_segments(SLEEP_SEGMENT_CODE, days_back)
+  def fetch_sleeps(from)
+    # for sleeps tz matters so we mandate from arg
+    fetch_segments(SLEEP_SEGMENT_CODE, from)
   end
 
-  def fetch_strength(days_back = 2)
-    fetch_segments(WEIGHT_TRAINING_CODE, days_back)
+  def fetch_strength(from = nil)
+    fetch_segments(WEIGHT_TRAINING_CODE, from)
   end
 
   def fetch_segments(activity_code, days_back)

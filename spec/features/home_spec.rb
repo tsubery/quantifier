@@ -30,7 +30,9 @@ describe "Home page" do
       expect(page).to have_content("Reload")
       fake_worker = double(BeeminderWorker)
       expect(BeeminderWorker).to receive(:new).and_return(fake_worker)
-      expect(fake_worker).to receive(:perform).with(beeminder_user_id: goal.user.beeminder_user_id)
+      expect(fake_worker).to(
+        receive(:perform).with(beeminder_user_id: goal.user.beeminder_user_id)
+      )
       click_link "Reload"
       expect(page).to have_content("Scores updated")
       expect(page.current_path).to eq(root_path)
