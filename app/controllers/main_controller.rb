@@ -16,7 +16,4 @@ class MainController < ApplicationController
       {}
     end
   end
-
-  def about
-  end
 end

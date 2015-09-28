@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   root to: "main#index"
-  get "/main/about", to: "main#about"
   get "/auth/:provider/callback" => "sessions#create"
   get "/signin" => "sessions#new", :as => :signin
   get "/signout" => "sessions#destroy", :as => :signout
