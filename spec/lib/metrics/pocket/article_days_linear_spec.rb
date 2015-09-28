@@ -13,7 +13,7 @@ describe "Days backlog" do
         end
         adapter = double articles: articles
         expect(subject.call(adapter)).to eq(
-          Datapoint.new timestamp: start_ts, value: 15
+          Datapoint.new timestamp: nil, value: 15
         )
       end
     end
@@ -25,7 +25,7 @@ describe "Days backlog" do
         end
         adapter = double articles: articles
         expect(subject.call(adapter)).to eq(
-          Datapoint.new timestamp: start_ts, value: 50
+          Datapoint.new timestamp: nil, value: 50
         )
       end
     end
@@ -34,7 +34,7 @@ describe "Days backlog" do
       Timecop.freeze(start_ts) do
         adapter = double articles: [{ "time_added" => 47.hours.ago }]
         expect(subject.call(adapter)).to eq(
-          Datapoint.new timestamp: start_ts, value: 1
+          Datapoint.new timestamp: nil, value: 1
         )
       end
     end

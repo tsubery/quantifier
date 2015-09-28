@@ -3,7 +3,6 @@ ProviderRepo.find!(:typeracer).register_metric :completed_games do |metric|
   metric.description = "Number of completed games"
 
   metric.block = proc do |adapter|
-    Datapoint.new timestamp: Time.current.utc,
-                  value: adapter.completed_games
+    Datapoint.new value: adapter.completed_games
   end
 end

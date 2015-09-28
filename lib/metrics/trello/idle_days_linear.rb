@@ -10,7 +10,7 @@ ProviderRepo.find!(:trello).register_metric :idle_days_linear do |metric|
       now_utc - card.last_activity_date
     end.sum / 1.day
 
-    Datapoint.new(timestamp: Time.current.utc, value: value.to_i)
+    Datapoint.new value: value.to_i
   end
 
   metric.configuration = proc do |client, params|

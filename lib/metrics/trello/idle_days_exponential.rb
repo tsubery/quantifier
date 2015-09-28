@@ -12,7 +12,7 @@ ProviderRepo.find!(:trello).register_metric :idle_days_exponential do |metric|
       age**exponent
     end.sum
 
-    Datapoint.new(timestamp: Time.current.utc, value: value.to_i)
+    Datapoint.new value: value.to_i
   end
 
   metric.configuration = proc do |client, params|

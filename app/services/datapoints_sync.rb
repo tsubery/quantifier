@@ -1,14 +1,23 @@
 class DatapointsSync
   def initialize(calculated, stored, beeminder_goal)
-    @calculated = calculated
     @stored = stored
+    @calculated = calculated
     @beeminder_goal = beeminder_goal
-    @new_datapoints = (calculated - stored)
+    last_value = stored.last && stored.last.value
+    @new_datapoints = (calculated - stored).reject do |dp|
+      dp.timestamp.nil? && last_value == dp.value
+    end
   end
 
   def call
     delete overlapping_timestamps(new_datapoints, stored)
     transmit new_datapoints
+    self
+  end
+
+  def storable
+    return [] if new_datapoints.empty?
+    calculated
   end
 
   private

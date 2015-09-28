@@ -27,9 +27,9 @@ class Goal < ActiveRecord::Base
 
   def sync
     calculated = fetch_scores
-    stored = scores.map(&:to_datapoint)
-    DatapointsSync.new(calculated, stored, beeminder_goal).call
-    store_scores calculated
+    stored = scores.order(:timestamp).map(&:to_datapoint)
+    syncher = DatapointsSync.new(calculated, stored, beeminder_goal).call
+    store_scores syncher.storable
   end
 
   def fetch_scores
@@ -37,10 +37,14 @@ class Goal < ActiveRecord::Base
   end
 
   def store_scores(datapoints)
+    return if datapoints.empty?
     scores.delete_all
     columns = %i(goal_id unique timestamp value)
     score_records = datapoints.map do |datapoint|
-      [id, datapoint.unique, datapoint.timestamp, datapoint.value]
+      [id,
+       datapoint.unique,
+       datapoint.timestamp || Time.zone.now,
+       datapoint.value]
     end
 
     Score.import columns, score_records

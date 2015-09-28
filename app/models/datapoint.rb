@@ -4,7 +4,7 @@ class Datapoint
 
   alias_method :eql?, :==
 
-  def initialize(id: nil, unique: false, timestamp:, value:)
+  def initialize(id: nil, unique: false, timestamp: nil, value:)
     @id = id.to_s
     @timestamp = timestamp
     @value = value.to_f
