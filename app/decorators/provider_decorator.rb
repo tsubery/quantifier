@@ -3,7 +3,7 @@ class ProviderDecorator < Draper::Decorator
   attr_accessor :credential
   delegate :status, to: :credential
 
-  def initialize(object, credential)
+  def initialize(object, credential = nil)
     super(object)
     self.credential = (credential || Credential.new).decorate
   end
@@ -31,8 +31,12 @@ class ProviderDecorator < Draper::Decorator
   def metric_links
     metrics.map do |metric|
       h.link_to metric.title,
-                "/goals/#{name}/#{metric.key}",
+                metric_path(metric),
                 title: metric.description + ". Click to add or configure."
     end
+  end
+
+  def metric_path(metric)
+    "/goals/#{name}/#{metric.key}"
   end
 end

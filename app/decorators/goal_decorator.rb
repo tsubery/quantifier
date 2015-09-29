@@ -28,4 +28,11 @@ class GoalDecorator < Draper::Decorator
     OpenStruct.new timestamp: "now",
                    value: "Could not fetch score"
   end
+
+  def metric_link
+    title = [goal.provider.title, goal.metric.title].join(" - ")
+    h.link_to title,
+              ProviderDecorator.new(goal.provider).metric_path(metric),
+              title: "Click to configure"
+  end
 end

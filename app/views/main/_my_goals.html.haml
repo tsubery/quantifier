@@ -11,8 +11,8 @@
   %tbody
     - goals.each do |goal|
       %tr
-        %td= [goal.provider.title, goal.metric.title].join(' - ')
-        %td{ data: { align: :center}}= goal.status
+        %td= goal.metric_link
+        %td= goal.status
         %td= goal.beeminder_link(current_user.beeminder_user_id)
         %td= goal.last_score
 
