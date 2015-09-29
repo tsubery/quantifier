@@ -23,7 +23,7 @@ class QuizletAdapter < BaseAdapter
   end
 
   def statistics
-    client.get("users/#{uid}", {}).tap { |asdf| p asdf.keys }.fetch("statistics")
+    client.get("users/#{uid}", {}).fetch("statistics")
   end
 
   def session_count
