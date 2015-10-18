@@ -49,7 +49,7 @@ class GoalsController < AuthenticatedController
 
   def goal_params
     params.require(:goal)
-      .permit(:id, :slug, :params,
+      .permit(:id, :slug, :params, :active,
               params: [
                 :exponent, :timezone, :bed_time_hour, :bed_time_minute,
                 list_ids: []

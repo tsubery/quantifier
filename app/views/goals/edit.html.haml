@@ -25,6 +25,9 @@ end
             .form-group
               = pf.label label
               = input
+        .form-group
+          = f.check_box :active
+          = f.label :active, "Enabled"
         = f.submit "Save", class: %i(btn btn-default)
     .col-lg-1
     .col-lg-4
