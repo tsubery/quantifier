@@ -28,7 +28,7 @@ ProviderRepo.find!(:googlefit).register_metric :bed_time_lag_minutes do |metric|
         remainder = (diff + half_day_minutes) % (24 * 60)
         value = [0, remainder - half_day_minutes].max
 
-        day = (bed_time - 12.hours).utc.beginning_of_day
+        day = (bed_time - 12.hours).beginning_of_day
         scores[day] = [value, scores[day]].compact.min
       end.map do |ts, value|
         Datapoint.new unique: true, timestamp: ts, value: value

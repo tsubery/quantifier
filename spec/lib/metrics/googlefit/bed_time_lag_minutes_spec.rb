@@ -10,6 +10,7 @@ describe "Bed time lag" do
            value: [double(int_val: value)]
   end
 
+  let(:tz) { ActiveSupport::TimeZone.new(params["timezone"]) }
   describe "calculating lag" do
     context "when there is not timezone" do
       it "returns empty results" do
@@ -35,7 +36,7 @@ describe "Bed time lag" do
           adapter = double fetch_sleeps: points
           results = subject.call(adapter, params)
           expect(results.count).to eq(1)
-          first_dp = Datapoint.new(timestamp: start_ts,
+          first_dp = Datapoint.new(timestamp: tz.at(start_ts).beginning_of_day,
                                    value: 0,
                                    unique: true)
           expect(results[0]).to eq(first_dp)
@@ -100,8 +101,7 @@ describe "Bed time lag" do
           }.with_indifferent_access
         end
         it "assigns it to the previous day" do
-          hawaii_ts = ActiveSupport::TimeZone.new("Hawaii")
-                      .parse("2015-09-27").beginning_of_day
+          hawaii_ts = tz.parse("2015-09-27").beginning_of_day
           points = [
             make_point(hawaii_ts + 21.hours + 18.minutes)
           ]
@@ -110,7 +110,7 @@ describe "Bed time lag" do
           Timecop.freeze(start_ts) do
             results = subject.call(adapter, params)
             expect(results.count).to eq(1)
-            first_dp = Datapoint.new(timestamp: hawaii_ts.utc.beginning_of_day,
+            first_dp = Datapoint.new(timestamp: hawaii_ts.beginning_of_day,
                                      value: 18,
                                      unique: true)
             expect(results[0]).to eq(first_dp)
