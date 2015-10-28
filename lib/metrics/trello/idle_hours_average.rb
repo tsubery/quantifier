@@ -7,8 +7,10 @@ ProviderRepo.find!(:trello).register_metric :idle_hours_average do |metric|
     list_ids = Array(options[:list_ids])
     cards = adapter.cards(list_ids)
 
-    sum = cards.map { |card| now_utc - card.last_activity_date }.sum
-    value = sum.zero? ? sum : sum / (1.hour * cards.count)
+    sum = cards.map do |card|
+      now_utc - card.last_activity_date / 1.hour
+    end.sum
+    value = sum.zero? ? sum : sum / cards.count
 
     Datapoint.new value: value.to_i
   end
