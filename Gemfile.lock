@@ -125,8 +125,6 @@ GEM
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     decent_exposure (2.3.2)
-    declarative (0.0.5)
-      uber (>= 0.0.15)
     diff-lcs (1.2.5)
     diffy (3.0.7)
     domain_name (0.5.25)
@@ -358,9 +356,8 @@ GEM
     rdiscount (2.1.8)
     redis (3.2.2)
     ref (2.0.0)
-    representable (2.4.0)
-      declarative (~> 0.0.5)
-      uber (~> 0.0.15)
+    representable (2.3.0)
+      uber (~> 0.0.7)
     request_store (1.2.1)
     rerun (0.11.0)
       listen (~> 3.0)
@@ -581,6 +578,7 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify
   rdiscount
+  representable (= 2.3.0)
   rerun
   rollbar
   rspec-instafail

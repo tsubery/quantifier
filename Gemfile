@@ -27,6 +27,8 @@ gem "activerecord-import"
 
 # #providers
 gem "google-api-client", "0.9.pre3"
+gem "representable" , '2.3.0' # this avoids deprecation warning when google-api-client is used
+
 gem "ruby-trello"
 gem "pocket-ruby"
 gem "typeracer_ruby"
