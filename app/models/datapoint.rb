@@ -2,7 +2,7 @@ class Datapoint
   attr_accessor :timestamp, :value, :id, :unique
   include Comparable
 
-  alias_method :eql?, :==
+  alias eql? ==
 
   def initialize(id: nil, unique: false, timestamp: nil, value:)
     @id = id.to_s

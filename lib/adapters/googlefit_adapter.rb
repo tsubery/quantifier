@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "google/apis/fitness_v1"
 
 class GooglefitAdapter < BaseAdapter

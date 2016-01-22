@@ -15,8 +15,10 @@ class Score < ActiveRecord::Base
   belongs_to :goal
 
   def to_datapoint
-    Datapoint.new timestamp: timestamp,
-                  value: value,
-                  unique: unique
+    Datapoint.new(
+      timestamp: timestamp,
+      value: value,
+      unique: unique
+    )
   end
 end

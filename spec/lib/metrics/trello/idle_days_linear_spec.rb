@@ -17,7 +17,7 @@ describe "Days backlog" do
           .with(list_ids).and_return(cards)
 
         expect(subject.call(adapter, options)).to eq(
-          Datapoint.new timestamp: nil, value: 15
+          Datapoint.new(timestamp: nil, value: 15)
         )
       end
     end
@@ -31,7 +31,7 @@ describe "Days backlog" do
           .with(list_ids).and_return(cards)
 
         expect(subject.call(adapter, options)).to eq(
-          Datapoint.new timestamp: nil, value: 50
+          Datapoint.new(timestamp: nil, value: 50)
         )
       end
     end
@@ -42,7 +42,7 @@ describe "Days backlog" do
         expect(adapter = double).to receive(:cards)
           .with(list_ids).and_return(cards)
         expect(subject.call(adapter, options)).to eq(
-          Datapoint.new timestamp: nil, value: 1
+          Datapoint.new(timestamp: nil, value: 1)
         )
       end
     end

@@ -4,14 +4,13 @@ class BeeminderWorker
   include Sidekiq::Worker
 
   def perform(beeminder_user_id: nil)
+    filter = {}
     if beeminder_user_id
       filter = { users: { beeminder_user_id: beeminder_user_id } }
-    else
-      filter = {}
     end
 
     Goal.where(active: true).joins(:user).where(filter)
-      .find_each(&method(:safe_sync))
+        .find_each(&method(:safe_sync))
   end
 
   private

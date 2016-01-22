@@ -14,6 +14,7 @@ Metrics/LineLength:
 Documentation:
   Enabled: false
 AllCops:
+  TargetRubyVersion: 2.3
   Exclude:
     - 'db/**/*'
     - 'config/**/*'
@@ -21,5 +22,7 @@ AllCops:
 Style/DoubleNegation:
   Enabled: false
 Style/MultilineBlockChain:
+  Enabled: false
+Style/MutableConstant:
   Enabled: false
 

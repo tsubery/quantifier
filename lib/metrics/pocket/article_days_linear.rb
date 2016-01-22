@@ -8,6 +8,6 @@ ProviderRepo.find!(:pocket).register_metric :article_days_linear do |metric|
       now_as_epoch - article["time_added"].to_i
     end.sum / 1.day.to_i
 
-    Datapoint.new value: value
+    Datapoint.new(value: value)
   end
 end

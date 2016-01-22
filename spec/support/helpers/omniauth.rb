@@ -10,7 +10,7 @@ module Omniauth
         "token" => "mock_token",
         "secret" => "mock_secret"
       }
-    }
+    }.freeze
     def mock_auth(provider = :beeminder)
       OmniAuth.config.mock_auth = {}
       OmniAuth.config.mock_auth[provider] = FAKE_AUTH_ATTR.merge(

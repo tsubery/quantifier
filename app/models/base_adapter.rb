@@ -20,6 +20,15 @@ class BaseAdapter
   private
 
   attr_reader :credentials
+
+  class << self
+    private
+
+    def self.valid_credentials?(credentials)
+      credentials.values_at(*required_keys).all?(&:present?)
+    end
+  end
+
   def required_keys
     fail NotImplementedError
   end
@@ -27,10 +36,6 @@ class BaseAdapter
   def validate_credentials!
     valid = self.class.valid_credentials?(credentials)
     fail(InvalidCredentials, credentials.to_s) unless valid
-  end
-
-  def self.valid_credentials?(credentials)
-    credentials.values_at(*required_keys).all?(&:present?)
   end
 
   def access_token

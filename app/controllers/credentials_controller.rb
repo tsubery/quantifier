@@ -15,12 +15,10 @@ class CredentialsController < AuthenticatedController
   def new
     if credential.persisted?
       redirect_to root_path
+    elsif provider.oauth?
+      redirect_to "/auth/#{provider.name}"
     else
-      if provider.oauth?
-        redirect_to "/auth/#{provider.name}"
-      else
-        render :edit
-      end
+      render :edit
     end
   end
 

@@ -10,7 +10,7 @@ ProviderRepo.find!(:googlefit).register_metric :hourly_steps do |metric|
       hour = Time.zone.at(ts_epoch).beginning_of_hour
       scores[hour] += point.value.first.int_val
     end.map do |ts, value|
-      Datapoint.new unique: true, timestamp: ts, value: value
+      Datapoint.new(unique: true, timestamp: ts, value: value)
     end
   end
 end

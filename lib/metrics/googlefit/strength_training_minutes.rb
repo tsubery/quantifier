@@ -11,7 +11,7 @@ ProviderRepo.find!(:googlefit).register_metric :strength_training do |metric|
       hour = Time.zone.at(ts_start).beginning_of_hour
       scores[hour] += ((ts_end - ts_start) / 60.0).ceil
     end.map do |ts, value|
-      Datapoint.new unique: true, timestamp: ts, value: value
+      Datapoint.new(unique: true, timestamp: ts, value: value)
     end
   end
 end

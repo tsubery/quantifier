@@ -11,7 +11,7 @@ describe "Days backlog" do
         expect(adapter = double).to receive(:completed_games).and_return(5)
 
         expect(subject.call(adapter)).to eq(
-          Datapoint.new timestamp: nil, value: 5
+          Datapoint.new(timestamp: nil, value: 5)
         )
       end
     end
@@ -22,7 +22,7 @@ describe "Days backlog" do
         expect(adapter = double).to receive(:completed_games).and_return(33)
 
         expect(subject.call(adapter)).to eq(
-          Datapoint.new timestamp: nil, value: 33
+          Datapoint.new(timestamp: nil, value: 33)
         )
       end
     end

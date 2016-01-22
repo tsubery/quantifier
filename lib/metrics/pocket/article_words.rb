@@ -7,6 +7,6 @@ ProviderRepo.find!(:pocket).register_metric :article_words do |metric|
       article["word_count"].to_i
     end.sum
 
-    Datapoint.new value: value
+    Datapoint.new(value: value)
   end
 end
