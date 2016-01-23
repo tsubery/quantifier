@@ -17,18 +17,13 @@ class BaseAdapter
     end
   end
 
+  def self.valid_credentials?(credentials)
+    credentials.values_at(*required_keys).all?(&:present?)
+  end
+
   private
 
   attr_reader :credentials
-
-  class << self
-    private
-
-    def self.valid_credentials?(credentials)
-      credentials.values_at(*required_keys).all?(&:present?)
-    end
-  end
-
   def required_keys
     fail NotImplementedError
   end
