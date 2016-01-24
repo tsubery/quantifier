@@ -78,4 +78,5 @@ group :test do
   gem "webmock"
   gem "vcr"
   gem "timecop"
+  gem "codeclimate-test-reporter", require: false
 end
