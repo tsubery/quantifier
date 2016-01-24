@@ -1,0 +1,14 @@
+language: ruby
+rvm:
+ - "2.3.0"
+services:
+  - postgresql
+addons:
+  postgresql: "9.4"
+cache: bundler
+env: 
+  - RAILS_ENV=test
+script: 
+  - bundle exec rake db:create
+  - bundle exec rake db:reset
+  - bundle exec rake spec
