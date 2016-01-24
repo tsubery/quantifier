@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tsubery/quantifier.svg?branch=master)](https://travis-ci.org/tsubery/quantifier)
+[![Code Climate](https://codeclimate.com/github/tsubery/quantifier/badges/gpa.svg)](https://codeclimate.com/github/tsubery/quantifier)
 About
 ================ 
 
