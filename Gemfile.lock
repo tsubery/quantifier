@@ -140,6 +140,10 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0)
+    dumper (1.6.0)
+      multi_json (>= 1.0)
+      multipart-post (>= 1.1.5)
+      posix-spawn (>= 0.3.6)
     erubis (2.7.0)
     eventmachine (1.0.9.1)
     execjs (2.6.0)
@@ -555,6 +559,7 @@ DEPENDENCIES
   decent_exposure
   dotenv-rails
   draper
+  dumper
   factory_girl_rails
   faker
   foreman
