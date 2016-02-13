@@ -15,6 +15,13 @@ GIT
       pry-stack_explorer (~> 0.4.9)
       railties (>= 3.0, < 5.0)
 
+GIT
+  remote: git://github.com/tsubery/omniauth-beeminder.git
+  revision: f273c489b9c4d8ab0cef3773cc1fe4640ecca147
+  specs:
+    omniauth-beeminder (0.1.1)
+      omniauth-oauth2 (>= 1.1.1, < 1.4.0)
+
 PATH
   remote: vendor/omniauth-quizlet
   specs:
@@ -260,8 +267,6 @@ GEM
     omniauth (1.3.1)
       hashie (>= 1.2, < 4)
       rack (>= 1.0, < 3)
-    omniauth-beeminder (0.1.0)
-      omniauth-oauth2 (>= 1.1.1)
     omniauth-google-oauth2 (0.3.0)
       addressable (~> 2.3)
       jwt (~> 1.0)
@@ -572,7 +577,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   omniauth
-  omniauth-beeminder
+  omniauth-beeminder!
   omniauth-google-oauth2
   omniauth-oauth2 (< 1.4.0)
   omniauth-pocket

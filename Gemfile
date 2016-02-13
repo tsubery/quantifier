@@ -39,7 +39,7 @@ gem "ruby-trello"
 gem "typeracer_ruby"
 
 # auth
-gem "omniauth-beeminder"
+gem "omniauth-beeminder" , github: "tsubery/omniauth-beeminder"
 gem "omniauth-google-oauth2"
 gem "omniauth-pocket"
 gem "omniauth-quizlet", path: "vendor/omniauth-quizlet"
