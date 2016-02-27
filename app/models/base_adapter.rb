@@ -1,5 +1,6 @@
 class BaseAdapter
   InvalidCredentials = Class.new(StandardError)
+  AuthorizationError = Class.new(StandardError)
 
   def initialize(credentials)
     @credentials = credentials.with_indifferent_access

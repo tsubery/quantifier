@@ -46,6 +46,8 @@ class GooglefitAdapter < BaseAdapter
       # fields: "point",
       options: { authorization: authorization }
     ).point || []
+  rescue Signet::AuthorizationError
+    raise AuthorizationError
   end
 
   def fetch_steps(from = nil)

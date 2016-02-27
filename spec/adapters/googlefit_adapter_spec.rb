@@ -1,8 +1,11 @@
-require "active_support/all"
+require 'rails_helper'
 require_relative "../../app/models/base_adapter"
 require_relative "../../lib/adapters/googlefit_adapter"
+
 describe GooglefitAdapter do
   let(:subject) { GooglefitAdapter }
+  let(:bad_credentials) { BaseAdapter::InvalidCredentials }
+  let(:bad_auth) { BaseAdapter::AuthorizationError }
 
   describe "validations" do
     context "when credentials missing token" do
@@ -13,8 +16,7 @@ describe GooglefitAdapter do
       end
 
       it "Raise error on instantiation" do
-        error_klass = BaseAdapter::InvalidCredentials
-        expect { subject.new(credentials) }.to raise_error(error_klass)
+        expect { subject.new(credentials) }.to raise_error(bad_credentials)
       end
     end
 
@@ -27,6 +29,20 @@ describe GooglefitAdapter do
 
       it "Does not raise error on instantiation" do
         expect { subject.new(credentials) }.not_to raise_error
+      end
+    end
+  end
+  describe "When there is problem with authorization" do
+    it "returns our internal authorization error" do
+      adapter = subject.new({token: "bad token"})
+      google_bad_auth = Signet::AuthorizationError.new({})
+      allow(adapter).to receive(:authorization).with(no_args)
+        .and_raise(google_bad_auth)
+      expect() do
+        adapter.fetch_steps
+      end.to raise_error() do |error|
+        expect(error).to be_kind_of(bad_auth)
+        expect(error.cause).to eq(google_bad_auth)
       end
     end
   end
