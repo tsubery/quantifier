@@ -1,6 +1,6 @@
 class GoalsController < AuthenticatedController
   expose(:goal) do
-    (init_goal || fail(ActiveRecord::RecordNotFound)).decorate
+    (init_goal || raise(ActiveRecord::RecordNotFound)).decorate
   end
   expose(:provider) { ProviderRepo.find(params[:provider_name]) }
   expose(:metric) { provider.find_metric(params[:metric_key]) }

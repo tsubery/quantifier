@@ -5,7 +5,7 @@ module Repo
 
   def find!(key)
     known_key = key.respond_to?(:to_sym) && collection.key?(key.to_sym)
-    fail "Unknown key #{key}" unless known_key
+    raise "Unknown key #{key}" unless known_key
     find(key)
   end
 

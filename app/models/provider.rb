@@ -6,7 +6,7 @@ class Provider
   alias name key
 
   def initialize(key, adapter)
-    [:none, :oauth].include?(adapter.auth_type) || fail("Unknown auth_type #{auth_type}")
+    [:none, :oauth].include?(adapter.auth_type) || raise("Unknown auth_type #{auth_type}")
     @adapter = adapter
     @key = key
     @metrics_repo = MetricRepo.new
@@ -23,7 +23,7 @@ class Provider
   def register_metric(key)
     new_metric = Metric.new(key)
     yield new_metric
-    fail "Invalid metric #{key}" unless new_metric.valid?
+    raise "Invalid metric #{key}" unless new_metric.valid?
     metrics_repo.store key, new_metric
   end
 

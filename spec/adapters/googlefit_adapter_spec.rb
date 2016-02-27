@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 require_relative "../../app/models/base_adapter"
 require_relative "../../lib/adapters/googlefit_adapter"
 
@@ -34,13 +34,13 @@ describe GooglefitAdapter do
   end
   describe "When there is problem with authorization" do
     it "returns our internal authorization error" do
-      adapter = subject.new({token: "bad token"})
+      adapter = subject.new(token: "bad token")
       google_bad_auth = Signet::AuthorizationError.new({})
       allow(adapter).to receive(:authorization).with(no_args)
         .and_raise(google_bad_auth)
-      expect() do
+      expect do
         adapter.fetch_steps
-      end.to raise_error() do |error|
+      end.to raise_error do |error|
         expect(error).to be_kind_of(bad_auth)
         expect(error.cause).to eq(google_bad_auth)
       end

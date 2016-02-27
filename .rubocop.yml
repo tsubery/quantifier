@@ -1,3 +1,10 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'vendor/**/*'
+    - 'bin/**/*'
 Style/StringLiterals:
   EnforcedStyle: double_quotes
   SupportedStyles:
@@ -13,17 +20,10 @@ Metrics/LineLength:
     Max: 90
 Documentation:
   Enabled: false
-AllCops:
-  TargetRubyVersion: 2.3
-  Exclude:
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'vendor/**/*'
-    - 'bin/**/*'
 Style/DoubleNegation:
   Enabled: false
 Style/MultilineBlockChain:
   Enabled: false
-Style/MutableConstant:
+Style/FrozenStringLiteralComment:
   Enabled: false
 

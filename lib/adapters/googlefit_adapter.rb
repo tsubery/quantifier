@@ -31,19 +31,10 @@ class GooglefitAdapter < BaseAdapter
     Google::Apis::FitnessV1::FitnessService.new
   end
 
-  def to_nano(timestamp)
-    1_000_000_000 * timestamp.to_i
-  end
-
   def fetch_datasource(datasource, from = nil)
-    now ||= Time.current.utc
-    from ||= (now - 2.days).beginning_of_day
-    time_range = [from, now].map(&method(:to_nano)).join("-")
     client.get_user_data_source_dataset(
-      "me",
-      datasource,
-      time_range,
-      # fields: "point",
+      "me", datasource,
+      time_range(from),
       options: { authorization: authorization }
     ).point || []
   rescue Signet::AuthorizationError
@@ -67,6 +58,18 @@ class GooglefitAdapter < BaseAdapter
     fetch_datasource(SESSION_ACTIVITY, days_back).select do |point|
       activity_code == point.value.first.int_val
     end
+  end
+
+  private
+
+  def time_range(from = nil)
+    now ||= Time.current.utc
+    from ||= (now - 2.days).beginning_of_day
+    "#{to_nano(from)}-#{to_nano(now)}"
+  end
+
+  def to_nano(timestamp)
+    1_000_000_000 * timestamp.to_i
   end
 
   def authorization
