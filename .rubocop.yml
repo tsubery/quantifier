@@ -19,6 +19,7 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'vendor/**/*'
+    - 'bin/**/*'
 Style/DoubleNegation:
   Enabled: false
 Style/MultilineBlockChain:

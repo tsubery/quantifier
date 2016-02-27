@@ -68,6 +68,7 @@ group :development, :test do
   gem "pry-rescue"
   gem "rspec-rails"
   gem "thin"
+  gem "spring-commands-rspec"
 end
 
 group :test do
