@@ -6,10 +6,10 @@ class CredentialDecorator < Draper::Decorator
   end
 
   def status
-    if connected_as
+    if connected_as.present?
       "Connected as #{connected_as}"
     else
-      "Not Connected"
+      "Click to connect"
     end
   end
 end
