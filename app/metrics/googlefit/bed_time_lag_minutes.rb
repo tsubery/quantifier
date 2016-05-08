@@ -1,4 +1,4 @@
-ProviderRepo.find!(:googlefit).register_metric :bed_time_lag_minutes do |metric|
+PROVIDERS.fetch(:googlefit).register_metric :bed_time_lag_minutes do |metric|
   metric.title = "Bed time lag"
   metric.description = "Minutes after defined bedtime"
 

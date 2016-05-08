@@ -1,4 +1,4 @@
-ProviderRepo.find!(:quizlet).register_metric :study_sessions do |metric|
+PROVIDERS.fetch(:quizlet).register_metric :study_sessions do |metric|
   metric.title = "Study sessions"
   metric.description = "Number of study sessions"
 

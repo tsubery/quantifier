@@ -10,7 +10,6 @@
 
 FactoryGirl.define do
   factory :user do
-    beeminder_token SecureRandom.hex(16)
-    beeminder_user_id SecureRandom.hex(8)
+    beeminder_user_id { SecureRandom.hex(8) }
   end
 end

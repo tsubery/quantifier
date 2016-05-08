@@ -1,4 +1,4 @@
-ProviderRepo.find!(:quizlet).register_metric :answers do |metric|
+PROVIDERS.fetch(:quizlet).register_metric :answers do |metric|
   metric.title = "Answer count"
   metric.description = "Number of answered questions"
 

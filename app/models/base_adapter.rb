@@ -7,17 +7,6 @@ class BaseAdapter
     validate_credentials!
   end
 
-  def self.load_all
-    Dir["lib/adapters/*_adapter.rb"].each do |file|
-      require Rails.root.join(file)
-      key = file[%r{\Alib/adapters\/([^_]+)_adapter.rb\z}, 1]
-      adapter = "#{key}_adapter".camelize.constantize
-      provider = Provider.new key, adapter
-      ProviderRepo.store key, provider
-      provider.load_metrics
-    end
-  end
-
   def self.valid_credentials?(credentials)
     credentials.values_at(*required_keys).all?(&:present?)
   end

@@ -1,6 +1,4 @@
 require "rails_helper"
-require_relative "../../app/models/base_adapter"
-require_relative "../../lib/adapters/googlefit_adapter"
 
 describe GooglefitAdapter do
   let(:subject) { GooglefitAdapter }

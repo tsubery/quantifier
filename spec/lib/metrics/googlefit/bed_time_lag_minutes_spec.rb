@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "Bed time lag" do
-  let(:subject) { ProviderRepo.find(:googlefit).find_metric(:bed_time_lag_minutes) }
+  let(:subject) { PROVIDERS[:googlefit].find_metric(:bed_time_lag_minutes) }
 
   start_ts = Time.zone.parse("2015-09-10")
   def make_point(timestamp, value = 1)

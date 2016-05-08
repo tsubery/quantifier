@@ -1,4 +1,4 @@
-ProviderRepo.find!(:pocket).register_metric :article_word_days do |metric|
+PROVIDERS.fetch(:pocket).register_metric :article_word_days do |metric|
   metric.description = "The sum of days since each word in an article has been added"
   metric.title = "Article words backlog"
 

@@ -28,7 +28,7 @@ class Provider
   end
 
   def load_metrics
-    Dir["lib/metrics/#{key}/*.rb"].each { |f| load Rails.root.join(f) }
+    Dir["app/metrics/#{key}/*.rb"].each { |f| load Rails.root.join(f) }
   end
 
   private

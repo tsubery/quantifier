@@ -1,4 +1,4 @@
-ProviderRepo.find!(:googlefit).register_metric :strength_training do |metric|
+PROVIDERS.fetch(:googlefit).register_metric :strength_training do |metric|
   metric.title = "Strength training"
   metric.description = "Minutes of strength training"
 

@@ -25,7 +25,7 @@ class Credential < ActiveRecord::Base
   end
 
   def provider
-    ProviderRepo.find!(provider_name)
+    PROVIDERS.fetch(provider_name)
   end
 
   def access_token

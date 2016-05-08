@@ -1,16 +1,18 @@
-ProviderRepo.find!(:trello).register_metric :idle_days_linear do |metric|
-  metric.description = "Sum of days each card has been idle"
-  metric.title = "Cards backlog"
+PROVIDERS.fetch(:trello).register_metric :idle_hours_average do |metric|
+  metric.description = "Average time each card has been idle measured in hours"
+  metric.title = "Card average age"
 
   metric.block = proc do |adapter, options|
     now_utc = Time.current.utc
     list_ids = Array(options[:list_ids])
     cards = adapter.cards(list_ids)
-    value = cards.map do |card|
-      now_utc - card.last_activity_date
-    end.sum / 1.day
 
-    Datapoint.new(value: value.to_i)
+    sum = cards.map do |card|
+      (now_utc - card.last_activity_date) / 1.hour
+    end.sum
+    value = sum.zero? ? sum : sum / cards.count
+
+    Datapoint.new value: value.to_i
   end
 
   metric.configuration = proc do |client, params|

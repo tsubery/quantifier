@@ -5,10 +5,10 @@
 	"app/workers/*_worker.rb": {
 		"type": "worker"
 	},
-	"lib/adapters/*.rb": {
+	"app/adapters/*.rb": {
 		"type": "adapter"
 	},
-	"lib/metrics/*.rb": {
+	"app/metrics/*.rb": {
 		"type": "metric"
 	}
 }

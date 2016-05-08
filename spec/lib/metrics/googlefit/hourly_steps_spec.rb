@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "Hourly step" do
-  let(:subject) { ProviderRepo.find(:googlefit).find_metric(:hourly_steps) }
+  let(:subject) { PROVIDERS[:googlefit].find_metric(:hourly_steps) }
 
   def make_point(timestamp, value)
     double start_time_nanos: (timestamp.to_i * 1_000_000_000),

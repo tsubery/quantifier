@@ -1,7 +1,4 @@
-require "active_support/all"
-require_relative "../../app/models/base_adapter"
-require_relative "../../lib/adapters/trello_adapter"
-require "typeracer_ruby"
+require "rails_helper"
 describe TrelloAdapter do
   let(:subject) { TrelloAdapter }
 

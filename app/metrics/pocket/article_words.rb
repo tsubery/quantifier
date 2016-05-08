@@ -1,4 +1,4 @@
-ProviderRepo.find!(:pocket).register_metric :article_words do |metric|
+PROVIDERS.fetch(:pocket).register_metric :article_words do |metric|
   metric.description = "The sum of words in all articles"
   metric.title = "Total word count"
 

@@ -11,8 +11,8 @@ Rails.application.routes.draw do
 
     collection do
       metric_exists = lambda do |request|
-        provider = ProviderRepo.find(request[:provider_name])
-        provider && provider.find_metric(request[:metric_key])
+        name = request[:provider_name]
+        PROVIDERS[name]&.find_metric(request[:metric_key])
       end
 
       get ':provider_name/:metric_key',

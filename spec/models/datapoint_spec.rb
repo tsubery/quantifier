@@ -1,4 +1,4 @@
-require_relative "../../app/models/datapoint"
+require "rails_helper"
 
 describe Datapoint do
   ts = Time.zone.at(0)

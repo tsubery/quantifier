@@ -1,5 +1,5 @@
 class PocketAdapter < BaseAdapter
-  def initialize(*args)
+  def initialize(*_)
     Pocket.configure do |config|
       config.consumer_key = Rails.application.secrets.pocket_provider_key
     end

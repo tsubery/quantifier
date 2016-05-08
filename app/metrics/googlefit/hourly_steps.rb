@@ -1,4 +1,4 @@
-ProviderRepo.find!(:googlefit).register_metric :hourly_steps do |metric|
+PROVIDERS.fetch(:googlefit).register_metric :hourly_steps do |metric|
   metric.title = "Hourly Steps"
   metric.description = "Steps taken each hour"
 

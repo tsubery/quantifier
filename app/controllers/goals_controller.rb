@@ -2,8 +2,8 @@ class GoalsController < AuthenticatedController
   expose(:goal) do
     (init_goal || raise(ActiveRecord::RecordNotFound)).decorate
   end
-  expose(:provider) { ProviderRepo.find(params[:provider_name]) }
-  expose(:metric) { provider.find_metric(params[:metric_key]) }
+  expose(:provider) { PROVIDERS[params[:provider_name]] }
+  expose(:metric) { provider&.find_metric(params[:metric_key]) }
   expose(:credential) do
     current_user.credentials.where(provider_name: provider.name).first
   end

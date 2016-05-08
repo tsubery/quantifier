@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "Days backlog" do
-  let(:subject) { ProviderRepo.find(:trello).find_metric(:idle_days_linear) }
+  let(:subject) { PROVIDERS[:trello].find_metric(:idle_days_linear) }
   let(:list_ids) { %w(list1 list2) }
   let(:options) { { list_ids: list_ids } }
 
