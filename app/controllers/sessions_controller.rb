@@ -5,12 +5,15 @@ class SessionsController < ApplicationController
 
   def create
     auth = request.env.fetch "omniauth.auth"
-    resolver = IdentityResolver.new current_user, auth
+    credential = IdentityResolver.new(current_user, auth).credential
 
-    if (user = resolver.sign_in_user)
-      session[:beeminder_user_id] = user.beeminder_user_id
+    if credential
+      session[:beeminder_user_id] = credential.user.beeminder_user_id
+      flash = "Connected successfully."
+    else
+      flash = "Please sign in first."
     end
-    redirect_to root_url, notice: resolver.flash
+    redirect_to root_url, notice: flash
   end
 
   def destroy

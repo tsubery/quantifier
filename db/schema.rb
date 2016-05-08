@@ -11,13 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926210204) do
+ActiveRecord::Schema.define(version: 20160316220158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "users", id: false, force: :cascade do |t|
-    t.string   "beeminder_token",   null: false
     t.string   "beeminder_user_id", null: false, index: {name: "index_users_on_beeminder_user_id", unique: true}
     t.datetime "created_at"
     t.datetime "updated_at"

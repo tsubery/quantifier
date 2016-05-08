@@ -1,81 +1,42 @@
 class IdentityResolver
-  attr_reader :sign_in_user, :flash
+  attr_reader :flash, :credential
 
-  # rubocop:disable all
   def initialize(current_user, auth)
     @auth = auth
+    @uid = auth.fetch("uid")
+    @provider_name = auth.fetch("provider")
+    @current_user = current_user
 
-    if session_credential?
-      if current_user
-        @flash = "Already signed in!"
-      else
-        @sign_in_user = upsert_user
-        @flash = "Signed in!"
-      end
-    else
-      if (credential = find_credential_for_uid)
-        # It's a known credential
-        if current_user
-          if current_user != credential.user
-            @flash = "User #{uid} belongs to another user."
-          else
-            @flash = "Credentials already exists."
-          end
-        else
-          @sign_in_user = credential.user
-          @flash = "Signed in!"
-        end
-      else
-        # First time we encounter this credential
-        if !current_user
-          # We must have a sign in user to create the credential
-          @flash = "Please sign in first."
-        elsif find_credential_for_user(current_user)
-          @flash = "Provider already connected with #{uid}"
-        else
-          create_credential_for current_user
-          @flash = "Connected successfully. Click Setup to complete the process!"
-        end
-      end
-    end
+    set_credential
   end
-  # rubocop:enable all
 
   private
 
-  def provider_name
-    @auth.fetch("provider")
+  attr_reader :auth, :uid, :provider_name, :current_user
+
+  def set_credential
+    @credential = find_credential
+    return unless current_user || session_credential?
+    @credential ||= create_credential(current_user)
   end
 
-  def uid
-    @auth.fetch "uid"
-  end
-
-  def beeminder_token
-    @auth.fetch("credentials").fetch("token")
-  end
-
-  def find_credential_for_uid
+  def find_credential
     Credential.find_by(
       provider_name: provider_name,
       uid: uid
     )
   end
 
-  def find_credential_for_user(user)
-    user.credentials.find_by provider_name: provider_name
-  end
-
   def session_credential?
     "beeminder" == provider_name
   end
 
-  def create_credential_for(user)
+  def create_credential(user)
+    user ||= User.find_or_create_by!(beeminder_user_id: uid)
     params = @auth.slice("uid", "info", "credentials", "extra").to_h
-    Credential.create! params.merge(user: user, provider_name: provider_name)
-  end
-
-  def upsert_user
-    User.upsert uid, beeminder_token
+    Credential.create! params.merge(
+      beeminder_user_id: user.beeminder_user_id,
+      provider_name: provider_name
+    )
   end
 end

@@ -2,7 +2,6 @@
 #
 # Table name: users
 #
-#  beeminder_token   :string           not null
 #  beeminder_user_id :string           not null, primary key
 #  created_at        :datetime
 #  updated_at        :datetime
@@ -25,6 +24,10 @@ class User < ActiveRecord::Base
   end
 
   def client
-    Beeminder::User.new beeminder_token, auth_type: :oauth
+    @client ||= BeeminderAdapter.new(beeminder_credentials.credentials).client
+  end
+
+  def beeminder_credentials
+    credentials.find_by(provider_name: :beeminder)
   end
 end
