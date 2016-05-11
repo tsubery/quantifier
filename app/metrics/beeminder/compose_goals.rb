@@ -8,12 +8,14 @@ PROVIDERS.fetch(:beeminder).register_metric :compose_goals do |metric|
       factor.to_s.match(/\A\d+\z/)
     end.flat_map do |slug, factor|
       adapter.recent_datapoints(slug).map do |dp|
-        Datapoint.new(
-          unique: true,
-          timestamp: dp.timestamp,
-          value: dp.value * factor.to_f
-        )
+        [dp.timestamp, dp.value * factor.to_f ]
       end
+    end.group_by(&:first).map do |ts, values|
+      Datapoint.new(
+        unique: true,
+        timestamp: ts,
+        value: values.map(&:second).sum
+      )
     end
   end
 
