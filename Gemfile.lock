@@ -120,6 +120,7 @@ GEM
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    brakeman (3.3.0)
     builder (3.2.2)
     byebug (2.7.0)
       columnize (~> 0.3)
@@ -181,8 +182,6 @@ GEM
     faraday_middleware (0.10.0)
       faraday (>= 0.7.4, < 0.10)
     ffi (1.9.10)
-    foreman (0.81.0)
-      thor (~> 0.19.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     google-api-client (0.9)
@@ -521,6 +520,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
+  brakeman
   capybara
   codeclimate-test-reporter
   coffee-rails
@@ -529,7 +529,6 @@ DEPENDENCIES
   dumper
   factory_girl_rails
   faker
-  foreman
   google-api-client (= 0.9)
   haml-rails
   html2haml
