@@ -1,0 +1,6 @@
+%h3 Source Goals
+- credential.client.goals.each do |g|
+  - slugs = params["source_slugs"] || {}
+  .from-group
+    = text_field_tag "goal[params][source_slugs][#{g.slug}]", slugs[g.slug], class: " narrow-input"
+    = pf.label "X #{g.slug}"

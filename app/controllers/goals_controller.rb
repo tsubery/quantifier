@@ -54,11 +54,13 @@ class GoalsController < AuthenticatedController
   end
 
   def goal_params
+    slug_keys = params.dig("goal", "params", "source_slugs")&.keys
     params.require(:goal)
           .permit(:id, :slug, :params, :active,
                   params: [
                     :exponent, :timezone, :bed_time_hour, :bed_time_minute,
-                    list_ids: []
-                  ])
+                    list_ids: [],
+                    source_slugs: slug_keys
+          ])
   end
 end

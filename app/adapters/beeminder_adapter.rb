@@ -1,4 +1,6 @@
 class BeeminderAdapter < BaseAdapter
+  RECENT_INTERVAL = 2.days.ago
+
   class << self
     def required_keys
       %i(token)
@@ -18,8 +20,16 @@ class BeeminderAdapter < BaseAdapter
   end
 
   def client
-    Beeminder::User.new access_token, auth_type: :oauth
+    @client ||= Beeminder::User.new access_token, auth_type: :oauth
   end
 
-  delegate :goals, to: :client
+  def goals
+    @goals ||= client.goals
+  end
+
+  def recent_datapoints slug
+    goals.find{|g| g.slug == slug }.datapoints.select do |dp|
+      dp.timestamp > RECENT_INTERVAL
+    end
+  end
 end

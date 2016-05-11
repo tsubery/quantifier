@@ -20,6 +20,7 @@ class Goal < ActiveRecord::Base
   delegate :provider, to: :credential
 
   validates :slug, presence: :true
+  validate :valid_params
 
   def metric
     provider.find_metric(metric_key)
@@ -56,5 +57,9 @@ class Goal < ActiveRecord::Base
 
   def options
     params.with_indifferent_access
+  end
+
+  def valid_params
+    errors[:params] = metric.param_errors(params)
   end
 end

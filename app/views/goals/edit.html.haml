@@ -25,6 +25,11 @@ end
             .form-group
               = pf.label label
               = input
+          - template_name = "goals/#{provider.name}_#{metric.key}"
+          - if lookup_context.template_exists?(template_name, [], true)
+            = render template_name, pf: pf, params: f.object.params
+          - else
+            = template_name
         .form-group
           = f.check_box :active
           = f.label :active, "Enabled"
