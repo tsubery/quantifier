@@ -5,8 +5,10 @@ gem "attribute-defaults"
 gem "beeminder"
 gem "bootstrap-sass"
 gem "coffee-rails"
-gem "decent_exposure"
-gem "draper"
+
+#needed in order to support draper on rails5
+gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml'
+gem "draper", github: 'janraasch/draper'
 gem "dumper"
 gem "haml-rails"
 gem "jbuilder"
@@ -15,11 +17,9 @@ gem "omniauth"
 gem "omniauth-oauth2"
 gem "pg"
 gem "pry-rails"
-gem "rails", "~> 4.2.0"
-gem "rdiscount"
+gem "rails", "5.0.0.beta4"
 gem "rollbar"
 gem "sass-rails"
-gem "schema_plus"
 gem "sidekiq"
 gem "simple_form"
 gem "spring", group: :development
@@ -74,7 +74,6 @@ end
 group :test do
   gem "capybara"
   gem "codeclimate-test-reporter", require: false
-  gem "database_cleaner"
   gem "faker"
   gem "launchy"
   gem "poltergeist"

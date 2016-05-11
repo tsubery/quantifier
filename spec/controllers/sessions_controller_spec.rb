@@ -7,24 +7,24 @@ describe SessionsController, :omniauth do
 
   describe "#create" do
     it "creates a user" do
-      expect { post :create, provider: :twitter }.to change { User.count }.by(1)
+      expect { post :create, params: {provider: :twitter} }.to change { User.count }.by(1)
     end
 
     it "creates a session" do
       expect(session[:beeminder_user_id]).to be_nil
-      post :create, provider: :twitter
+      post :create, params: { provider: :twitter }
       expect(session[:beeminder_user_id]).not_to be_nil
     end
 
     it "redirects to the home page" do
-      post :create, provider: :twitter
+      post :create, params: { provider: :twitter }
       expect(response).to redirect_to root_url
     end
   end
 
   describe "#destroy" do
     before do
-      post :create, provider: :twitter
+      post :create, params: { provider: :twitter }
     end
 
     it "resets the session" do

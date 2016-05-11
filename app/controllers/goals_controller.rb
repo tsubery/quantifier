@@ -1,15 +1,22 @@
 class GoalsController < AuthenticatedController
-  expose(:goal) do
-    (init_goal || raise(ActiveRecord::RecordNotFound)).decorate
-  end
-  expose(:provider) { PROVIDERS[params[:provider_name]] }
-  expose(:metric) { provider&.find_metric(params[:metric_key]) }
-  expose(:credential) do
-    current_user.credentials.where(provider_name: provider.name).first
+  helper_method def goal
+    @_goal ||= (init_goal || raise(ActiveRecord::RecordNotFound)).decorate
   end
 
-  expose(:available_goal_slugs) do
-    current_user.client.goals.map(&:slug)
+  helper_method def provider
+    @_provider ||= PROVIDERS[params[:provider_name]]
+  end
+
+  helper_method def metric
+    @_metric ||= provider&.find_metric(params[:metric_key])
+  end
+
+  helper_method def credential
+    @_credential ||= current_user.credentials.where(provider_name: provider.name).first
+  end
+
+  helper_method def available_goal_slugs
+    @_availabe_goal_slugs ||= current_user.client.goals.map(&:slug)
   end
 
   def edit

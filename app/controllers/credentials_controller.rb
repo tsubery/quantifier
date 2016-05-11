@@ -1,14 +1,19 @@
 class CredentialsController < AuthenticatedController
-  expose(:credential) do
-    collection = current_user.credentials
-    if params[:id]
-      collection.find_by(id: params[:id])
-    else
-      collection.find_or_initialize_by(provider_name: params_provider_name)
-    end.decorate
+  helper_method def credential
+    @_credential ||=
+      begin
+        collection = current_user.credentials
+        if params[:id]
+          collection.find_by(id: params[:id])
+        else
+          collection.find_or_initialize_by(provider_name: params_provider_name)
+        end.decorate
+      end
   end
 
-  expose(:provider) { credential.provider }
+  helper_method def provider
+    credential.provider
+  end
 
   before_action :require_provider
 
