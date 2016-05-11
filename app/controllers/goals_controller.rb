@@ -59,7 +59,6 @@ class GoalsController < AuthenticatedController
                   params: [
                     :exponent, :timezone, :bed_time_hour, :bed_time_minute,
                     list_ids: []
-                  ]
-                 )
+                  ])
   end
 end

@@ -6,9 +6,10 @@ gem "beeminder"
 gem "bootstrap-sass"
 gem "coffee-rails"
 
-#needed in order to support draper on rails5
-gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml'
-gem "draper", github: 'janraasch/draper'
+# needed in order to support draper on rails5
+gem "activemodel-serializers-xml",
+    git: "https://github.com/rails/activemodel-serializers-xml"
+gem "draper", github: "janraasch/draper"
 gem "dumper"
 gem "haml-rails"
 gem "jbuilder"

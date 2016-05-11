@@ -7,7 +7,9 @@ describe SessionsController, :omniauth do
 
   describe "#create" do
     it "creates a user" do
-      expect { post :create, params: {provider: :twitter} }.to change { User.count }.by(1)
+      expect do
+        post :create, params: { provider: :twitter }
+      end.to change { User.count }.by(1)
     end
 
     it "creates a session" do
