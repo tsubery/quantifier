@@ -19,6 +19,9 @@ end
         .form-group
           = f.label :beeminder_slug
           = f.select :slug, available_goal_slugs, { prompt: "Select Beeminder Slug"},{ class: "form-control" }
+        .form-group
+          = f.check_box :active
+          = f.label :active, "Enabled"
         = f.fields_for :params do |pf|
           - extra_configuration = self.instance_exec(credential.client, f.object.params, pf, &metric.configuration)
           - extra_configuration.each do |(label, input)|
@@ -28,9 +31,6 @@ end
           - template_name = "goals/#{provider.name}_#{metric.key}"
           - if lookup_context.template_exists?(template_name, [], true)
             = render template_name, pf: pf, params: f.object.params
-        .form-group
-          = f.check_box :active
-          = f.label :active, "Enabled"
         = f.submit "Save", class: %i(btn btn-default)
     .col-lg-1
     .col-lg-4
