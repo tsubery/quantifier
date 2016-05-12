@@ -37,6 +37,6 @@ class DatapointsSync
   end
 
   def overlapping_timestamps(new_datapoints, stored)
-    new_datapoints.map(&:timestamp) & stored.map(&:timestamp)
+    (new_datapoints.map(&:timestamp) & stored.map(&:timestamp)).to_set
   end
 end
