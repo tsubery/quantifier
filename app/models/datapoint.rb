@@ -7,7 +7,7 @@ class Datapoint
   def initialize(id: nil, unique: false, timestamp: nil, value:)
     @id = id.to_s
     @timestamp = timestamp
-    @value = value.to_f
+    @value = value.to_d
     @unique = unique
   end
 
