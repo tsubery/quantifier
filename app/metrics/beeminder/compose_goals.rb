@@ -4,11 +4,10 @@ PROVIDERS.fetch(:beeminder).register_metric :compose_goals do |metric|
   slug_key = "source_slugs"
 
   metric.block = proc do |adapter, options|
-    Array(options[slug_key]).select do |_, factor|
-      factor.to_s.match(/\A\d+\z/)
-    end.flat_map do |slug, factor|
+    Array(options[slug_key]).flat_map do |slug, factor|
+      next [] if factor.blank?
       adapter.recent_datapoints(slug).map do |dp|
-        [dp.timestamp, dp.value * factor.to_f ]
+        [dp.timestamp, dp.value * Float(factor) ]
       end
     end.group_by(&:first).map do |ts, values|
       Datapoint.new(
@@ -26,8 +25,8 @@ PROVIDERS.fetch(:beeminder).register_metric :compose_goals do |metric|
     else
       errors = []
 
-      valid_factors = slugs.values.all? do |factor|
-        factor.to_s.match(/\A\d*\z/)
+      valid_factors = slugs.values.reject(&:blank?).all? do |factor|
+        Float(factor) rescue false
       end
       valid_slugs =  slugs.keys.all? do |key|
         key.is_a?(String) && key.length < 20
