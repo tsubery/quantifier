@@ -7,7 +7,7 @@ PROVIDERS.fetch(:beeminder).register_metric :compose_goals do |metric|
     Array(options[slug_key]).flat_map do |slug, factor|
       next [] if factor.blank?
       adapter.recent_datapoints(slug).map do |dp|
-        [dp.timestamp, dp.value * Float(factor) ]
+        [dp.timestamp.utc, dp.value * Float(factor) ]
       end
     end.group_by(&:first).map do |ts, values|
       Datapoint.new(
