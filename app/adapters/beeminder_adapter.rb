@@ -27,8 +27,8 @@ class BeeminderAdapter < BaseAdapter
     @goals ||= client.goals
   end
 
-  def recent_datapoints slug
-    goals.find{|g| g.slug == slug }.datapoints.select do |dp|
+  def recent_datapoints(slug)
+    goals.find { |g| g.slug == slug }.datapoints.select do |dp|
       dp.timestamp > RECENT_INTERVAL
     end
   end

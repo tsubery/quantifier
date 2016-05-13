@@ -1,5 +1,8 @@
 PROVIDERS.fetch(:beeminder).register_metric :compose_goals do |metric|
-  metric.description = "Compose multiple goals into one by providing a factor for each goal. Each datapoint from a source goal will be multiplied by the factor provided and sent to target goal."
+  metric.description =
+    "Combine multiple goals into one by providing a factor for each goal." \
+    "Each datapoint from a source goal will be multiplied by the factor " \
+    "and sent to target goal."
   metric.title = "Compose goals"
   slug_key = "source_slugs"
 
@@ -7,7 +10,7 @@ PROVIDERS.fetch(:beeminder).register_metric :compose_goals do |metric|
     Array(options[slug_key]).flat_map do |slug, factor|
       next [] if factor.blank?
       adapter.recent_datapoints(slug).map do |dp|
-        [dp.timestamp.utc, dp.value * Float(factor) ]
+        [dp.timestamp.utc, dp.value * Float(factor)]
       end
     end.group_by(&:first).map do |ts, values|
       Datapoint.new(
@@ -20,28 +23,27 @@ PROVIDERS.fetch(:beeminder).register_metric :compose_goals do |metric|
 
   metric.param_errors = proc do |params|
     slugs = params[slug_key]
-    unless slugs.is_a?(Hash)
-      ["Must provide #{slug_key} hash"]
-    else
+    if slugs.is_a?(Hash)
       errors = []
 
       valid_factors = slugs.values.reject(&:blank?).all? do |factor|
-        Float(factor) rescue false
+        begin
+          Float(factor)
+        rescue ArgumentError
+          false
+        end
       end
-      valid_slugs =  slugs.keys.all? do |key|
+      valid_slugs = slugs.keys.all? do |key|
         key.is_a?(String) && key.length < 20
       end
 
-      unless valid_factors
-        errors << "All factors must be numbers"
-        p params
-      end
+      errors << "All factors must be numbers" unless valid_factors
 
-      unless valid_slugs
-        errors << "Invalid slug"
-      end
+      errors << "Invalid slug" unless valid_slugs
 
       errors
+    else
+      ["Must provide #{slug_key} hash"]
     end
   end
 end

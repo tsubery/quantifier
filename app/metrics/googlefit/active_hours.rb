@@ -9,7 +9,7 @@ PROVIDERS.fetch(:googlefit).register_metric :active_hours do |metric|
       ts_start = point.start_time_nanos.to_i / 1e9
       ts_end = point.end_time_nanos.to_i / 1e9
       hour = Time.zone.at(ts_start).beginning_of_hour
-      scores[hour] += p((ts_end - ts_start) / 3600.0)
+      scores[hour] += (ts_end - ts_start) / 3600.0
     end.map do |ts, value|
       Datapoint.new(unique: true, timestamp: ts, value: value)
     end.sort_by(&:timestamp)

@@ -61,6 +61,6 @@ class GoalsController < AuthenticatedController
                     :exponent, :timezone, :bed_time_hour, :bed_time_minute,
                     list_ids: [],
                     source_slugs: slug_keys
-          ])
+                  ])
   end
 end

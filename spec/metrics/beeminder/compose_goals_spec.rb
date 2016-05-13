@@ -10,16 +10,16 @@ describe "Compose goals metric" do
     end
     context "when slug_sources exists" do
       it "accepts empty hash" do
-        params = {"source_slugs" => {
+        params = { "source_slugs" => {
 
-        }}
+        } }
         errors = subject.param_errors(params)
         expect(errors).to be_empty
       end
       it "rejects long slugs" do
         params = {
           "source_slugs" => {
-            "a"*30 => "1"
+            "a" * 30 => "1"
           }
         }
         errors = subject.param_errors(params)

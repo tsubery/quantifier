@@ -23,21 +23,21 @@ describe Datapoint do
     end
     context "When value has different type" do
       it_behaves_like "equal as can be",
-        Datapoint.new(value: 1, timestamp: ts),
-        Datapoint.new(value: 1.0, timestamp: ts)
+                      Datapoint.new(value: 1, timestamp: ts),
+                      Datapoint.new(value: 1.0, timestamp: ts)
     end
 
     context "When id has different type" do
       it_behaves_like "equal as can be",
-        Datapoint.new(id: "1", value: 1, timestamp: ts),
-        Datapoint.new(id: 1, value: 1, timestamp: ts)
+                      Datapoint.new(id: "1", value: 1, timestamp: ts),
+                      Datapoint.new(id: 1, value: 1, timestamp: ts)
     end
 
     context "Value accuracy" do
-      #This test verify floating point accuracy subtlties does not cause inequality
+      # This test verify floating point accuracy subtlties does not cause inequality
       it_behaves_like "equal as can be",
-        Datapoint.new(value: (0.1 + 0.2), timestamp: ts),
-        Datapoint.new(value: 0.3, timestamp: ts)
+                      Datapoint.new(value: (0.1 + 0.2), timestamp: ts),
+                      Datapoint.new(value: 0.3, timestamp: ts)
     end
   end
 end
