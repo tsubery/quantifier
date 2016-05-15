@@ -10,13 +10,19 @@ PROVIDERS.fetch(:beeminder).register_metric :compose_goals do |metric|
     Array(options[slug_key]).flat_map do |slug, factor|
       next [] if factor.blank?
       adapter.recent_datapoints(slug).map do |dp|
-        [dp.timestamp.utc, dp.value * Float(factor)]
+        value = dp.value * Float(factor)
+        [
+          dp.timestamp.utc,
+          value,
+          "#{slug}: #{value.round(2)}"
+        ]
       end
-    end.group_by(&:first).map do |ts, values|
+    end.group_by(&:first).map do |ts, entries|
       Datapoint.new(
         unique: true,
         timestamp: ts,
-        value: values.map(&:second).sum
+        value: entries.sum(&:second),
+        comment_prefix: entries.map(&:third).join(",")
       )
     end
   end

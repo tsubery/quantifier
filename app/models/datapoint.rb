@@ -1,21 +1,23 @@
 class Datapoint
-  attr_accessor :timestamp, :value, :id, :unique
+  attr_reader :timestamp, :value, :id, :unique, :comment_prefix
   include Comparable
 
   alias eql? ==
 
-  def initialize(id: nil, unique: false, timestamp: nil, value:)
+  def initialize(id: nil, unique: false, timestamp: nil,
+                 value:, comment_prefix: "")
     @id = id.to_s
     @timestamp = timestamp
     @value = value.to_d
     @unique = unique
+    @comment_prefix = comment_prefix
   end
 
   def to_beeminder
     Beeminder::Datapoint
       .new value: value,
            timestamp: timestamp,
-           comment: "Auto-entered by beemind.me for #{timestamp} @ #{Time.current}"
+           comment: "#{comment_prefix} beemind.me for #{timestamp} @ #{Time.current}"
   end
 
   def <=>(other)
