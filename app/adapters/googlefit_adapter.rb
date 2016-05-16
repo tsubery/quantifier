@@ -80,9 +80,9 @@ class GooglefitAdapter < BaseAdapter
       "me",
       agg_request(from),
       options: authorization
-    ).bucket.map do |bucket|
+    ).bucket&.map do |bucket|
       bucket.dataset.first.point.first
-    end
+    end || []
   end
 
   def agg_request(from)
