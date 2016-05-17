@@ -59,8 +59,9 @@ group :development do
   gem "rb-fsevent", require: false
   gem "rb-inotify", require: false
   gem "rerun", require: false
-  gem "rubocop"
+  gem "rubocop", require: false
 end
+
 group :development, :test do
   gem "dotenv-rails"
   gem "factory_girl_rails"
