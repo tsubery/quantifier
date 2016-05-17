@@ -9,8 +9,12 @@ class BeeminderWorker
       filter = { users: { beeminder_user_id: beeminder_user_id } }
     end
 
-    Goal.where(active: true).joins(:user).where(filter)
-        .find_each(&method(:safe_sync))
+    Goal.where(active: true)
+      .joins(:user)
+      .joins(:credential)
+      .where(filter)
+      .order("credentials.provider_name = 'beeminder' ASC")
+      .find_each(&method(:safe_sync))
   end
 
   private
