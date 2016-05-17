@@ -1,17 +1,14 @@
 source "https://rubygems.org"
 
 gem "activerecord-import"
-gem "attribute-defaults"
 gem "beeminder"
 gem "bootstrap-sass"
-gem "coffee-rails"
 
 # needed in order to support draper on rails5
 gem "activemodel-serializers-xml",
     git: "https://github.com/rails/activemodel-serializers-xml"
 gem "draper", github: "janraasch/draper"
 gem "haml-rails"
-gem "jbuilder"
 gem "jquery-rails"
 gem "omniauth"
 gem "omniauth-oauth2"
@@ -23,7 +20,6 @@ gem "rollbar"
 gem "sass-rails"
 gem "sidekiq"
 gem "simple_form"
-gem "spring", group: :development
 gem "therubyracer", platform: :ruby
 gem "uglifier", ">= 1.3.0"
 gem "whenever", require: false
@@ -60,6 +56,7 @@ group :development do
   gem "rb-inotify", require: false
   gem "rerun", require: false
   gem "rubocop", require: false
+  gem "spring"
 end
 
 group :development, :test do
@@ -76,8 +73,6 @@ end
 group :test do
   gem "capybara"
   gem "codeclimate-test-reporter", require: false
-  gem "faker"
-  gem "launchy"
   gem "poltergeist"
   gem "rspec-instafail", require: false
   gem "timecop"
