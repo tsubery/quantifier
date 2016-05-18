@@ -34,6 +34,15 @@ GIT
       railties (>= 3.0, < 5.0)
 
 GIT
+  remote: git://github.com/tsubery/pg_drive.git
+  revision: 116df9e4b96062899019ff69daa1e2a262638d60
+  specs:
+    pg_drive (0.1.2)
+      google-api-client (= 0.9)
+      pg
+      rails (> 4.0.0, < 6.0.0)
+
+GIT
   remote: https://github.com/rails/activemodel-serializers-xml
   revision: 570ee7ed33d60e44ca1f3ccbec3d1fbf61d52cbf
   specs:
@@ -281,10 +290,6 @@ GEM
     parser (2.3.1.0)
       ast (~> 2.2)
     pg (0.18.4)
-    pg_drive (0.1.2)
-      google-api-client (= 0.9)
-      pg
-      rails (> 4.0.0, < 6.0.0)
     pocket-ruby (0.0.6)
       faraday (>= 0.7)
       faraday_middleware (~> 0.9)
@@ -523,7 +528,7 @@ DEPENDENCIES
   omniauth-quizlet!
   omniauth-trello
   pg
-  pg_drive
+  pg_drive!
   pocket-ruby
   poltergeist
   pry-byebug
