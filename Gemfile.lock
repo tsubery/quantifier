@@ -164,6 +164,8 @@ GEM
       dotenv (= 2.1.1)
       railties (>= 4.0, < 5.1)
     erubis (2.7.0)
+    ethon (0.9.0)
+      ffi (>= 1.3.0)
     eventmachine (1.2.0.1)
     execjs (2.6.0)
     factory_girl (4.7.0)
@@ -253,6 +255,8 @@ GEM
     multi_json (1.12.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    my_bcycle (0.1.1)
+      typhoeus (~> 1.0)
     netrc (0.11.0)
     nio4r (1.2.1)
     nokogiri (1.6.7.2)
@@ -473,6 +477,8 @@ GEM
     trollop (2.1.2)
     typeracer_ruby (0.0.4)
       faraday (~> 0.9)
+    typhoeus (1.0.2)
+      ethon (>= 0.9.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uber (0.0.15)
@@ -520,6 +526,7 @@ DEPENDENCIES
   hub
   jazz_hands!
   jquery-rails
+  my_bcycle
   omniauth
   omniauth-beeminder!
   omniauth-google-oauth2

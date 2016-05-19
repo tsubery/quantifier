@@ -44,8 +44,8 @@ class CredentialsController < AuthenticatedController
   private
 
   def credential_params
-    if provider.public?
-      params.require(:credential).permit(:uid)
+    if provider.public? || provider.password_auth?
+      params.require(:credential).permit(:uid, :password)
     else
       {}
     end

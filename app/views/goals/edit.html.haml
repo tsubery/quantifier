@@ -41,7 +41,7 @@ end
             %td Timestamp
             %td Value
         %tbody
-          - goal.fetch_scores.each do |datapoint|
+          - goal.safe_fetch_scores.each do |datapoint|
             %tr
               %td= datapoint.timestamp || "Now"
               %td= datapoint.value

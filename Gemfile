@@ -34,6 +34,7 @@ gem "pocket-ruby"
 gem "quizlet-ruby"
 gem "ruby-trello"
 gem "typeracer_ruby"
+gem "my_bcycle"
 
 # auth
 gem "omniauth-beeminder", branch: "master", github: "beeminder/omniauth-beeminder"

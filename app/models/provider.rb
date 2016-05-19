@@ -6,10 +6,10 @@ class Provider
   alias name key
 
   def initialize(key, adapter)
-    [:none, :oauth].include?(adapter.auth_type) || raise("Unknown auth_type #{auth_type}")
     @adapter = adapter
     @key = key
     @metrics_repo = MetricRepo.new
+    %i(none oauth password).include?(auth_type) || raise("Unknown auth_type #{auth_type}")
   end
 
   def oauth?
@@ -18,6 +18,10 @@ class Provider
 
   def public?
     :none == auth_type
+  end
+
+  def password_auth?
+    :password == auth_type
   end
 
   def register_metric(key)

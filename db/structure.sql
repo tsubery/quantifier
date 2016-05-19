@@ -34,6 +34,18 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: credentials; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -46,7 +58,8 @@ CREATE TABLE credentials (
     credentials json DEFAULT '{}'::json NOT NULL,
     extra json DEFAULT '{}'::json NOT NULL,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    password character varying DEFAULT ''::character varying NOT NULL
 );
 
 
@@ -180,6 +193,14 @@ ALTER TABLE ONLY scores ALTER COLUMN id SET DEFAULT nextval('scores_id_seq'::reg
 
 
 --
+-- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
 -- Name: credentials_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -296,6 +317,6 @@ ALTER TABLE ONLY scores
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20140714204840'), ('20140729165051'), ('20150719185636'), ('20150721223451'), ('20150907205208'), ('20150908234553'), ('20150909225051'), ('20150926194732'), ('20150926210204'), ('20160316220158');
+INSERT INTO schema_migrations (version) VALUES ('20140714204840'), ('20140729165051'), ('20150719185636'), ('20150721223451'), ('20150907205208'), ('20150908234553'), ('20150909225051'), ('20150926194732'), ('20150926210204'), ('20160316220158'), ('20160519212602');
 
 

@@ -24,9 +24,17 @@ class GoalDecorator < Draper::Decorator
 
   def safe_fetch_scores
     object.fetch_scores
-  rescue
-    OpenStruct.new timestamp: "now",
-                   value: "Could not fetch score"
+  rescue => e
+    msg = "Could not fetch scores."
+    if BaseAdapter::AuthorizationError === e
+      msg += " Please authorize again"
+    end
+    [
+      OpenStruct.new(
+        timestamp: "now",
+        value: msg
+      )
+    ]
   end
 
   def metric_link

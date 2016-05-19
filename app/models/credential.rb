@@ -20,7 +20,10 @@ class Credential < ActiveRecord::Base
   has_many :goals, dependent: :destroy
 
   def client
-    authorization = credentials.merge(uid: uid).with_indifferent_access
+    authorization = credentials.merge(
+      uid: uid,
+      password: password
+    ).with_indifferent_access
     provider.adapter.new(authorization)
   end
 
