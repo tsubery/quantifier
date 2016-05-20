@@ -32,7 +32,7 @@ PROVIDERS.fetch(:trello).register_metric :idle_hours_rmp do |metric|
       [:exponent, select_tag("goal[params][exponent]",
                              options_for_select(exponent_options,
                                                 selected: exponent),
-                             class: "form-control")]
+                             class: "form-control")],
     ]
   end
 end

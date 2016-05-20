@@ -24,13 +24,13 @@ describe "Bed time lag" do
           {
             "timezone": "Dublin",
             "bed_time_hour": 22,
-            "bed_time_minute": 0
+            "bed_time_minute": 0,
           }.with_indifferent_access
         end
         it "returns two results" do
           points = [
             make_point((start_ts + 23.hours)),
-            make_point((start_ts + 21.hours))
+            make_point((start_ts + 21.hours)),
           ]
 
           adapter = double fetch_sleeps: points
@@ -47,13 +47,13 @@ describe "Bed time lag" do
           {
             "timezone": "UTC",
             "bed_time_hour": 22,
-            "bed_time_minute": 30
+            "bed_time_minute": 30,
           }.with_indifferent_access
         end
         it "returns two results" do
           points = [
             make_point((start_ts + 22.hours + 29.minutes)),
-            make_point((start_ts + 1.day + 22.hours + 31.minutes))
+            make_point((start_ts + 1.day + 22.hours + 31.minutes)),
           ]
 
           adapter = double fetch_sleeps: points
@@ -75,12 +75,12 @@ describe "Bed time lag" do
           {
             "timezone": "UTC",
             "bed_time_hour": 23,
-            "bed_time_minute": 59
+            "bed_time_minute": 59,
           }.with_indifferent_access
         end
         it "assigns it to the previous day" do
           points = [
-            make_point((start_ts + 1.day + 11.hours + 58.minutes))
+            make_point((start_ts + 1.day + 11.hours + 58.minutes)),
           ]
 
           adapter = double fetch_sleeps: points
@@ -97,13 +97,13 @@ describe "Bed time lag" do
           {
             "timezone": "Hawaii",
             "bed_time_hour": 21,
-            "bed_time_minute": 0
+            "bed_time_minute": 0,
           }.with_indifferent_access
         end
         it "assigns it to the previous day" do
           hawaii_ts = tz.parse("2015-09-27").beginning_of_day
           points = [
-            make_point(hawaii_ts + 21.hours + 18.minutes)
+            make_point(hawaii_ts + 21.hours + 18.minutes),
           ]
 
           adapter = double fetch_sleeps: points

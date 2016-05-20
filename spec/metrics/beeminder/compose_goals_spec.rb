@@ -19,8 +19,8 @@ describe "Compose goals metric" do
       it "rejects long slugs" do
         params = {
           "source_slugs" => {
-            "a" * 30 => "1"
-          }
+            "a" * 30 => "1",
+          },
         }
         errors = subject.param_errors(params)
         expect(errors.first).to match(/Invalid slug/i)
@@ -28,8 +28,8 @@ describe "Compose goals metric" do
       it "rejects non numeric factors" do
         params = {
           "source_slugs" => {
-            "aasdf" => "nan"
-          }
+            "aasdf" => "nan",
+          },
         }
         errors = subject.param_errors(params)
         expect(errors.first).to match(/must be numbers/i)

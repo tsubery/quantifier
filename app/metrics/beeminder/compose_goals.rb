@@ -14,7 +14,7 @@ PROVIDERS.fetch(:beeminder).register_metric :compose_goals do |metric|
         [
           dp.timestamp.utc,
           value,
-          "#{slug}: #{value.round(2)}"
+          "#{slug}: #{value.round(2)}",
         ]
       end
     end.group_by(&:first).map do |ts, entries|

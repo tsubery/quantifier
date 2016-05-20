@@ -22,7 +22,7 @@ PROVIDERS.fetch(:trello).register_metric :idle_hours_average do |metric|
                              options_for_select(client.list_options,
                                                 selected: list_ids),
                              multiple: true,
-                             class: "form-control")]
+                             class: "form-control")],
     ]
   end
 end

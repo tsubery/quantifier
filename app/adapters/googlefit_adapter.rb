@@ -114,7 +114,7 @@ class GooglefitAdapter < BaseAdapter
         refresh_token: credentials["refresh_token"],
         scope: %w(https://www.googleapis.com/auth/fitness.activity.read),
         token_credential_uri: "https://www.googleapis.com/oauth2/v3/token"
-      )
+      ),
     }
   end
 end

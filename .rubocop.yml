@@ -26,4 +26,7 @@ Style/MultilineBlockChain:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
-
+TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+Style/IfUnlessModifier:
+  Enabled: false

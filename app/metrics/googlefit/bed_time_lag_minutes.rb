@@ -54,7 +54,7 @@ PROVIDERS.fetch(:googlefit).register_metric :bed_time_lag_minutes do |metric|
                            class: "form-control")],
       [:timezone, select_tag("goal[params][timezone]",
                              time_zone_options_for_select(selected: tz),
-                             class: "form-control")]
+                             class: "form-control")],
     ]
   end
 end

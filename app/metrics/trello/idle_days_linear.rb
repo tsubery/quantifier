@@ -20,7 +20,7 @@ PROVIDERS.fetch(:trello).register_metric :idle_days_linear do |metric|
                              options_for_select(client.list_options,
                                                 selected: list_ids),
                              multiple: true,
-                             class: "form-control")]
+                             class: "form-control")],
     ]
   end
 end

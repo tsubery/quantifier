@@ -21,7 +21,7 @@ describe "Hourly step" do
         points = [
           make_point((start_ts + 00.minutes), 100),
           make_point((start_ts + 59.minutes), 50),
-          make_point((start_ts + 90.minutes), 200)
+          make_point((start_ts + 90.minutes), 200),
         ]
 
         adapter = double fetch_steps: points

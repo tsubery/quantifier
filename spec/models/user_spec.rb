@@ -2,7 +2,6 @@
 #
 # Table name: users
 #
-#  beeminder_token   :string           not null
 #  beeminder_user_id :string           not null, primary key
 #  created_at        :datetime
 #  updated_at        :datetime

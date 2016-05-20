@@ -43,7 +43,7 @@ class BcycleAdapter < BaseAdapter
     credentials.fetch :password
   end
 
-  def statistics_for time
+  def statistics_for(time)
     client.statistics_for(time)
   rescue MyBcycle::InvalidCredentials
     raise AuthorizationError

@@ -6,11 +6,12 @@
 #  beeminder_user_id :string           not null
 #  provider_name     :string           not null
 #  uid               :string           default(""), not null
-#  info              :json             default({}), not null
-#  credentials       :json             default({}), not null
-#  extra             :json             default({}), not null
+#  info              :json             not null
+#  credentials       :json             not null
+#  extra             :json             not null
 #  created_at        :datetime
 #  updated_at        :datetime
+#  password          :string           default(""), not null
 #
 
 class Credential < ActiveRecord::Base

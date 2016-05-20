@@ -10,11 +10,11 @@ class BeeminderWorker
     end
 
     Goal.where(active: true)
-      .joins(:user)
-      .joins(:credential)
-      .where(filter)
-      .order("credentials.provider_name = 'beeminder' ASC")
-      .find_each(&method(:safe_sync))
+        .joins(:user)
+        .joins(:credential)
+        .where(filter)
+        .order("credentials.provider_name = 'beeminder' ASC")
+        .find_each(&method(:safe_sync))
   end
 
   private
