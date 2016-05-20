@@ -25,6 +25,7 @@ class GoalDecorator < Draper::Decorator
   def safe_fetch_scores
     object.fetch_scores
   rescue => e
+    Rails.logger.error e.inspect
     msg = "Could not fetch scores."
     if e.is_a? BaseAdapter::AuthorizationError
       msg += " Please authorize again"
