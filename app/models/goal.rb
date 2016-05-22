@@ -27,6 +27,16 @@ class Goal < ActiveRecord::Base
   end
 
   def sync
+    transaction { with_lock { sync_process } }
+  end
+
+  def beeminder_goal
+    user.client.goal(slug)
+  end
+
+  private
+
+  def sync_process
     calculated = fetch_scores
     stored = scores.order(:timestamp).map(&:to_datapoint)
     syncher = DatapointsSync.new(calculated, stored, beeminder_goal).call
@@ -49,10 +59,6 @@ class Goal < ActiveRecord::Base
     end
 
     Score.import columns, score_records
-  end
-
-  def beeminder_goal
-    user.client.goal(slug)
   end
 
   def options
