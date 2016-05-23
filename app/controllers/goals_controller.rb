@@ -16,7 +16,11 @@ class GoalsController < AuthenticatedController
   end
 
   helper_method def available_goal_slugs
-    @_availabe_goal_slugs ||= current_user.client.goals.map(&:slug)
+    @_availabe_goal_slugs ||= (
+      current_user.client.goals.map(&:slug) -
+      current_user.goals.pluck(:slug) +
+      [ goal.slug ]
+    ).compact
   end
 
   def edit
