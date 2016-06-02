@@ -6,7 +6,7 @@ class GooglefitAdapter < BaseAdapter
     "derived:com.google.step_count.delta:com.google.android.gms:estimated_steps"
   ACTIVITY_SEGMENT = "com.google.activity.segment"
   SLEEP_SEGMENT_CODES = [72, 109, 110, 111, 112].freeze
-  INACTIVE_SEGMENT_CODES = [0, 1, 2, 3, 4] + SLEEP_SEGMENT_CODES
+  INACTIVE_SEGMENT_CODES = [0, 2, 3, 4] + SLEEP_SEGMENT_CODES
   WEIGHT_TRAINING_CODE = 80
   ACTIVITY_AGG = Google::Apis::FitnessV1::AggregateBy.new(
     data_type_name: ACTIVITY_SEGMENT
