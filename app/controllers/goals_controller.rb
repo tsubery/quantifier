@@ -19,7 +19,7 @@ class GoalsController < AuthenticatedController
     @_availabe_goal_slugs ||= (
       current_user.client.goals.map(&:slug) -
       current_user.goals.pluck(:slug) +
-      [ goal.slug ]
+      [goal.slug]
     ).compact
   end
 

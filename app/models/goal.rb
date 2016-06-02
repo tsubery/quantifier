@@ -34,6 +34,10 @@ class Goal < ActiveRecord::Base
     user.client.goal(slug)
   end
 
+  def fetch_scores
+    Array(metric.call(credential.client, options))
+  end
+
   private
 
   def sync_process
@@ -41,10 +45,6 @@ class Goal < ActiveRecord::Base
     stored = scores.order(:timestamp).map(&:to_datapoint)
     syncher = DatapointsSync.new(calculated, stored, beeminder_goal).call
     store_scores syncher.storable
-  end
-
-  def fetch_scores
-    Array(metric.call(credential.client, options))
   end
 
   def store_scores(datapoints)

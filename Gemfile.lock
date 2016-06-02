@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: git://github.com/tsubery/pg_drive.git
-  revision: 116df9e4b96062899019ff69daa1e2a262638d60
+  revision: e3602b073832f3c746b8b84ee66c6dd3431704db
   specs:
     pg_drive (0.1.2)
       google-api-client (= 0.9)
@@ -252,7 +252,7 @@ GEM
     mime-types (1.25.1)
     mini_portile2 (2.0.0)
     minitest (5.9.0)
-    multi_json (1.12.0)
+    multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     my_bcycle (0.1.1)
@@ -494,7 +494,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
-    websocket-driver (0.6.3)
+    websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     whenever (0.9.4)
