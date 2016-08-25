@@ -34,23 +34,29 @@ class BcycleAdapter < BaseAdapter
   end
 
   def statistics_for_last(duration: 3.days)
-    now = UTC.now
+    cutoff = now - duration
+
+    trips = relevant_months.map(&method(:statistics_for)).reduce(:merge)
+    trips.select{ |ts, _| ts > cutoff }.to_h
+  end
+
+  private
+
+  def relevant_months
     # to cover all timezones we use wider range
     # we err on making too many requests than missing some
     start_ts = now - 4.days
     end_ts = now + 1.day
-    trips = statistics_for(end_ts)
     if end_ts.month != start_ts.month
-      trips.merge! statistics_for(start_ts)
+      [start_ts, end_ts]
+    else
+      [start_ts]
     end
-
-    cutoff = now - duration
-    trips.select do |ts, _|
-      ts > cutoff
-    end.to_h
   end
 
-  private
+  def now
+    @now ||= UTC.now
+  end
 
   def statistics_for(time)
     client.statistics_for(time)

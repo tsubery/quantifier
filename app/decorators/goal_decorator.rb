@@ -17,10 +17,10 @@ class GoalDecorator < DelegateClass(Goal)
 
   def delete_link
     link_to "Delete",
-      routes.goal_path(self),
-      method: :delete,
-      "data-confirm": "Are you sure?",
-      class: %i(btn btn-default)
+            routes.goal_path(self),
+            method: :delete,
+            "data-confirm": "Are you sure?",
+            class: %i(btn btn-default)
   end
 
   def safe_fetch_scores
@@ -37,8 +37,8 @@ class GoalDecorator < DelegateClass(Goal)
   def metric_link
     title = [provider.title, metric.title].join(" - ")
     link_to title,
-      ProviderDecorator.new(provider).metric_path(metric),
-      title: "Click to configure"
+            ProviderDecorator.new(provider).metric_path(metric),
+            title: "Click to configure"
   end
 
   private

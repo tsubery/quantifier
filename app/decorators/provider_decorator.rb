@@ -16,9 +16,9 @@ class ProviderDecorator < DelegateClass(Provider)
   def logo(logged_in:)
     greyed = logged_in && !credential?
     image_tag("logos/#{name}.png",
-                alt: "#{name} Logo",
-                class: "logo #{greyed && "greyed"}",
-                title: status)
+              alt: "#{name} Logo",
+              class: "logo #{greyed && "greyed"}",
+              title: status)
   end
 
   def credential_link
@@ -36,14 +36,15 @@ class ProviderDecorator < DelegateClass(Provider)
   def metric_links
     metrics.map do |metric|
       link_to metric.title,
-                metric_path(metric),
-                title: metric.description + ". Click to add or configure."
+              metric_path(metric),
+              title: metric.description + ". Click to add or configure."
     end
   end
 
   def metric_path(metric)
     "/goals/#{name}/#{metric.key}"
   end
+
   private
 
   def routes

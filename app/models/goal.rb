@@ -45,7 +45,8 @@ class Goal < ActiveRecord::Base
   def sync_process
     calculated = fetch_scores
     stored = scores.order(:timestamp).map(&:to_datapoint)
-    syncher = DatapointsSync.new(calculated, stored, beeminder_goal).call
+    syncher = DatapointsSync.new(calculated, stored, beeminder_goal)
+    syncher.call
     store_scores syncher.storable
   end
 

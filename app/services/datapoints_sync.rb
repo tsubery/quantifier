@@ -13,7 +13,6 @@ class DatapointsSync
     to_delete = overlapping_datapoints(new_datapoints, stored)
     transmit new_datapoints
     to_delete.each(&beeminder_goal.method(:delete))
-    self
   end
 
   def storable

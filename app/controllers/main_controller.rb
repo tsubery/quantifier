@@ -6,7 +6,7 @@ class MainController < ApplicationController
   end
 
   helper_method def goals
-  @_goals ||= current_user&.goals&.map(&GoalDecorator.method(:new))
+    @_goals ||= current_user&.goals&.map(&GoalDecorator.method(:new))
   end
 
   helper_method def credentials

@@ -1,6 +1,6 @@
 class GoalsController < AuthenticatedController
   helper_method def goal
-  @_goal ||= GoalDecorator.new(init_goal || raise(ActiveRecord::RecordNotFound))
+    @_goal ||= GoalDecorator.new(init_goal || raise(ActiveRecord::RecordNotFound))
   end
 
   helper_method def provider

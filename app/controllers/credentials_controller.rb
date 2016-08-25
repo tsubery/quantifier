@@ -1,6 +1,6 @@
 class CredentialsController < AuthenticatedController
   helper_method def credential
-    @_credential ||= 
+    @_credential ||=
       begin
         collection = current_user.credentials
         credential = collection.find_by(id: params[:id])

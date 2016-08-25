@@ -19,7 +19,7 @@ describe "Hourly step" do
       it "returns two results" do
         start_ts = Time.zone.parse("2015-09-10")
         points = [
-          make_point((start_ts + 00.minutes), 100),
+          make_point((start_ts + 0.minutes), 100),
           make_point((start_ts + 59.minutes), 50),
           make_point((start_ts + 90.minutes), 200),
         ]
