@@ -21,8 +21,6 @@ class BcycleAdapter < BaseAdapter
     @client ||= self.class.client(uid, password)
   end
 
-  delegate :completed_games, to: :client
-
   def self.valid_credentials?(credentials)
     username, password = credentials.values_at(:uid, :password)
     username.present? && password.present?

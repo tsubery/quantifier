@@ -22,6 +22,8 @@ class Goal < ActiveRecord::Base
   validates :slug, presence: :true
   validate :valid_params
 
+  scope :active, -> { where(active: true) }
+
   def metric
     provider.find_metric(metric_key)
   end

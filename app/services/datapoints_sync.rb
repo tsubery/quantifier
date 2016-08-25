@@ -10,8 +10,9 @@ class DatapointsSync
   end
 
   def call
-    delete overlapping_timestamps(new_datapoints, stored)
+    to_delete = overlapping_datapoints(new_datapoints, stored)
     transmit new_datapoints
+    to_delete.each(&beeminder_goal.method(:delete))
     self
   end
 
@@ -29,11 +30,12 @@ class DatapointsSync
     beeminder_goal.add datapoints.map(&:to_beeminder)
   end
 
-  def delete(timestamps)
-    return if timestamps.empty?
+  def overlapping_datapoints(new_datapoints, stored)
+    timestamps = overlapping_timestamps(new_datapoints, stored)
+    return [] if timestamps.empty?
     beeminder_goal.datapoints.select do |dp|
       timestamps.include?(dp.timestamp)
-    end.each(&beeminder_goal.method(:delete))
+    end
   end
 
   def overlapping_timestamps(new_datapoints, stored)
