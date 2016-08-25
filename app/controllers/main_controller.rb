@@ -1,12 +1,12 @@
 class MainController < ApplicationController
   helper_method def providers
     @_providers ||= PROVIDERS.map do |name, provider|
-      ProviderDecorator.decorate(provider, credentials[name])
+      ProviderDecorator.new(provider, credentials[name])
     end
   end
 
   helper_method def goals
-    @_goals ||= current_user && current_user.goals.decorate
+  @_goals ||= current_user&.goals&.map(&GoalDecorator.method(:new))
   end
 
   helper_method def credentials

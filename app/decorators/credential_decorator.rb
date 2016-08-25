@@ -1,6 +1,4 @@
-class CredentialDecorator < Draper::Decorator
-  delegate_all
-
+class CredentialDecorator < DelegateClass(Credential)
   def connected_as
     info["nickname"] || info["email"] || uid
   end

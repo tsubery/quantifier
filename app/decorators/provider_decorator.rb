@@ -1,16 +1,21 @@
-class ProviderDecorator < Draper::Decorator
-  delegate_all
+class ProviderDecorator < DelegateClass(Provider)
+  include ActionView::Helpers::UrlHelper
+  include ActionView::Helpers::AssetTagHelper
+
   attr_accessor :credential
+
   delegate :status, to: :credential
 
   def initialize(object, credential = nil)
     super(object)
-    self.credential = (credential || Credential.new).decorate
+
+    credential ||= Credential.new
+    self.credential = CredentialDecorator.new(credential)
   end
 
   def logo(logged_in:)
     greyed = logged_in && !credential?
-    h.image_tag("logos/#{name}.png",
+    image_tag("logos/#{name}.png",
                 alt: "#{name} Logo",
                 class: "logo #{greyed && "greyed"}",
                 title: status)
@@ -18,9 +23,9 @@ class ProviderDecorator < Draper::Decorator
 
   def credential_link
     if credential?
-      h.edit_credential_path(credential)
+      routes.edit_credential_path(credential)
     else
-      h.new_credential_path(provider_name: name)
+      routes.new_credential_path(provider_name: name)
     end
   end
 
@@ -30,7 +35,7 @@ class ProviderDecorator < Draper::Decorator
 
   def metric_links
     metrics.map do |metric|
-      h.link_to metric.title,
+      link_to metric.title,
                 metric_path(metric),
                 title: metric.description + ". Click to add or configure."
     end
@@ -38,5 +43,10 @@ class ProviderDecorator < Draper::Decorator
 
   def metric_path(metric)
     "/goals/#{name}/#{metric.key}"
+  end
+  private
+
+  def routes
+    Rails.application.routes.url_helpers
   end
 end

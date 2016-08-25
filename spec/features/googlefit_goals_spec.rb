@@ -34,6 +34,6 @@ describe "Googlefit goals" do
     expect(page).to have_select("goal_slug", selected: "slug2")
     click_link "Delete"
     expect(page).to have_content("Deleted successfully!")
-    expect(user.goals).to be_empty
+    expect(user.reload.goals).to be_empty
   end
 end

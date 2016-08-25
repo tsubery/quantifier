@@ -1,5 +1,6 @@
-class GoalDecorator < Draper::Decorator
-  delegate_all
+class GoalDecorator < DelegateClass(Goal)
+  include ActionView::Helpers::UrlHelper
+  # nclude ActionView::Helpers::AssetTagHelper
 
   def status
     active ? "Enabled" : "Disabled"
@@ -11,15 +12,15 @@ class GoalDecorator < Draper::Decorator
   end
 
   def beeminder_link(beeminder_user_id)
-    h.link_to slug, "https://www.beeminder.com/#{beeminder_user_id}/goals/#{slug}"
+    link_to slug, "https://www.beeminder.com/#{beeminder_user_id}/goals/#{slug}"
   end
 
   def delete_link
-    h.link_to "Delete",
-              h.goal_path(self),
-              method: :delete,
-              "data-confirm": "Are you sure?",
-              class: %i(btn btn-default)
+    link_to "Delete",
+      routes.goal_path(self),
+      method: :delete,
+      "data-confirm": "Are you sure?",
+      class: %i(btn btn-default)
   end
 
   def safe_fetch_scores
@@ -34,9 +35,15 @@ class GoalDecorator < Draper::Decorator
   end
 
   def metric_link
-    title = [goal.provider.title, goal.metric.title].join(" - ")
-    h.link_to title,
-              ProviderDecorator.new(goal.provider).metric_path(metric),
-              title: "Click to configure"
+    title = [provider.title, metric.title].join(" - ")
+    link_to title,
+      ProviderDecorator.new(provider).metric_path(metric),
+      title: "Click to configure"
+  end
+
+  private
+
+  def routes
+    Rails.application.routes.url_helpers
   end
 end

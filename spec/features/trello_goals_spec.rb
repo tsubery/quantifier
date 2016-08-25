@@ -39,6 +39,6 @@ describe "Trello goals" do
 
     click_link "Delete"
     expect(page).to have_content("Deleted successfully!")
-    expect(user.goals).to be_empty
+    expect(user.reload.goals).to be_empty
   end
 end

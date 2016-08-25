@@ -4,10 +4,6 @@ gem "activerecord-import"
 gem "beeminder"
 gem "bootstrap-sass"
 
-# needed in order to support draper on rails5
-gem "activemodel-serializers-xml",
-    git: "https://github.com/rails/activemodel-serializers-xml"
-gem "draper", github: "janraasch/draper"
 gem "haml-rails"
 gem "jquery-rails"
 gem "omniauth"
@@ -15,7 +11,7 @@ gem "omniauth-oauth2"
 gem "pg"
 gem "pg_drive", github: "tsubery/pg_drive"
 gem "pry-rails"
-gem "rails", "5.0.0.rc1"
+gem "rails", "~>5.0"
 gem "rollbar"
 gem "sass-rails"
 gem "sidekiq"
@@ -50,7 +46,6 @@ group :development do
   gem "binding_of_caller", platforms: [:mri_21]
   gem "html2haml"
   gem "hub", require: false
-  gem "quiet_assets"
   gem "rails_layout"
   gem "rb-fchange", require: false
   gem "rb-fsevent", require: false
@@ -63,7 +58,7 @@ end
 group :development, :test do
   gem "dotenv-rails"
   gem "factory_girl_rails"
-  gem "jazz_hands", github: "nixme/jazz_hands", branch: "bring-your-own-debugger"
+  gem "awesome_print"
   gem "pry-byebug"
   gem "pry-rescue"
   gem "rspec-rails"
