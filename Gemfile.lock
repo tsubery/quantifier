@@ -183,7 +183,7 @@ GEM
       thor (>= 0.14, < 2.0)
     json (2.0.2)
     jwt (1.5.4)
-    libv8 (3.16.14.15)
+    libv8 (5.0.71.48.3)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -200,6 +200,8 @@ GEM
     method_source (0.8.2)
     mime-types (2.99.2)
     mini_portile2 (2.1.0)
+    mini_racer (0.1.4)
+      libv8 (~> 5.0, < 5.1.11)
     minitest (5.9.0)
     multi_json (1.12.1)
     multi_xml (0.5.5)
@@ -305,7 +307,6 @@ GEM
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
     redis (3.3.1)
-    ref (2.0.0)
     representable (2.3.0)
       uber (~> 0.0.7)
     rerun (0.11.0)
@@ -393,9 +394,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
-      ref
     thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -452,6 +450,7 @@ DEPENDENCIES
   html2haml
   hub
   jquery-rails
+  mini_racer
   my_bcycle
   omniauth
   omniauth-beeminder!
@@ -485,7 +484,6 @@ DEPENDENCIES
   simple_form
   spring
   spring-commands-rspec
-  therubyracer
   thin
   timecop
   typeracer_ruby

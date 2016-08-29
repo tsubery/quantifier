@@ -16,7 +16,7 @@ gem "rollbar"
 gem "sass-rails"
 gem "sidekiq"
 gem "simple_form"
-gem "therubyracer", platform: :ruby
+gem "mini_racer"
 gem "uglifier", ">= 1.3.0"
 gem "whenever", require: false
 
