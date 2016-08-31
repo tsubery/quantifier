@@ -13,14 +13,6 @@ class ProviderDecorator < DelegateClass(Provider)
     self.credential = CredentialDecorator.new(credential)
   end
 
-  def logo(logged_in:)
-    greyed = logged_in && !credential?
-    image_tag("logos/#{name}.png",
-              alt: "#{name} Logo",
-              class: "logo #{greyed && "greyed"}",
-              title: status)
-  end
-
   def credential_link
     if credential?
       routes.edit_credential_path(credential)

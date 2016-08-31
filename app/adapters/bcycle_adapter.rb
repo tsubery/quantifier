@@ -37,7 +37,7 @@ class BcycleAdapter < BaseAdapter
     cutoff = now - duration
 
     trips = relevant_months.map(&method(:statistics_for)).reduce(:merge)
-    trips.select{ |ts, _| ts > cutoff }.to_h
+    trips.select { |ts, _| ts > cutoff }.to_h
   end
 
   private
