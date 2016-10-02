@@ -33,7 +33,10 @@ class Goal < ActiveRecord::Base
   end
 
   def beeminder_goal
-    user.client.goal(slug)
+    user.beeminder_goal(slug)
+  rescue User::SlugNotFound
+    Rails.logger.warn "Count not find slug #{slug} for user #{user.inspect}"
+    nil
   end
 
   def fetch_scores
@@ -43,11 +46,15 @@ class Goal < ActiveRecord::Base
   private
 
   def sync_process
-    calculated = fetch_scores
-    stored = scores.order(:timestamp).map(&:to_datapoint)
-    syncher = DatapointsSync.new(calculated, stored, beeminder_goal)
-    syncher.call
-    store_scores syncher.storable
+    if (bgoal = beeminder_goal)
+      calculated = fetch_scores
+      stored = scores.order(:timestamp).map(&:to_datapoint)
+      syncher = DatapointsSync.new(calculated, stored, bgoal)
+      syncher.call
+      store_scores syncher.storable
+    else
+      update! active: false
+    end
   end
 
   def store_scores(datapoints)

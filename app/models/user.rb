@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 
   self.primary_key = :beeminder_user_id
 
+  SlugNotFound = Class.new(StandardError)
+
   def self.find_by_provider_attrs(attrs)
     User.joins(:providers).find_by(identities: attrs)
   end
@@ -29,5 +31,15 @@ class User < ActiveRecord::Base
 
   def beeminder_credentials
     credentials.find_by(provider_name: :beeminder)
+  end
+
+  def beeminder_goal(slug)
+    client.goal(slug)
+  rescue RuntimeError => e
+    if e.message =~ /request failed/ &&
+       e.message =~ /404/
+      raise SlugNotFound
+    end
+    raise
   end
 end
