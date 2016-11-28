@@ -13,8 +13,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_gems_from_backtrace(
-    *%w(actionpack actionview activerecord activesupport
-        capybara omniauth rack railties request_store rollbar)
+    "actionpack", "actionview", "activerecord", "activesupport", "capybara", "omniauth", "rack", "railties", "request_store", "rollbar"
   )
   config.include OmniauthTestHelpers
   config.include ThirdPartyMocks

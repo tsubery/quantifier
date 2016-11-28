@@ -1,5 +1,5 @@
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
+require "simplecov"
+SimpleCov.start
 
 RSpec.configure do |_config|
   # The settings below are suggested to provide a good initial experience

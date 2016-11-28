@@ -7,7 +7,7 @@ module ThirdPartyMocks
 
   def mock_beeminder_goals(user, slug_name)
     fake_goals = generate_fake_goals(slug_name)
-    fake_client = double(goals:  fake_goals)
+    fake_client = double(goals: fake_goals)
     allow(user).to receive(:client).and_return(fake_client)
   end
 
