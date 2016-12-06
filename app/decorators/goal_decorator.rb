@@ -24,7 +24,7 @@ class GoalDecorator < DelegateClass(Goal)
   end
 
   def safe_fetch_scores
-    object.fetch_scores
+    fetch_scores
   rescue => e
     Rails.logger.error e.inspect
     msg = "Could not fetch scores."
