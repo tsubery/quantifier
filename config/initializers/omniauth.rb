@@ -16,13 +16,22 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :google_oauth2,
            Rails.application.secrets.google_provider_key,
            Rails.application.secrets.google_provider_secret,
-           scope: "email, https://www.googleapis.com/auth/fitness.activity.read",
+           scope: %w[
+             email
+             https://www.googleapis.com/auth/fitness.activity.read
+             https://www.googleapis.com/auth/fitness.nutrition.read
+             https://www.googleapis.com/auth/fitness.body.read
+             https://www.googleapis.com/auth/fitness.blood_glucose.read
+             https://www.googleapis.com/auth/fitness.blood_pressure.read
+           ].join(","),
            access_type: "offline",
            name: "googlefit",
            prompt: "consent"
+
   provider :quizlet,
            Rails.application.secrets.quizlet_provider_key,
            Rails.application.secrets.quizlet_provider_secret,
            :scope => "read",
            :state => SecureRandom.hex(16)
+
 end
