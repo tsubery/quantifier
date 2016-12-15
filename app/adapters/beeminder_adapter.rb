@@ -11,7 +11,7 @@ class BeeminderAdapter < BaseAdapter
     end
 
     def website_link
-      "https:/www.beeminder.com"
+      "https://www.beeminder.com"
     end
 
     def title
