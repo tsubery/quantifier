@@ -5,8 +5,9 @@ class GooglefitAdapter < BaseAdapter
   ESTIMATED_STEPS_DS =
     "derived:com.google.step_count.delta:com.google.android.gms:estimated_steps"
   ACTIVITY_SEGMENT = "com.google.activity.segment"
-  SLEEP_SEGMENT_CODES = [72, 109, 110, 111, 112].freeze
-  INACTIVE_SEGMENT_CODES = [0, 2, 3, 4] + SLEEP_SEGMENT_CODES
+  SLEEP_SEGMENT_CODE = 72
+  ALL_SLEEP_SEGMENT_CODES = [SLEEP_SEGMENT_CODE, 109, 110, 111, 112].freeze
+  INACTIVE_SEGMENT_CODES = [0, 2, 3, 4] + ALL_SLEEP_SEGMENT_CODES
   WEIGHT_TRAINING_CODE = 80
   ACTIVITY_AGG = Google::Apis::FitnessV1::AggregateBy.new(
     data_type_name: ACTIVITY_SEGMENT
@@ -57,7 +58,7 @@ class GooglefitAdapter < BaseAdapter
   def fetch_sleeps(from)
     # for sleeps tz matters so we mandate from arg
     filter_segments(from) do |activity_id|
-      SLEEP_SEGMENT_CODES.include?(activity_id)
+      ALL_SLEEP_SEGMENT_CODES.include?(activity_id)
     end
   end
 
