@@ -15,7 +15,9 @@ describe "Bed time lag" do
     context "when there is not timezone" do
       it "returns empty results" do
         adapter = double fetch_sleeps: [make_point(start_ts, 1)]
-        expect(subject.call(adapter, {})).to be_empty
+        result = subject.call(adapter, {})
+        expect(result.value).to eq("Please configure timezone and reload page")
+
       end
     end
     context "where there were sleeps" do

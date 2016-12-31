@@ -8,7 +8,7 @@ PROVIDERS.fetch(:googlefit).register_metric :bed_time_lag_minutes do |metric|
     bed_time_minute = params["bed_time_minute"].to_i
 
     if bed_time_hour.nil? || bed_time_minute.nil? || tz.nil?
-      []
+      OpenStruct.new(value: "Please configure timezone and reload page")
     else
       defined_bed_time_minutes = 60 * bed_time_hour + bed_time_minute
 

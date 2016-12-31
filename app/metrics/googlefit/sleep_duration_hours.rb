@@ -6,7 +6,7 @@ PROVIDERS.fetch(:googlefit).register_metric :sleep_duration_hours do |metric|
     tz = ActiveSupport::TimeZone.new(params["timezone"].to_s)
 
     if tz.nil?
-      []
+      OpenStruct.new(value: "Please configure timezone and reload page")
     else
       # We want to catch the window of possible sleeps
       retro_window_start = tz.now.beginning_of_day - 2.days - 12.hours
