@@ -17,7 +17,7 @@ PROVIDERS.fetch(:googlefit).register_metric :sleep_duration_hours do |metric|
         start_ts = point.start_time_nanos.to_i / 1_000_000_000
         end_ts = point.end_time_nanos.to_i / 1_000_000_000
 
-        day = (tz.at(start_ts) - 12.hours).beginning_of_day
+        day = (tz.at(start_ts) - 6.hours).beginning_of_day
 
         scores[day] ||=0
         scores[day] += (end_ts.to_f - start_ts.to_f) / 3_600
