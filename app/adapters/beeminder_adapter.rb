@@ -1,5 +1,6 @@
 class BeeminderAdapter < BaseAdapter
   RECENT_INTERVAL = 2.days.ago
+  MAX_SLUG_LENGNTH = 250
 
   class << self
     def required_keys

@@ -40,12 +40,12 @@ PROVIDERS.fetch(:beeminder).register_metric :compose_goals do |metric|
         end
       end
       valid_slugs = slugs.keys.all? do |key|
-        key.is_a?(String) && key.length < 20
+        key.is_a?(String) && key.length <= BeeminderAdapter::MAX_SLUG_LENGNTH
       end
 
       errors << "All factors must be numbers" unless valid_factors
 
-      errors << "Invalid slug" unless valid_slugs
+      errors << "Slug too long" unless valid_slugs
 
       errors
     else
