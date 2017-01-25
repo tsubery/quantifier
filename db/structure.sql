@@ -94,7 +94,9 @@ CREATE TABLE goals (
     params json DEFAULT '{}'::json NOT NULL,
     metric_key character varying NOT NULL,
     active boolean DEFAULT true NOT NULL,
-    fail_count integer DEFAULT 0 NOT NULL
+    fail_count integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -317,6 +319,18 @@ ALTER TABLE ONLY scores
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20140714204840'), ('20140729165051'), ('20150719185636'), ('20150721223451'), ('20150907205208'), ('20150908234553'), ('20150909225051'), ('20150926194732'), ('20150926210204'), ('20160316220158'), ('20160519212602');
+INSERT INTO schema_migrations (version) VALUES
+('20140714204840'),
+('20140729165051'),
+('20150719185636'),
+('20150721223451'),
+('20150907205208'),
+('20150908234553'),
+('20150909225051'),
+('20150926194732'),
+('20150926210204'),
+('20160316220158'),
+('20160519212602'),
+('20170125204752');
 
 
