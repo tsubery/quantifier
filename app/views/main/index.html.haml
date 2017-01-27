@@ -6,10 +6,10 @@
 .row
   - if current_user && current_user.goals.count > 0
     = render "my_goals"
-.row#main_metrics
+.container
   = render "metrics"
 - unless current_user
-  .row
+  .row-fluid
     %p
       To start,
       =link_to "sign in", signin_path

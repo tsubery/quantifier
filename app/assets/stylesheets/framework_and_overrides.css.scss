@@ -6,11 +6,12 @@
 img {
   @extend .img-responsive;
   margin: 0 auto;
-  }
+  width: 150px;
+}
 // override for the 'Home' navigation link
 .navbar-brand {
   font-size: inherit;
-  }
+}
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
@@ -21,9 +22,22 @@ main {
   padding-bottom: 80px;
   width: 100%;
   margin-top: 51px; // accommodate the navbar
-  }
+}
 section {
   @extend .row;
   margin-top: 20px;
-  }
+}
 
+.provider {
+  display: inline-block;
+  text-align: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  white-space: nowrap;
+  height: 350px;
+  vertical-align: top;
+}
+
+.h4 {
+  font-size: 16px;
+}

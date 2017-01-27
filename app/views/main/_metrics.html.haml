@@ -1,15 +1,16 @@
 %h2
   Supported integrations
-- providers.each do |provider|
-  .col-lg-2.provider
-    = link_to provider.website_link do
-      %h3.logo-header= provider.title
-    = link_to provider.credential_link do
-      - greyed = current_user && !provider.credential?
-      = image_tag("logos/#{provider.name}.png",
-                alt: "#{provider.name} Logo",
-                class: "logo #{greyed && "greyed"}",
-                title: provider.status)
-    - provider.metric_links.each do |link|
-      %li
-        = link
+.row-fluid#integrations
+  - providers.each do |provider|
+    .provider
+      = link_to provider.website_link do
+        %h3.logo-header= provider.title
+      = link_to provider.credential_link do
+        - greyed = current_user && !provider.credential?
+        = image_tag("logos/#{provider.name}.png",
+                  alt: "#{provider.name} Logo",
+                  class: "logo #{greyed && "greyed"}",
+                  title: provider.status)
+      - provider.metric_links.each do |link|
+        %h4
+          = link
