@@ -41,6 +41,8 @@ gem "omniauth-pocket"
 gem "omniauth-quizlet", path: "vendor/omniauth-quizlet"
 gem "omniauth-trello"
 
+gem "dotenv-rails"
+
 group :development do
   gem "annotate", require: false
   gem "better_errors"
@@ -58,7 +60,6 @@ group :development do
 end
 
 group :development, :test do
-  gem "dotenv-rails"
   gem "factory_girl_rails"
   gem "awesome_print"
   gem "pry-byebug"
