@@ -35,7 +35,7 @@ gem "my_bcycle"
 gem "oj" #make sure multi-json have a supported backend
 
 # auth
-gem "omniauth-beeminder", branch: "master", github: "beeminder/omniauth-beeminder"
+gem "omniauth-beeminder", branch: "master", git: "https://github.com/beeminder/omniauth-beeminder"
 gem "omniauth-google-oauth2"
 gem "omniauth-pocket"
 gem "omniauth-quizlet", path: "vendor/omniauth-quizlet"

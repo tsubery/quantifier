@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/beeminder/omniauth-beeminder.git
+  remote: https://github.com/beeminder/omniauth-beeminder
   revision: e77759ca5d8210895fbe95b01199e58c74a1bda1
   branch: master
   specs:
