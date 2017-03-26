@@ -35,7 +35,7 @@ class BeeminderAdapter < BaseAdapter
       dp.timestamp > RECENT_INTERVAL
     end
   rescue
-    Rails.logger.error("Failed to fetch datapoints for slug #{slug} of goal #{goal.id}")
+    Rails.logger.error("Failed to fetch datapoints for slug #{slug} of goal #{goal.inspect}")
     raise
   end
 end
