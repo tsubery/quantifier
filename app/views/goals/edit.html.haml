@@ -23,7 +23,7 @@ end
           = f.check_box :active
           = f.label :active, "Enabled"
         = f.fields_for :params do |pf|
-          - extra_configuration = self.instance_exec(credential.client, f.object.params, pf, &metric.configuration)
+          - extra_configuration = self.instance_exec(credential.client, f.object.params, pf, &metric.configuration) rescue []
           - extra_configuration.each do |(label, input)|
             .form-group
               = pf.label label
