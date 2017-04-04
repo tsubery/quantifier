@@ -27,6 +27,7 @@ class GoalDecorator < DelegateClass(Goal)
     fetch_scores
   rescue => e
     Rails.logger.error e.inspect
+    Rails.logger.error e.backtrace
     msg = "Could not fetch scores."
     if e.is_a? BaseAdapter::AuthorizationError
       msg += " Please authorize again"
