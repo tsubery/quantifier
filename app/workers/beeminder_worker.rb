@@ -3,11 +3,15 @@ require "trello" # it is not required by default for some reason
 class BeeminderWorker
   include Sidekiq::Worker
 
-  def perform(beeminder_user_id: nil)
-    filter = {}
-    if beeminder_user_id
+  def perform(beeminder_user_id: nil, goal_id: nil)
+    if goal_id
+      filter = { id: goal_id }
+    elsif beeminder_user_id
       filter = { users: { beeminder_user_id: beeminder_user_id } }
+    else
+      filter = {}
     end
+
 
     Goal.where(active: true)
         .joins(:user)

@@ -29,4 +29,6 @@ Rails.application.routes.draw do
   end
   resources :credentials,
     except: %(index show)
+
+  post 'callback/reload_goal', controller: :callback, action: :reload_slug
 end
