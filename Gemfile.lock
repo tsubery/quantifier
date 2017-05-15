@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/tsubery/pg_drive.git
+  revision: cea0e12b12cdad92a782e9ba101482ea96759363
+  specs:
+    pg_drive (0.2.0)
+      google-api-client (= 0.9)
+      pg
+      rails (> 4.0.0, < 6.0.0)
+
+GIT
   remote: https://github.com/beeminder/omniauth-beeminder
   revision: e77759ca5d8210895fbe95b01199e58c74a1bda1
   branch: master
@@ -240,10 +249,6 @@ GEM
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.19.0)
-    pg_drive (0.2.0)
-      google-api-client (= 0.9)
-      pg
-      rails (> 4.0.0, < 6.0.0)
     pocket-ruby (0.0.6)
       faraday (>= 0.7)
       faraday_middleware (~> 0.9)
@@ -463,7 +468,7 @@ DEPENDENCIES
   omniauth-quizlet!
   omniauth-trello
   pg
-  pg_drive (~> 0.2)
+  pg_drive!
   pocket-ruby
   poltergeist
   pry-byebug
