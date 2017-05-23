@@ -8,8 +8,13 @@ class CallbackController < ActionController::Base
     elsif (goal = find_by_slug(params)).nil?
       render status: 404, json: {"errors" => ["goal not found"]}
     else
-      BeeminderWorker.new.perform(goal_id: goal.id)
-      render status: 200, json: {}
+      begin
+        BeeminderWorker.new.perform(goal_id: goal.id)
+        render status: 200, json: {}
+      rescue Timeout::Error
+        logger.error "Timeout syncing goal ##{goal.id}"
+        render status: 504, json: {}
+      end
     end
   end
 

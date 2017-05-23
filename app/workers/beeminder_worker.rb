@@ -24,7 +24,7 @@ class BeeminderWorker
   private
 
   def safe_sync(goal)
-    Timeout::timeout(60) {
+    Timeout::timeout(90) {
       goal.sync
     }
   rescue => e
