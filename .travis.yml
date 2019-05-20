@@ -1,6 +1,6 @@
 language: ruby
 rvm:
- - "2.3.0"
+ - "2.5.1"
 services:
   - postgresql
 cache: bundler
