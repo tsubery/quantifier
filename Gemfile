@@ -27,7 +27,6 @@ gem "google-api-client", "0.9"
 gem "representable", "2.3.0"
 
 gem "pocket-ruby"
-gem "quizlet-ruby"
 gem "ruby-trello"
 gem "typeracer_ruby"
 gem "my_bcycle"
@@ -38,7 +37,6 @@ gem "oj" #make sure multi-json have a supported backend
 gem "omniauth-beeminder", branch: "master", git: "https://github.com/beeminder/omniauth-beeminder"
 gem "omniauth-google-oauth2"
 gem "omniauth-pocket"
-gem "omniauth-quizlet", path: "vendor/omniauth-quizlet"
 gem "omniauth-trello"
 
 gem "dotenv-rails"

@@ -15,14 +15,6 @@ GIT
       pg
       rails (> 4.0.0, < 6.0.0)
 
-PATH
-  remote: vendor/omniauth-quizlet
-  specs:
-    omniauth-quizlet (0.0.1)
-      multi_json
-      omniauth (~> 1.0)
-      omniauth-oauth2 (~> 1.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -276,9 +268,6 @@ GEM
       interception (>= 0.5)
       pry
     public_suffix (2.0.5)
-    quizlet-ruby (0.0.1)
-      faraday_middleware
-      json
     rack (2.0.6)
     rack-protection (2.0.3)
       rack
@@ -476,7 +465,6 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-oauth2
   omniauth-pocket
-  omniauth-quizlet!
   omniauth-trello
   pg
   pg_drive!
@@ -485,7 +473,6 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   pry-rescue
-  quizlet-ruby
   rails (~> 5.0)
   rails_layout
   rb-fchange

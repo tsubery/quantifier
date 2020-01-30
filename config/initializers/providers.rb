@@ -1,5 +1,5 @@
 PROVIDERS = %i(
-    googlefit trello pocket beeminder quizlet bcycle stackoverflow typeracer
+    googlefit trello pocket beeminder bcycle stackoverflow typeracer
 ).map do |p_key|
     adapter = "#{p_key}_adapter".camelize.constantize
     [p_key, Provider.new(p_key, adapter)]

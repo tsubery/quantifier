@@ -28,10 +28,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
            name: "googlefit",
            prompt: "consent"
 
-  provider :quizlet,
-           Rails.application.secrets.quizlet_provider_key,
-           Rails.application.secrets.quizlet_provider_secret,
-           :scope => "read",
-           :state => SecureRandom.hex(16)
 
 end
