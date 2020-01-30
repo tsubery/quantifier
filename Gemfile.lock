@@ -268,7 +268,7 @@ GEM
       interception (>= 0.5)
       pry
     public_suffix (2.0.5)
-    rack (2.0.6)
+    rack (2.1.2)
     rack-protection (2.0.3)
       rack
     rack-test (0.6.3)
