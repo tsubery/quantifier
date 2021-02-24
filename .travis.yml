@@ -16,6 +16,7 @@ addons:
   postgresql: "9.4"
   code_climate:
     repo_token: a3aa46f3d16d10b2fd7566e83a8c9010bd13e96ddf307aec7d69df5cae5756db
+
 #The following two lines are required to compile mini_racer
 sudo: required
 dist: trusty
