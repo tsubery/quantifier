@@ -11,7 +11,7 @@ gem "omniauth-oauth2"
 gem "pg"
 gem "pg_drive", git: "https://github.com/tsubery/pg_drive"
 gem "pry-rails"
-gem "rails", "~>5.0"
+gem "rails", "~> 5.2"
 gem "rollbar"
 gem "sass-rails"
 gem "sidekiq"
@@ -38,7 +38,6 @@ gem "omniauth-google-oauth2"
 gem "omniauth-pocket"
 gem "omniauth-trello"
 
-gem "dotenv-rails"
 
 group :development do
   gem "annotate", require: false
