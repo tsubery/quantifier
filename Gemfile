@@ -40,7 +40,6 @@ gem "omniauth-trello"
 
 
 group :development do
-  gem "annotate", require: false
   gem "better_errors"
   gem "brakeman", require: false
   gem "binding_of_caller", platforms: [:mri_21]
