@@ -28,7 +28,6 @@ gem "representable", "2.3.0"
 
 gem "pocket-ruby"
 gem "ruby-trello"
-gem "typeracer_ruby"
 gem "my_bcycle"
 
 gem "oj" #make sure multi-json have a supported backend

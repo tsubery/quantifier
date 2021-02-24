@@ -16,9 +16,6 @@ module ThirdPartyMocks
     allow_any_instance_of(TrelloAdapter).to receive(:list_options).and_return(fake_lists)
   end
 
-  def mock_typeracer_validation
-  end
-
   def mock_provider_score
     fake_scores = [
       Datapoint.new(timestamp: Time.zone.at(1_437_775_585), value: 12_423),

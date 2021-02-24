@@ -5,7 +5,6 @@ describe "Goal routes" do
     /goals/googlefit/hourly_steps
     /goals/pocket/article_days_linear
     /goals/trello/idle_days_linear
-    /goals/typeracer/completed_games
   ).each do |known_path|
     it "has route to create #{known_path}" do
       expect(get: known_path).to be_routable
